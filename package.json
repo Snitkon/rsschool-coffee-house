@@ -1,0 +1,17 @@
+{
+  "name": "rsschool-coffee-house",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Coffee House",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "Mikita Snitko",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^7.1.7"
+  }
+}
