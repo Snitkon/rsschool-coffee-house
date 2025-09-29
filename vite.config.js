@@ -12,6 +12,16 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         menu: resolve(__dirname, 'menu.html')
+      },
+      output: {
+        entryFileNames: 'js/[name]-[hash].js',
+        chunkFileNames: 'js/[name]-[hash].js',
+        assetFileNames: ({ name }) => {
+          if (/\.(css)$/.test(name ?? '')) {
+            return 'css/[name]-[hash][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
+        }
       }
     }
   }
