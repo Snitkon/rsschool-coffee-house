@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:gh": "git checkout gh-pages && git merge coffee-house && git push origin gh-pages && git checkout coffee-house"
   },
   "keywords": [],
   "author": "Mikita Snitko",
