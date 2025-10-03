@@ -126,6 +126,7 @@ button {
   height: auto;
   width: 100%;
   max-width: 100px;
+  z-index: 2;
 }
 
 .nav_list {
@@ -149,16 +150,26 @@ button {
 /** Main  */
 
 .hero {
+  position: relative;
+  overflow: hidden;
   padding: 100px;
+  width: 100%;
+  height: fit-content;
   border-radius: 40px;
-  background-image: url('/images/img-hero.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   color: var(--color-text-light);
 }
 
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .hero_container {
+  position: relative;
   width: 100%;
   max-width: 530px;
   display: flex;
@@ -286,9 +297,9 @@ button {
   }
 }
 
-/*! MAX WIDTH 380px  */
+/*! MAX WIDTH 480px  */
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
   /** Reusable */
 
   #main {
