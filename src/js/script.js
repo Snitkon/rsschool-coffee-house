@@ -1,8 +1,18 @@
-import { burger } from './main.js';
-import initMenu from './menu.js';
+import { burger } from './utils/burger.js';
+import { main } from './main.js';
+import { menu } from './menu.js';
 
-if (document.body.id === 'main') {
+document.addEventListener('DOMContentLoaded', () => {
   burger();
-} else if (document.body.id === 'menu') {
-  initMenu();
-}
+
+  const currentPath = window.location.pathname;
+
+  const isMainPage = currentPath === '/' || currentPath === '/index.html';
+  const isMenuPage = currentPath === '/menu.html' || currentPath === 'menu';
+
+  if (isMainPage) {
+    main();
+  } else if (isMenuPage) {
+    menu();
+  }
+});

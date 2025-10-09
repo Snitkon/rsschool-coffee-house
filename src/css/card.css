@@ -1,0 +1,31 @@
+@import url('font.css');
+
+/** Cards  */
+
+.card_container {
+  flex: 0 0 100%;
+  width: fit-content;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.card_image {
+  width: 100%;
+}
+
+.card_info__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+@media (max-width: 480px) {
+  .card_container {
+    max-width: 348px;
+  }
+}
