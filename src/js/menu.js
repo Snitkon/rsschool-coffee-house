@@ -1,5 +1,7 @@
-function initMenu() {
-  console.log('Menu page');
-}
+import { initMenu } from './utils/init.js';
 
-export default initMenu;
+export async function menu() {
+  const products = await initMenu();
+
+  console.log(products);
+}

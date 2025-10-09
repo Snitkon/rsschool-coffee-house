@@ -1,4 +1,5 @@
 @import url('font.css');
+@import url('card.css');
 
 * {
   box-sizing: border-box;
@@ -12,10 +13,27 @@ html {
 body {
   font-family: var(--font-family);
   background-color: var(--color-background-body);
-  color: var(--color-text-dark);
   font-size: var(--body-medium-size);
   font-weight: var(--body-medium-weight);
   line-height: var(--body-medium-line);
+}
+
+h1 {
+  font-size: var(--heading-1-desktop-size);
+  font-weight: var(--heading-1-desktop-weight);
+  line-height: var(--heading-1-desktop-line);
+}
+
+h2 {
+  font-size: var(--heading-2-desktop-size);
+  font-weight: var(--heading-2-desktop-weight);
+  line-height: var(--heading-2-desktop-line);
+}
+
+h3 {
+  font-size: var(--heading-3-desktop-size);
+  font-weight: var(--heading-3-desktop-weight);
+  line-height: var(--heading-3-desktop-line);
 }
 
 a,
@@ -31,58 +49,12 @@ ul {
 }
 
 a {
+  position: relative;
   text-decoration: none;
+  color: inherit;
 }
 
-button {
-  border-radius: 100px;
-  cursor: pointer;
-  min-width: 200px;
-}
-
-/** Reusable */
-
-#main {
-  padding: 20px 40px;
-}
-
-.title {
-  font-size: var(--heading-1-desktop-size);
-  font-weight: var(--heading-1-desktop-weight);
-  line-height: var(--heading-1-desktop-line);
-}
-
-.accent {
-  font-style: var(--heading-accent);
-  color: var(--color-text-accent);
-}
-
-.button_primary {
-  padding: 20px;
-  border: none;
-  color: var(--color-text-dark);
-  background-color: var(--color-background-body);
-}
-
-.button_secondary {
-  padding: 10px;
-  border: 1px var(--color-board-dark) solid;
-  color: var(--color-text-dark);
-  background-color: transparent;
-}
-
-.link_primary {
-  position: relative;
-  color: var(--color-text-dark);
-}
-
-.link_secondary {
-  position: relative;
-  color: var(--color-text-light);
-}
-
-.link_primary::before,
-.link_secondary::before {
+a::before {
   position: absolute;
   content: '';
   background-color: currentColor;
@@ -95,9 +67,60 @@ button {
   transition: transform 0.3s ease;
 }
 
-.link_primary:hover::before,
-.link_secondary:hover::before {
+a:hover::before {
   transform: scaleX(1);
+}
+
+button {
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+/** Reusable */
+
+.body {
+  padding: 20px 40px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.accent {
+  font-style: var(--heading-accent);
+  color: var(--color-text-accent);
+}
+
+.button_primary {
+  display: flex;
+  padding: 20px;
+  border: none;
+  color: var(--color-text-dark);
+  background-color: var(--color-background-body);
+}
+
+.button_secondary {
+  display: flex;
+  padding: 10px;
+  border: 1px var(--color-border-dark) solid;
+  color: var(--color-text-dark);
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.button_secondary:hover {
+  color: var(--color-text-light);
+  background-color: var(--color-background-container);
+}
+
+.button_secondary > svg > path {
+  transition: stroke 0.3s ease;
+}
+
+.button_secondary:hover > svg > path {
+  stroke: var(--color-text-light);
 }
 
 /** Header  */
@@ -107,6 +130,7 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
+  color: var(--color-text-dark);
 }
 
 .burger {
@@ -134,10 +158,6 @@ button {
   flex-direction: row;
   gap: 40px;
   margin: 0 auto;
-}
-
-.nav_link {
-  color: var(--color-text-dark);
 }
 
 .nav_menu {
@@ -179,6 +199,7 @@ button {
 }
 
 .hero_btn {
+  min-width: 200px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -205,7 +226,92 @@ button {
   transform: translateX(0px);
 }
 
-/** Table */
+.favorite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  color: var(--color-text-dark);
+}
+
+.carousel {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.carousel > button:first-of-type > svg {
+  transform: rotate(180deg);
+}
+
+.carousel_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 480px;
+  overflow: hidden;
+}
+
+.carousel__favorite_wrapper {
+  display: flex;
+  flex-direction: row;
+  transition: transform 1s ease;
+}
+
+.carousel__indicator_wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.indicator {
+  position: relative;
+  width: 40px;
+  height: 4px;
+  border-radius: 100px;
+  background-color: var(--color-border-light);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.indicator_progress {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-border-dark);
+}
+
+.indicator.active .indicator_progress {
+  animation: fill_progress 0.3s linear forwards;
+}
+
+.indicator:not(.active) .indicator_progress {
+  animation: reset_progress 0.3s linear forwards;
+}
+
+@keyframes fill_progress {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes reset_progress {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/** TABLE */
 
 /*! MAX WIDTH 768px  */
 
@@ -274,20 +380,20 @@ button {
     gap: 0;
   }
 
+  .active div:first-child {
+    transform: translate(0px, 1px) rotate(45deg);
+  }
+
+  .active div:last-child {
+    transform: translate(0px, -1px) rotate(-45deg);
+  }
+
   .line {
     width: 16px;
     height: 2px;
     border-radius: 1.5px;
     background-color: var(--color-border-dark);
     transition: transform 0.3s ease;
-  }
-
-  .line_1 {
-    transform: translate(0px, 1px) rotate(45deg);
-  }
-
-  .line_2 {
-    transform: translate(0px, -1px) rotate(-45deg);
   }
 
   /** Main  */
@@ -318,5 +424,9 @@ button {
 
   .hero {
     padding: 60px 16px;
+  }
+
+  .carousel_container {
+    max-width: 348px;
   }
 }

@@ -15,7 +15,7 @@
   <title>Coffee House</title>
 </head>
 
-<body id="main">
+<body id="main" class="body">
   <header class="header">
     <a class="nav_logo" href="index.html">
       <img class="logo" src="/icons/logo.svg" alt="Coffee House Logo">
@@ -26,14 +26,14 @@
     </div>
     <nav class="nav">
       <ul class="nav_list">
-        <li class="link_primary"><a href="#favorite" class="nav_link burger_link">Favorite coffee</a>
+        <li><a href="#favorite" class="burger_link">Favorite coffee</a>
         </li>
-        <li class="link_primary"><a href="#about" class="nav_link burger_link">About</a></li>
-        <li class="link_primary"><a href="#app" class="nav_link burger_link">Mobile App</a>
+        <li><a href="#about" class="burger_link">About</a></li>
+        <li><a href="#app" class="burger_link">Mobile App</a>
         </li>
-        <li class="link_primary"><a href="#footer" class="nav_link burger_link">Contact us</a></li>
+        <li><a href="#footer" class="burger_link">Contact us</a></li>
       </ul>
-      <a class="link_primary nav_menu burger_link" href="menu.html">
+      <a class="nav_menu burger_link" href="menu.html">
         Menu
         <img src="/icons/icon-coffee-cup.svg">
       </a>
@@ -46,7 +46,7 @@
         <source src="hero-video.mp4" type="video/mp4">
       </video>
       <div class="hero_container">
-        <h1 class="title">
+        <h1>
           <span class="accent">
             Enjoy
           </span>
@@ -62,9 +62,47 @@
         </button>
       </div>
     </section>
+    <section id="favorite" class="favorite">
+      <h2>Choose your
+        <span class="accent">
+          favorite
+        </span>
+        coffee
+      </h2>
+      <div class="carousel">
+        <button class="button_secondary btn_prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke="#403F3D" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+
+        </button>
+        <div class="carousel_container">
+          <div class="carousel__favorite_wrapper"></div>
+          <div class="carousel__indicator_wrapper">
+            <div class="indicator">
+              <div class="indicator_progress"></div>
+            </div>
+            <div class="indicator">
+              <div class="indicator_progress"></div>
+            </div>
+            <div class="indicator">
+              <div class="indicator_progress"></div>
+            </div>
+          </div>
+        </div>
+        <button class="button_secondary btn_next">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke="#403F3D" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+
+        </button>
+      </div>
+    </section>
   </main>
   <footer></footer>
-  <script type="module" src="./src/js/script.js"></script>
+  <script type="module" src="/src/js/script.js"></script>
 </body>
 
 </html>
