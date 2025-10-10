@@ -13,7 +13,7 @@ export async function main() {
 
   favorites.forEach((data, index) => {
     const id = index + 1;
-    const favorite = new FavoriteCard(id, data.image, data.name, data.description, data.price);
+    const favorite = new FavoriteCard(id, data.name, data.description, data.price, data.image);
     const favoriteCard = favorite.createCards();
     favorite_container.append(favoriteCard);
   });

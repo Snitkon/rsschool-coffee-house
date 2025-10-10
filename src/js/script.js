@@ -7,12 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const currentPath = window.location.pathname;
 
-  const isMainPage = currentPath === '/' || currentPath === '/index.html';
-  const isMenuPage = currentPath === '/menu.html' || currentPath === 'menu';
+  const isMainPage = currentPath === '/' || currentPath.startsWith('/index.html');
+  const isMenuPage = currentPath === '/menu.html' && currentPath.startsWith('/menu.html');
 
   if (isMainPage) {
+    console.log('MAIN');
     main();
   } else if (isMenuPage) {
+    console.log('MENU');
     menu();
   }
 });

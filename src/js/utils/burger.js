@@ -1,11 +1,13 @@
 export function burger() {
   const selectors = {
     nav: '.nav',
-    burger: '.burger'
+    burger: '.burger',
+    nav_list: '.nav_list'
   };
 
   const nav = document.querySelector(selectors.nav);
   const burger = document.querySelector(selectors.burger);
+  const nav_list = document.querySelectorAll(selectors.nav_list);
 
   if (!nav || !burger) {
     console.warn('Burger menu elements not found. Check selectors:', selectors);
@@ -20,5 +22,13 @@ export function burger() {
 
   burger.addEventListener('click', () => {
     toggleBurger();
+  });
+
+  nav_list.forEach(nav_item => {
+    nav_item.addEventListener('click', () => {
+      burger.classList.remove('active');
+      nav.classList.remove('open');
+      document.body.style.overflow = '';
+    });
   });
 }
