@@ -15,7 +15,44 @@
   <title>Coffee House</title>
 </head>
 
-<body id="menu">
+<body class="body">
+  <header class="header">
+    <a class="nav_logo" href="/">
+      <img class="logo" src="/icons/logo.svg" alt="Coffee House Logo">
+    </a>
+    <div class="burger">
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <nav class="nav">
+      <ul class="nav_list">
+        <li><a href="index.html#favorite" class="burger_link">Favorite coffee</a>
+        </li>
+        <li><a href="index.html#about" class="burger_link">About</a></li>
+        <li><a href="index.html#app" class="burger_link">Mobile App</a>
+        </li>
+        <li><a href="index.html#footer" class="burger_link">Contact us</a></li>
+      </ul>
+      <a class="link nav_menu burger_link" href="menu.html">
+        Menu
+        <img src="/icons/icon-coffee-cup.svg">
+      </a>
+    </nav>
+
+  </header>
+  <main>
+    <section id="menu" class="menu">
+      <h2 class="menu_title">
+        Behind each of our cups hides an
+        <span class="accent">
+          amazing surprise
+        </span>
+      </h2>
+      <div class="menu_switchers__wrapper"></div>
+      <div class="menu_cards__wrapper"></div>
+    </section>
+  </main>
+
   <script type="module" src="/src/js/script.js"></script>
 </body>
 

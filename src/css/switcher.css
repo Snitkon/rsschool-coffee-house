@@ -1,0 +1,43 @@
+@import url('font.css');
+
+/** Switcher */
+.switchers {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.switch_button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px var(--color-border-light) solid;
+  color: var(--color-text-dark);
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.switch_button > img {
+  transition: all 0.3s ease;
+}
+
+.switch_button:hover,
+.switch_active {
+  color: var(--color-text-light);
+  border: 1px var(--color-border-dark) solid;
+  background-color: var(--color-background-container);
+}
+
+.switch_button:hover > img,
+.switch_active > img {
+  background-color: var(--color-background-body);
+}
+
+.switch_icon {
+  width: 30px;
+  height: 30px;
+  background-color: var(--color-border-light);
+  border-radius: 100px;
+  padding: 7px;
+}

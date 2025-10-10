@@ -1,5 +1,5 @@
 import products from '../../data/products.json';
-import favorites from '../../data/favourites.json';
+import favorites from '../../data/favorites.json';
 
 function getProducts() {
   try {
