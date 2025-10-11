@@ -2,8 +2,8 @@ import { FavoriteCard } from './favorite';
 import { Modal } from './modal';
 
 export class MenuCard extends FavoriteCard {
-  constructor(category, sizes, additives, ...args) {
-    super(...args);
+  constructor(category, sizes, additives, ...arg) {
+    super(...arg);
     this.category = category;
     this.size = sizes;
     this.additives = additives;
@@ -24,7 +24,15 @@ export class MenuCard extends FavoriteCard {
   openModal() {
     if (this.modal) return;
     const body = document.querySelector('.body');
-    const modal = new Modal();
+    const modal = new Modal({
+      id: this.id,
+      image: this.image,
+      name: this.name,
+      description: this.description,
+      price: this.price,
+      size: this.size,
+      additives: this.additives
+    });
     this.modal = modal.createModal();
     body.prepend(this.modal);
 
