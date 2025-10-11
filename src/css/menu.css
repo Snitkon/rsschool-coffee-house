@@ -90,6 +90,7 @@ button {
 
 .button_secondary {
   display: flex;
+  justify-content: center;
   padding: 10px;
   border: 1px var(--color-border-dark) solid;
   color: var(--color-text-dark);

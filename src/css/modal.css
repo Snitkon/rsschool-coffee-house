@@ -12,9 +12,64 @@
 
 .modal {
   width: 800px;
-  max-width: 800px;
   display: flex;
+  gap: 20px;
   padding: 16px;
+  margin: 0 16px;
   background-color: var(--color-background-body);
+  color: var(--color-text-dark);
   border-radius: 40px;
+}
+
+.modal__image {
+  width: 100%;
+  height: fit-content;
+  max-width: 310px;
+  border-radius: 40px;
+}
+
+.modal__right_wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right_wrapper__info_block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.right_wrapper__size_block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.right_wrapper__additives_block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.right_wrapper__price_block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.right_wrapper__note_block {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.note_block__note {
+  font-size: var(--body-caption-size);
+  font-weight: var(--body-caption-weight);
+  line-height: var(--body-caption-line);
 }

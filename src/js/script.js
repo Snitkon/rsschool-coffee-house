@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentPath = window.location.pathname;
 
   const isMainPage = currentPath === '/' || currentPath.startsWith('/index.html');
-  const isMenuPage = currentPath === '/menu.html' && currentPath.startsWith('/menu.html');
+  const isMenuPage = currentPath === '/menu' || currentPath.startsWith('/menu.html');
 
   if (isMainPage) {
     console.log('MAIN');
