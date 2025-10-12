@@ -1,9 +1,11 @@
 import { burger } from './utils/burger.js';
 import { main } from './main.js';
 import { menu } from './menu.js';
+import { footer } from './utils/footer.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   burger();
+  footer();
 
   const currentPath = window.location.pathname;
 

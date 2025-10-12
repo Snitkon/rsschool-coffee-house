@@ -59,6 +59,8 @@ button {
   cursor: pointer;
 }
 
+/*? LAPTOP */
+
 /** Reusable */
 
 .body {
@@ -397,6 +399,7 @@ button {
 .app__btn > span {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .app__right_container > img {
@@ -404,10 +407,85 @@ button {
   height: auto;
 }
 
-/** TABLE */
+/** Footer */
 
-/*! MAX WIDTH 768px  */
+.footer {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  padding: 100px;
+  border-radius: 40px;
+  background-color: var(--color-background-container);
+  color: var(--color-text-light);
+}
 
+.footer__left_block {
+  width: 100%;
+  max-width: 530px;
+}
+
+.footer__left_block,
+.footer__right_block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+}
+
+.footer__link_block {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.footer__twitter_btn,
+.footer__instagram_btn,
+.footer__facebook_btn {
+  border-color: var(--color-border-light);
+}
+
+.footer__twitter_btn > svg > path,
+.footer__instagram_btn > svg > path,
+.footer__facebook_btn > svg > path {
+  transition: all 0.3s ease;
+}
+
+.footer__twitter_btn:hover,
+.footer__instagram_btn:hover,
+.footer__facebook_btn:hover {
+  background-color: var(--color-background-body);
+}
+
+.footer__twitter_btn:hover > svg > path,
+.footer__instagram_btn:hover > svg > path,
+.footer__facebook_btn:hover > svg > path {
+  stroke: var(--color-text-dark);
+  fill: none;
+}
+
+.footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer__list_item {
+  cursor: pointer;
+  width: max-content;
+}
+
+.footer__link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer__link::before {
+  bottom: -4px;
+}
+
+/*? TABLE */
 @media (max-width: 768px) {
   /** Reusable */
 
@@ -525,10 +603,15 @@ button {
     flex-direction: column;
     align-items: center;
   }
+
+  /** Footer */
+
+  .footer {
+    flex-direction: column;
+  }
 }
 
-/*! MAX WIDTH 480px  */
-
+/*? MOBILE */
 @media (max-width: 480px) {
   /** Reusable */
 
@@ -563,4 +646,6 @@ button {
   .app__btn_container {
     flex-direction: column;
   }
+
+  /** Footer */
 }
