@@ -41,15 +41,15 @@
   height: auto;
 }
 
-.menu_cards__wrapper {
+.menu__cards__wrapper {
   transition: opacity 0.3s ease;
   opacity: 1;
 }
 
-.menu_cards__wrapper.fade-out {
+.menu__cards__wrapper.fade-out {
   opacity: 0;
 }
 
-.menu_cards__wrapper.fade-in {
+.menu__cards__wrapper.fade-in {
   opacity: 1;
 }

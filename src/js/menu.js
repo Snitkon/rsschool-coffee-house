@@ -4,8 +4,8 @@ import { Switchers } from './utils/switcherMenu.js';
 import { menuConfig } from './utils/config.js';
 
 let products = [];
-const switcherSelector = '.menu_switchers__wrapper';
-const cardsSelector = '.menu_cards__wrapper';
+const switcherSelector = '.menu__switchers__wrapper';
+const cardsSelector = '.menu__cards__wrapper';
 
 export async function menu() {
   products = await initMenu();

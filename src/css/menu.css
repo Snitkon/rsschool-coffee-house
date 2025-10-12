@@ -119,8 +119,6 @@ button {
   width: 100%;
   bottom: 0;
   left: 0;
-  transform: scaleX(1);
-  transform-origin: left;
 }
 
 /** Header  */
@@ -175,15 +173,16 @@ button {
   align-items: center;
   gap: 40px;
   color: var(--color-text-dark);
+  margin-bottom: 100px;
 }
 
-.subtitle {
+.menu__subtitle {
   width: 100%;
   max-width: 800px;
   text-align: center;
 }
 
-.menu_cards__wrapper {
+.menu__cards__wrapper {
   display: flex;
   justify-content: center;
   gap: 40px;
@@ -191,6 +190,89 @@ button {
 }
 
 /** Footer */
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  padding: 100px;
+  border-radius: 40px;
+  background-color: var(--color-background-container);
+  color: var(--color-text-light);
+}
+
+.footer__left_block {
+  width: 100%;
+  max-width: 530px;
+}
+
+.footer__left_block,
+.footer__right_block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+}
+
+.footer__link_block {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.footer__twitter_btn,
+.footer__instagram_btn,
+.footer__facebook_btn {
+  border-color: var(--color-border-light);
+}
+
+.footer__twitter_btn > svg > path,
+.footer__instagram_btn > svg > path,
+.footer__facebook_btn > svg > path {
+  transition: all 0.3s ease;
+}
+
+.footer__twitter_btn:hover,
+.footer__instagram_btn:hover,
+.footer__facebook_btn:hover {
+  background-color: var(--color-background-body);
+}
+
+.footer__twitter_btn:hover > svg > path,
+.footer__instagram_btn:hover > svg > path,
+.footer__facebook_btn:hover > svg > path {
+  stroke: var(--color-text-dark);
+  fill: none;
+}
+
+.footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer__list_item {
+  cursor: pointer;
+  width: max-content;
+}
+
+.footer__link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer__link::before {
+  bottom: -4px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.footer__link:hover::before {
+  transform: scaleX(1);
+}
 
 /*? TABLE  */
 @media (max-width: 768px) {
@@ -277,6 +359,9 @@ button {
   /** Main  */
 
   /** Footer */
+  .footer {
+    flex-direction: column;
+  }
 }
 
 /*? MOBILE */
@@ -284,6 +369,12 @@ button {
   /** Reusable */
   .body {
     padding: 20px 16px;
+  }
+
+  .subtitle {
+    font-size: var(--heading-2-mobile-size);
+    font-weight: var(--heading-2-mobile-weight);
+    line-height: var(--heading-2-mobile-line);
   }
 
   /** Header  */
