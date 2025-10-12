@@ -1,7 +1,7 @@
 /** Menu Cards  */
 
 .card_container {
-  display: none;
+  display: flex;
   width: fit-content;
   max-width: 310px;
   flex-direction: column;
@@ -9,10 +9,6 @@
   border-radius: 40px;
   overflow: hidden;
   cursor: pointer;
-}
-
-.active {
-  display: flex;
 }
 
 .card_container > div:first-of-type > img {
@@ -43,6 +39,19 @@
 .card_image {
   width: 310px;
   height: auto;
+}
+
+.menu_cards__wrapper {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+.menu_cards__wrapper.fade-out {
+  opacity: 0;
+}
+
+.menu_cards__wrapper.fade-in {
+  opacity: 1;
 }
 
 @media (max-width: 480px) {
