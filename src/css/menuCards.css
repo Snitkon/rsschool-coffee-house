@@ -53,9 +53,3 @@
 .menu_cards__wrapper.fade-in {
   opacity: 1;
 }
-
-@media (max-width: 480px) {
-  .card_container {
-    max-width: 348px;
-  }
-}

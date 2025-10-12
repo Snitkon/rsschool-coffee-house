@@ -177,7 +177,7 @@ button {
   color: var(--color-text-dark);
 }
 
-.menu_title {
+.subtitle {
   width: 100%;
   max-width: 800px;
   text-align: center;
@@ -289,6 +289,12 @@ button {
   /** Header  */
 
   /** Main  */
+
+  .subtitle {
+    font-size: var(--heading-2-mobile-size);
+    font-weight: var(--heading-2-mobile-weight);
+    line-height: var(--heading-2-mobile-line);
+  }
 
   /** Footer */
 }
