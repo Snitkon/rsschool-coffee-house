@@ -1,13 +1,14 @@
 export function carousel({ favorites, carousel_block, favorite_container, carousel_container, indicators, btn_prev, btn_next }) {
-  let current_index = 0;
-  let auto_scroll_interval;
+  let currentIndex = 0;
+  let autoScrollInterval;
+  const scrollTime = 3000;
 
   const observer = new IntersectionObserver(
     entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const card = entry.target;
-          current_index = parseInt(card.id) - 1;
+          currentIndex = parseInt(card.id) - 1;
         }
       });
     },
@@ -20,43 +21,105 @@ export function carousel({ favorites, carousel_block, favorite_container, carous
   favorite_container.querySelectorAll('.card_container').forEach(card => observer.observe(card));
 
   btn_prev.addEventListener('click', () => {
-    goToSlide(current_index - 1);
+    manualGoToSlide(currentIndex - 1);
   });
 
   btn_next.addEventListener('click', () => {
-    goToSlide(current_index + 1);
+    manualGoToSlide(currentIndex + 1);
   });
 
   carousel_block.addEventListener('mouseenter', () => {
-    clearInterval(auto_scroll_interval);
+    clearInterval(autoScrollInterval);
+    pauseIndicatorFill();
   });
 
   carousel_block.addEventListener('mouseleave', () => {
-    startAutoScroll();
+    resumeIndicatorFill();
+    restartAutoScrollAfterPause();
   });
 
   startAutoScroll();
-  updateIndicator();
+  updateIndicator(true);
 
-  function updateIndicator() {
+  function updateIndicator(startFill = false) {
     indicators.forEach((indicator, index) => {
-      if (index === current_index) {
-        indicator.classList.add('active');
+      const fill = indicator.querySelector('.indicator_progress');
+      if (index === currentIndex) {
+        indicator.classList.add('active_indicator');
+        if (startFill) startIndicatorFill(fill);
       } else {
-        indicator.classList.remove('active');
+        indicator.classList.remove('active_indicator');
+        stopIndicatorFill(fill);
       }
     });
   }
 
+  function startIndicatorFill(element) {
+    if (!element) return;
+    element.style.transition = 'none';
+    element.style.width = '0%';
+    setTimeout(() => {
+      element.style.transition = `width ${scrollTime}ms linear`;
+      element.style.width = '100%';
+      element.dataset.paused = 'false';
+    }, 10);
+  }
+
+  function pauseIndicatorFill() {
+    const activeFill = indicators[currentIndex]?.querySelector('.indicator_progress');
+    if (!activeFill) return;
+    const computedWidth = getComputedStyle(activeFill).width;
+    activeFill.style.transition = 'none';
+    activeFill.style.width = computedWidth;
+    activeFill.dataset.paused = 'true';
+  }
+
+  function resumeIndicatorFill() {
+    const activeFill = indicators[currentIndex]?.querySelector('.indicator_progress');
+    if (!activeFill || activeFill.dataset.paused !== 'true') return;
+
+    const computedWidth = parseFloat(getComputedStyle(activeFill).width);
+    const totalWidth = activeFill.parentElement.offsetWidth;
+    const progress = computedWidth / totalWidth;
+
+    const remainingTime = (1 - progress) * scrollTime;
+
+    activeFill.style.transition = `width ${remainingTime}ms linear`;
+    activeFill.style.width = '100%';
+    activeFill.dataset.paused = 'false';
+  }
+
+  function restartAutoScrollAfterPause() {
+    clearInterval(autoScrollInterval);
+    autoScrollInterval = setInterval(() => {
+      goToSlide(currentIndex + 1);
+    }, scrollTime);
+  }
+
+  function stopIndicatorFill(element) {
+    if (!element) return;
+    element.style.transition = 'none';
+    element.style.width = '0%';
+    element.dataset.paused = 'false';
+  }
+
   function startAutoScroll() {
-    auto_scroll_interval = setInterval(() => {
-      goToSlide(current_index + 1);
-    }, 3000);
+    clearInterval(autoScrollInterval);
+    autoScrollInterval = setInterval(() => {
+      goToSlide(currentIndex + 1);
+    }, scrollTime);
+    updateIndicator(true);
+  }
+
+  function manualGoToSlide(index) {
+    goToSlide(index);
+    clearInterval(autoScrollInterval);
+    startAutoScroll();
   }
 
   function goToSlide(index) {
-    current_index = (index + favorites.length) % favorites.length;
-    favorite_container.style.transform = `translateX(-${current_index * 100}%)`;
-    updateIndicator();
+    currentIndex = (index + favorites.length) % favorites.length;
+    favorite_container.style.transform = `translateX(-${currentIndex * 100}%)`;
+    updateIndicator(true);
   }
 }

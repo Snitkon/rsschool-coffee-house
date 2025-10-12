@@ -284,41 +284,21 @@ button {
   height: 4px;
   border-radius: 100px;
   background-color: var(--color-border-light);
-  cursor: pointer;
   overflow: hidden;
 }
 
 .indicator_progress {
-  display: block;
-  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
   height: 100%;
+  width: 0%;
   background-color: var(--color-border-dark);
+  transition: width 3s linear;
 }
 
-.indicator.active .indicator_progress {
-  animation: fill_progress 0.3s linear forwards;
-}
-
-.indicator:not(.active) .indicator_progress {
-  animation: reset_progress 0.3s linear forwards;
-}
-
-@keyframes fill_progress {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
-
-@keyframes reset_progress {
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(-100%);
-  }
+.indicator.active_indicator .indicator_progress {
+  background-color: var(--color-border-dark);
 }
 
 .about {
