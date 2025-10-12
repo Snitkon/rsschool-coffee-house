@@ -35,6 +35,9 @@
 }
 
 .switch_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 30px;
   height: 30px;
   background-color: var(--color-border-light);

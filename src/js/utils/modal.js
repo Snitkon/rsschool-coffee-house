@@ -1,12 +1,31 @@
+import { Switchers } from './switcherMenu';
+
 export class Modal {
   modalData;
+  selected = {
+    size: 's',
+    additives: new Set()
+  };
 
   constructor({ id, image, name, description, size, additives, price }) {
     this.modalData = { id, image, name, description, size, additives, price };
   }
 
   createModal() {
+    const transformAdditives = this.modalData.additives.reduce((acc, item, index) => {
+      acc[index + 1] = item;
+      return acc;
+    }, {});
+
+    const sizeSwitcher = new Switchers(this.modalData.size, { default: 's', onChange: size => this.setSize(size) });
+    const additivesSwitcher = new Switchers(transformAdditives, {
+      default: '0',
+      onChange: additives => this.setAdditives(additives),
+      multiply: true
+    });
+
     document.body.style.overflow = 'hidden';
+
     const overlay = document.createElement('div');
     const modal = document.createElement('div');
     const image = document.createElement('img');
@@ -67,10 +86,34 @@ export class Modal {
     modal.append(image, rightWrapper);
     rightWrapper.append(infoBlock, sizeBlock, additivesBlock, priceBlock, noteBlock, button);
     infoBlock.append(nameTitle, description);
-    sizeBlock.append(sizeSubtitle);
-    additivesBlock.append(additivesSubtitle);
+    sizeBlock.append(sizeSubtitle, sizeSwitcher.createSwitchers());
+    additivesBlock.append(additivesSubtitle, additivesSwitcher.createSwitchers());
     priceBlock.append(priceTitle, price);
     noteBlock.append(noteIcon, note);
     return overlay;
+  }
+
+  setSize(size) {
+    this.selected.size = size;
+    this.updatePrice();
+  }
+
+  setAdditives(additives) {
+    this.selected.additives = additives;
+    this.updatePrice();
+  }
+
+  updatePrice() {
+    const basicPrice = +this.modalData.price;
+    const size = this.modalData.size[this.selected.size];
+    const sizeAdd = size ? +size['add-price'] : 0;
+    let additivesAdd = 0;
+    for (let key of this.selected.additives) {
+      additivesAdd += +this.modalData.additives[key - 1]['add-price'];
+    }
+
+    const total = (basicPrice + sizeAdd + additivesAdd).toFixed(2);
+    const price = document.querySelector('.price_block__price');
+    price.textContent = `$${total}`;
   }
 }
