@@ -54,7 +54,6 @@ export class Switchers {
     if (this.multiply) {
       const btn = this.buttons[key];
       const isActive = btn.classList.toggle('switch_active');
-      console.log('isActive:', isActive);
 
       isActive ? this.activeKeys.add(key) : this.activeKeys.delete(key);
 

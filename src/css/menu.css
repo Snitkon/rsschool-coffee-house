@@ -124,6 +124,8 @@ button {
 /** Header  */
 
 .header {
+  max-width: 1440px;
+  margin: 0 auto;
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
@@ -193,6 +195,8 @@ button {
 /** Footer */
 
 .footer {
+  max-width: 1440px;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
   gap: 100px;
@@ -367,7 +371,7 @@ button {
 }
 
 /*? MOBILE */
-@media (max-width: 480px) {
+@media (max-width: 580px) {
   /** Reusable */
   .body {
     padding: 20px 16px;
