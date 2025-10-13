@@ -114,7 +114,7 @@ button {
 }
 
 .button_secondary:hover > svg > path {
-  fill: var(--color-text-light);
+  stroke: var(--color-text-light);
 }
 
 .link::before {
@@ -304,6 +304,11 @@ button {
 
 .indicator.active_indicator .indicator_progress {
   background-color: var(--color-border-dark);
+}
+
+.btn_next,
+.btn_prev {
+  padding: 18px;
 }
 
 .about {
