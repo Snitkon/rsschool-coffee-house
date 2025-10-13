@@ -50,7 +50,7 @@ export function footer() {
   liTime.classList.add('footer__list_item');
 
   aPhone.setAttribute('href', 'tel:+16035550123');
-  aLocal.setAttribute('href', 'https://goo.gl/maps/xyz');
+  aLocal.setAttribute('href', 'https://maps.app.goo.gl/TQKNffpK7hBZiiem7');
   aLocal.setAttribute('target', '_blank');
   aLocal.setAttribute('rel', 'noopener noreferrer');
 

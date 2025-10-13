@@ -29,9 +29,11 @@
   background-color: var(--color-background-container);
 }
 
-.switch_button:hover > img,
-.switch_active > img {
-  background-color: var(--color-background-body);
+@media (hover: hover) and (pointer: fine) {
+  .switch_button:hover > img,
+  .switch_active > img {
+    background-color: var(--color-background-body);
+  }
 }
 
 .switch_icon {

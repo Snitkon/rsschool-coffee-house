@@ -98,17 +98,21 @@ button {
   transition: all 0.3s ease;
 }
 
-.button_secondary:hover {
-  color: var(--color-text-light);
-  background-color: var(--color-background-container);
+@media (hover: hover) and (pointer: fine) {
+  .button_secondary:hover {
+    color: var(--color-text-light);
+    background-color: var(--color-background-container);
+  }
 }
 
 .button_secondary > svg > path {
   transition: stroke 0.3s ease;
 }
 
-.button_secondary:hover > svg > path {
-  stroke: var(--color-text-light);
+@media (hover: hover) and (pointer: fine) {
+  .button_secondary:hover > svg > path {
+    stroke: var(--color-text-light);
+  }
 }
 
 .link::before {
@@ -119,6 +123,15 @@ button {
   width: 100%;
   bottom: 0;
   left: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover::before {
+    transform: scaleX(1);
+  }
 }
 
 /** Header  */
@@ -160,11 +173,16 @@ button {
   margin: 0 auto;
 }
 
+.nav_link::before {
+  bottom: -4px;
+}
+
 .nav_menu {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   gap: 8px;
+  cursor: default;
 }
 
 /** Main  */
@@ -237,17 +255,21 @@ button {
   transition: all 0.3s ease;
 }
 
-.footer__twitter_btn:hover,
-.footer__instagram_btn:hover,
-.footer__facebook_btn:hover {
-  background-color: var(--color-background-body);
+@media (hover: hover) and (pointer: fine) {
+  .footer__twitter_btn:hover,
+  .footer__instagram_btn:hover,
+  .footer__facebook_btn:hover {
+    background-color: var(--color-background-body);
+  }
 }
 
-.footer__twitter_btn:hover > svg > path,
-.footer__instagram_btn:hover > svg > path,
-.footer__facebook_btn:hover > svg > path {
-  stroke: var(--color-text-dark);
-  fill: none;
+@media (hover: hover) and (pointer: fine) {
+  .footer__twitter_btn:hover > svg > path,
+  .footer__instagram_btn:hover > svg > path,
+  .footer__facebook_btn:hover > svg > path {
+    stroke: var(--color-text-dark);
+    fill: none;
+  }
 }
 
 .footer__list {
@@ -275,8 +297,22 @@ button {
   transition: transform 0.3s ease;
 }
 
-.footer__link:hover::before {
-  transform: scaleX(1);
+@media (hover: hover) and (pointer: fine) {
+  .footer__link:hover::before {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 930px) {
+  .footer {
+    padding: 100px 60px;
+  }
+}
+
+@media (max-width: 860px) {
+  .footer {
+    flex-direction: column;
+  }
 }
 
 /*? TABLE  */
@@ -364,10 +400,6 @@ button {
   /** Main  */
 
   /** Footer */
-  .footer {
-    padding: 100px 60px;
-    flex-direction: column;
-  }
 }
 
 /*? MOBILE */
@@ -396,5 +428,6 @@ button {
   /** Footer */
   .footer {
     padding: 60px 16px;
+    gap: 40px;
   }
 }
