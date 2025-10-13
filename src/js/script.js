@@ -13,10 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const isMenuPage = currentPath === '/menu' || currentPath.startsWith('/menu.html');
 
   if (isMainPage) {
-    console.log('MAIN');
     main();
   } else if (isMenuPage) {
-    console.log('MENU');
     menu();
   }
 });

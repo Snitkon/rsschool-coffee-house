@@ -49,11 +49,19 @@
   gap: 8px;
 }
 
+.right_wrapper__size_block .switchers {
+  flex-wrap: wrap;
+}
+
 .right_wrapper__additives_block {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
+}
+
+.right_wrapper__additives_block .switchers {
+  flex-wrap: wrap;
 }
 
 .right_wrapper__price_block {
@@ -72,4 +80,10 @@
   font-size: var(--body-caption-size);
   font-weight: var(--body-caption-weight);
   line-height: var(--body-caption-line);
+}
+
+@media (max-width: 580px) {
+  .modal__image {
+    display: none;
+  }
 }
