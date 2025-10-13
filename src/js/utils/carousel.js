@@ -2,6 +2,7 @@ export function carousel({ favorites, carousel_block, favorite_container, carous
   let currentIndex = 0;
   let autoScrollInterval;
   const scrollTime = 3000;
+  let startX = 0;
 
   const observer = new IntersectionObserver(
     entries => {
@@ -36,6 +37,21 @@ export function carousel({ favorites, carousel_block, favorite_container, carous
   carousel_block.addEventListener('mouseleave', () => {
     resumeIndicatorFill();
     restartAutoScrollAfterPause();
+  });
+
+  carousel_block.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  });
+
+  carousel_block.addEventListener('touchend', e => {
+    const endX = e.changedTouches[0].clientX;
+    const diff = endX - startX;
+
+    if (diff > 50) {
+      goToSlide(currentIndex - 1);
+    } else if (diff < -50) {
+      goToSlide(currentIndex + 1);
+    }
   });
 
   startAutoScroll();

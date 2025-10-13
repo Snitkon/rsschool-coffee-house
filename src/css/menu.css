@@ -176,13 +176,14 @@ button {
   margin-bottom: 100px;
 }
 
-.menu__subtitle {
+.menu .subtitle {
   width: 100%;
   max-width: 800px;
   text-align: center;
 }
 
 .menu__cards__wrapper {
+  max-width: 1440px;
   display: flex;
   justify-content: center;
   gap: 40px;
@@ -360,12 +361,13 @@ button {
 
   /** Footer */
   .footer {
+    padding: 100px 60px;
     flex-direction: column;
   }
 }
 
 /*? MOBILE */
-@media (max-width: 380px) {
+@media (max-width: 480px) {
   /** Reusable */
   .body {
     padding: 20px 16px;
@@ -388,4 +390,7 @@ button {
   }
 
   /** Footer */
+  .footer {
+    padding: 60px 16px;
+  }
 }
