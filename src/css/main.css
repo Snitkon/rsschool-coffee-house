@@ -308,6 +308,11 @@ button {
   color: var(--color-text-dark);
 }
 
+.about .subtitle {
+  max-width: 1360px;
+  align-self: center;
+}
+
 .about__images_container {
   display: grid;
   margin: 0 auto;
@@ -332,7 +337,7 @@ button {
   width: 100%;
   max-width: 660px;
   overflow: hidden;
-  border-radius: 40px;
+  border-radius: 20px;
 }
 
 .about__image {
@@ -471,6 +476,10 @@ button {
 @media (max-width: 768px) {
   /** Reusable */
 
+  .favorite .subtitle {
+    text-align: center;
+  }
+
   /** Header  */
 
   .header {
@@ -589,6 +598,7 @@ button {
   /** Footer */
 
   .footer {
+    padding: 100px 60px;
     flex-direction: column;
   }
 }
@@ -621,6 +631,15 @@ button {
     padding: 60px 16px;
   }
 
+  .carousel {
+    justify-content: center;
+  }
+
+  .btn_prev,
+  .btn_next {
+    display: none;
+  }
+
   .carousel_container {
     max-width: 348px;
   }
@@ -630,4 +649,8 @@ button {
   }
 
   /** Footer */
+  .footer {
+    padding: 60px 16px;
+    gap: 40px;
+  }
 }
