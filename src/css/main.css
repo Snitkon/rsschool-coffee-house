@@ -104,17 +104,21 @@ button {
   transition: all 0.3s ease;
 }
 
-.button_secondary:hover {
-  color: var(--color-text-light);
-  background-color: var(--color-background-container);
+@media (hover: hover) and (pointer: fine) {
+  .button_secondary:hover {
+    color: var(--color-text-light);
+    background-color: var(--color-background-container);
+  }
 }
 
 .button_secondary > svg > path {
   transition: fill 0.3s ease;
 }
 
-.button_secondary:hover > svg > path {
-  stroke: var(--color-text-light);
+@media (hover: hover) and (pointer: fine) {
+  .button_secondary:hover > svg > path {
+    stroke: var(--color-text-light);
+  }
 }
 
 .link::before {
@@ -130,10 +134,11 @@ button {
   transition: transform 0.3s ease;
 }
 
-.link:hover::before {
-  transform: scaleX(1);
+@media (hover: hover) and (pointer: fine) {
+  .link:hover::before {
+    transform: scaleX(1);
+  }
 }
-
 /** Header  */
 
 .header {
@@ -171,6 +176,10 @@ button {
   flex-direction: row;
   gap: 40px;
   margin: 0 auto;
+}
+
+.nav_link::before {
+  bottom: -4px;
 }
 
 .nav_menu {
@@ -228,19 +237,21 @@ button {
   transition: transform 0.3s ease;
 }
 
-.hero_btn:hover > img {
-  transform: scaleX(1);
+@media (hover: hover) and (pointer: fine) {
+  .hero_btn:hover > img {
+    transform: scaleX(1);
+  }
 }
-
 .hero_btn > span {
   transform: translateX(14px);
   transition: transform 0.3s ease;
 }
 
-.hero_btn:hover > span {
-  transform: translateX(0px);
+@media (hover: hover) and (pointer: fine) {
+  .hero_btn:hover > span {
+    transform: translateX(0px);
+  }
 }
-
 .favorite {
   display: flex;
   flex-direction: column;
@@ -357,8 +368,10 @@ button {
   transition: transform 0.3s ease;
 }
 
-.about__image:hover {
-  transform: scale(1);
+@media (hover: hover) and (pointer: fine) {
+  .about__image:hover {
+    transform: scale(1);
+  }
 }
 
 .app {
@@ -450,17 +463,21 @@ button {
   transition: all 0.3s ease;
 }
 
-.footer__twitter_btn:hover,
-.footer__instagram_btn:hover,
-.footer__facebook_btn:hover {
-  background-color: var(--color-background-body);
+@media (hover: hover) and (pointer: fine) {
+  .footer__twitter_btn:hover,
+  .footer__instagram_btn:hover,
+  .footer__facebook_btn:hover {
+    background-color: var(--color-background-body);
+  }
 }
 
-.footer__twitter_btn:hover > svg > path,
-.footer__instagram_btn:hover > svg > path,
-.footer__facebook_btn:hover > svg > path {
-  stroke: var(--color-text-dark);
-  fill: none;
+@media (hover: hover) and (pointer: fine) {
+  .footer__twitter_btn:hover > svg > path,
+  .footer__instagram_btn:hover > svg > path,
+  .footer__facebook_btn:hover > svg > path {
+    stroke: var(--color-text-dark);
+    fill: none;
+  }
 }
 
 .footer__list {
@@ -483,6 +500,23 @@ button {
 
 .footer__link::before {
   bottom: -4px;
+}
+
+@media (max-width: 930px) {
+  .footer {
+    padding: 100px 60px;
+  }
+}
+
+@media (max-width: 860px) {
+  .app {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer {
+    flex-direction: column;
+  }
 }
 
 /*? TABLE */
@@ -603,17 +637,7 @@ button {
     display: flex;
   }
 
-  .app {
-    flex-direction: column;
-    align-items: center;
-  }
-
   /** Footer */
-
-  .footer {
-    padding: 100px 60px;
-    flex-direction: column;
-  }
 }
 
 /*? MOBILE */
