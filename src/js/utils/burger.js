@@ -4,6 +4,7 @@ export function burger() {
     burger: '.burger',
     nav_list: '.nav_list',
     nav_menu: '.nav_menu'
+
   };
 
   const nav = document.querySelector(selectors.nav);
