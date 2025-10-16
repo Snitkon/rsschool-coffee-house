@@ -10,7 +10,6 @@ export function burger() {
   const burger = document.querySelector(selectors.burger);
   const nav_list = document.querySelectorAll(selectors.nav_list);
   const nav_menu = document.querySelector(selectors.nav_menu);
-  console.log(nav_menu)
 
   if (!nav || !burger) {
     console.warn('Burger menu elements not found. Check selectors:', selectors);
