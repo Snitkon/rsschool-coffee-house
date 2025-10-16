@@ -1,5 +1,6 @@
 @import url('font.css');
 @import url('card.css');
+@import url('burger.css');
 
 * {
   box-sizing: border-box;
@@ -164,6 +165,7 @@ button {
 }
 
 .logo {
+  position: relative;
   display: block;
   height: auto;
   width: 100%;
@@ -413,10 +415,10 @@ button {
   align-items: flex-start;
 }
 
-.app__right_container > img {
+/* .app__right_container > img {
   width: 100%;
   height: auto;
-}
+} */
 
 /** Footer */
 
@@ -502,6 +504,13 @@ button {
   bottom: -4px;
 }
 
+@media (max-width: 1200px) {
+  .app {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 @media (max-width: 930px) {
   .footer {
     padding: 100px 60px;
@@ -509,11 +518,6 @@ button {
 }
 
 @media (max-width: 860px) {
-  .app {
-    flex-direction: column;
-    align-items: center;
-  }
-
   .footer {
     flex-direction: column;
   }
@@ -562,7 +566,7 @@ button {
 
   .burger_link {
     font-size: var(--link-burger-link-size);
-    font-weight: var(---link-burger-link-weight);
+    font-weight: var(--link-burger-link-weight);
     line-height: var(--link-burger-link-line);
   }
 
@@ -602,7 +606,7 @@ button {
     height: 2px;
     border-radius: 1.5px;
     background-color: var(--color-border-dark);
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   /** Main  */
@@ -635,6 +639,11 @@ button {
 
   .about__image_subcontainer:last-child .about__image_wrapper:last-child {
     display: flex;
+  }
+
+  .app__right_container > img {
+    width: 100%;
+    height: auto;
   }
 
   /** Footer */
@@ -679,6 +688,10 @@ button {
 
   .carousel_container {
     max-width: 348px;
+  }
+
+  .app {
+    gap: 40px;
   }
 
   .app__btn_container {
