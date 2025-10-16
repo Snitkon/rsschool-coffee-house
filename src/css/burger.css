@@ -1,0 +1,14 @@
+.burger,
+.line {
+  transition: all 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .burger:hover {
+        color: var(--color-text-light);
+        background-color: var(--color-background-container);
+    }
+    .burger:hover .line {
+      background: var(--color-text-light);
+    }
+  }
