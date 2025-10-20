@@ -22,6 +22,12 @@
   width: 100%;
 }
 
+.card_price {
+  font-size: var(--heading-3-desktop-size);
+  font-weight: var(--heading-3-desktop-weight);
+  line-height: var(--heading-3-desktop-line);
+}
+
 @media (max-width: 480px) {
   .card_container {
     max-width: 348px;
