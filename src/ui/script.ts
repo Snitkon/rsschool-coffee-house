@@ -1,7 +1,7 @@
-import { burger } from './utils/burger.js';
-import { main } from './main.js';
-import { menu } from './menu.js';
-import { footer } from './utils/footer.js';
+import { main } from './main';
+import { burger } from './burger/burger';
+import { footer } from './footer/footer';
+// import { menu } from './menu.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   burger();
@@ -15,6 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (isMainPage) {
     main();
   } else if (isMenuPage) {
-    menu();
+    // menu();
   }
 });

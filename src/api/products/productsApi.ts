@@ -1,4 +1,4 @@
-import { apiFetch } from '../../js/utils/apiFetch';
+import { apiFetch } from '../apiFetch';
 import { IProduct } from '../../types/types';
 
 export async function getAllProducts() {

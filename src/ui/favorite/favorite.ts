@@ -1,13 +1,25 @@
+import { IProduct } from '../../types/types';
+
+interface IFavoriteCard extends IProduct {
+  image?: string;
+}
+
 export class FavoriteCard {
-  constructor(id, name, description, price, image = '') {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.price = price;
-    this.image = image;
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  image: string;
+
+  constructor(favorite: IFavoriteCard) {
+    this.id = favorite.id;
+    this.name = favorite.name;
+    this.description = favorite.description;
+    this.price = favorite.price;
+    this.image = favorite.image || 'images/logo.png';
   }
 
-  createCards() {
+  createCards(): HTMLElement {
     const container = document.createElement('div');
     const info_wrapper = document.createElement('div');
     const image = document.createElement('img');
@@ -15,9 +27,9 @@ export class FavoriteCard {
     const description = document.createElement('p');
     const price = document.createElement('span');
 
-    container.setAttribute('id', this.id);
+    container.setAttribute('id', `${this.id}`);
     image.setAttribute('alt', `card_${this.name}`);
-    image.setAttribute('src', this.image);
+    image.setAttribute('src', `images/coffee-${this.id}.png`);
 
     container.classList.add('card_container');
     info_wrapper.classList.add('card_info__wrapper');

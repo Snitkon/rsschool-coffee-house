@@ -31,7 +31,7 @@ export class MenuCard extends FavoriteCard {
       description: this.description,
       price: this.price,
       size: this.size,
-      additives: this.additives
+      additives: this.additives,
     });
     this.modal = modal.createModal();
     body.prepend(this.modal);

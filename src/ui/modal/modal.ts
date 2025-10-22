@@ -4,7 +4,7 @@ export class Modal {
   modalData;
   selected = {
     size: 's',
-    additives: new Set()
+    additives: new Set(),
   };
 
   constructor({ id, image, name, description, size, additives, price }) {
@@ -21,7 +21,7 @@ export class Modal {
     const additivesSwitcher = new Switchers(transformAdditives, {
       default: '0',
       onChange: additives => this.setAdditives(additives),
-      multiply: true
+      multiply: true,
     });
 
     document.body.style.overflow = 'hidden';
@@ -108,7 +108,7 @@ export class Modal {
     const size = this.modalData.size[this.selected.size];
     const sizeAdd = size ? +size['add-price'] : 0;
     let additivesAdd = 0;
-    for (let key of this.selected.additives) {
+    for (const key of this.selected.additives) {
       additivesAdd += +this.modalData.additives[key - 1]['add-price'];
     }
 

@@ -7,13 +7,14 @@ import clock from '/icons/icon-clock.svg?raw';
 
 export function footer() {
   const selectors = {
-    footer: '.footer'
+    footer: '.footer',
   };
 
-  const footer = document.querySelector(selectors.footer);
+  const footer = document.querySelector<HTMLElement>(selectors.footer);
 
   if (!footer) {
-    console.warn('Footer is not found, Check selectors: ', selectors);
+    console.error('Footer is not found, Check selectors: ', selectors);
+    return;
   }
 
   const leftBlock = document.createElement('div');
@@ -24,14 +25,13 @@ export function footer() {
   const instagramBtn = document.createElement('button');
   const facebookBtn = document.createElement('button');
   const contactText = document.createElement('h3');
-  const time = document.createElement('time');
   const ulList = document.createElement('ul');
   const liLocal = document.createElement('li');
   const liPhone = document.createElement('li');
   const liTime = document.createElement('li');
   const aLocal = document.createElement('a');
   const aPhone = document.createElement('a');
-  const aTime = document.createElement('a');
+  const time = document.createElement('time');
 
   leftBlock.classList.add('footer__left_block');
   rightBlock.classList.add('footer__right_block');
@@ -44,7 +44,7 @@ export function footer() {
   ulList.classList.add('list', 'footer__list');
   aLocal.classList.add('link', 'footer__link');
   aPhone.classList.add('link', 'footer__link');
-  aTime.classList.add('link', 'footer__link');
+  time.classList.add('footer__link');
   liLocal.classList.add('footer__list_item');
   liPhone.classList.add('footer__list_item');
   liTime.classList.add('footer__list_item');
@@ -53,6 +53,7 @@ export function footer() {
   aLocal.setAttribute('href', 'https://maps.app.goo.gl/TQKNffpK7hBZiiem7');
   aLocal.setAttribute('target', '_blank');
   aLocal.setAttribute('rel', 'noopener noreferrer');
+  time.setAttribute('datetime', 'Mo-Sa 09:00-23:00');
 
   footer.append(leftBlock, rightBlock);
   leftBlock.append(subtitleFooter, linkBlock);
@@ -61,7 +62,7 @@ export function footer() {
   ulList.append(liLocal, liPhone, liTime);
   liLocal.append(aLocal);
   liPhone.append(aPhone);
-  liTime.append(aTime);
+  liTime.append(time);
 
   subtitleFooter.innerHTML = 'Sip, Savor, Smile. <span class="accent">It’s coffee time!</span >';
   twitterBtn.innerHTML = twitter;
@@ -70,5 +71,5 @@ export function footer() {
   contactText.textContent = 'Contact us';
   aLocal.innerHTML = `${pin} 8558 Green Rd.,  LA`;
   aPhone.innerHTML = `${phone} +1 (603) 555-0123`;
-  aTime.innerHTML = `${clock} <time datetime="Mo-Sa 09:00-23:00">Mon-Sat: 9:00 AM – 23:00 PM</time>`;
+  time.innerHTML = `${clock} Mon-Sat: 9:00 AM – 23:00 PM`;
 }

@@ -1,4 +1,4 @@
-import { apiFetch } from '../../js/utils/apiFetch';
+import { apiFetch } from '../apiFetch';
 import { ILogInOrSignIn, ILogInRequest, IProfile, ISignUpRequest } from '../../types/types';
 
 export async function signUp(data: ISignUpRequest) {

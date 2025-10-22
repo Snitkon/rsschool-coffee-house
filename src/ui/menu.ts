@@ -1,8 +1,8 @@
-import { initMenu } from './utils/init.js';
-import { MenuCard } from './utils/cardMenu.js';
-import { Switchers } from './utils/switcherMenu.js';
-import { menuConfig } from './utils/config.js';
-import { getOrCreateLoaderBtn, handleResize } from './utils/helper.js';
+import { initMenu } from './init.js';
+import { MenuCard } from './ui/cardMenu.js';
+import { Switchers } from './switcher/switcherMenu.js';
+import { menuConfig } from './ui/config.js';
+import { getOrCreateLoaderBtn, handleResize } from './helper/helper.js';
 
 let products = [];
 const visibleCount = { count: 0 };
@@ -15,7 +15,7 @@ export async function menu() {
   const switchersWrapper = document.querySelector(switcherSelector);
   const switchers = new Switchers(menuConfig, {
     default: 'coffee',
-    onChange: category => renderCards(category, true)
+    onChange: category => renderCards(category, true),
   });
   switchersWrapper.appendChild(switchers.createSwitchers());
 
@@ -45,7 +45,7 @@ export function renderCards(category, reset = false) {
     const categoryImageCounts = {
       coffee: { count: 0, max: 8 },
       dessert: { count: 0, max: 8 },
-      tea: { count: 0, max: 4 }
+      tea: { count: 0, max: 4 },
     };
 
     itemsToRender.forEach(data => {
@@ -55,7 +55,8 @@ export function renderCards(category, reset = false) {
         return;
       }
 
-      categoryImageCounts[category].count = (categoryImageCounts[category].count % categoryImageCounts[category].max) + 1;
+      categoryImageCounts[category].count =
+        (categoryImageCounts[category].count % categoryImageCounts[category].max) + 1;
       const categoryCount = categoryImageCounts[category].count;
       const id = `${category}-${categoryImageCounts[category].count}`;
       const image = `/images/${category}-${categoryCount}.png`;

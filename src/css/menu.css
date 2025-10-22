@@ -1,8 +1,9 @@
 @import url('font.css');
-@import url('menuCards.css');
-@import url('switcher.css');
-@import url('modal.css');
 @import url('burger.css');
+@import url('loader.css');
+@import url('switcher.css');
+@import url('menuCard.css');
+@import url('modal.css');
 
 * {
   box-sizing: border-box;
@@ -40,7 +41,8 @@ h3 {
 }
 
 a,
-button {
+button,
+time {
   font-size: var(--action-button-link-size);
   font-weight: var(--action-button-link-weight);
   line-height: var(--action-button-link-line);
@@ -294,6 +296,10 @@ button {
 .footer__list_item {
   cursor: pointer;
   width: max-content;
+}
+
+.footer__list_item:last-of-type {
+  cursor: default;
 }
 
 .footer__link {

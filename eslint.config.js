@@ -42,7 +42,7 @@ export default defineConfig([
     rules: {
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
-      'no-console': 'warn',
+      'no-console': ['warn', { allow: ['error', 'warn'] }],
       'prettier/prettier': 'error',
     },
   },
