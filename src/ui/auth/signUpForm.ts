@@ -2,7 +2,7 @@ import { signUp } from '../../api/auth/authApi';
 import { ILogInOrSignIn, ISignUpRequest } from '../../types/types';
 import { ErrorHandling } from '../error/errorHandling';
 
-export class SignupForm {
+export class SignUpForm {
   private root!: HTMLElement;
   private form!: HTMLFormElement;
   private loginInput!: HTMLInputElement;
@@ -63,7 +63,7 @@ export class SignupForm {
 
   private createStructure() {
     this.form = document.createElement('form');
-    this.form.classList.add('form');
+    this.form.classList.add('form', 'sign-up-form');
     const loginWrapper = this.createInput(
       'div',
       'form-group',

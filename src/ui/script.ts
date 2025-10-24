@@ -1,7 +1,8 @@
 import { main } from './main';
 import { burger } from './burger/burger';
 import { footer } from './footer/footer';
-import { registration } from './registration';
+import { signUp } from './signup';
+import { signIn } from './signin';
 // import { menu } from './menu.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,13 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const isMainPage = currentPath === '/' || currentPath.startsWith('/index.html');
   const isMenuPage = currentPath === '/menu' || currentPath.startsWith('/menu.html');
-  const isRegistration = currentPath === '/registration' || currentPath.startsWith('/registration.html');
+  const isSignUp = currentPath === '/signup' || currentPath.startsWith('/signup.html');
+  const isSignIn = currentPath === '/signin' || currentPath.startsWith('/signin.html');
 
   if (isMainPage) {
     main();
   } else if (isMenuPage) {
     // menu();
-  } else if (isRegistration) {
-    registration();
+  } else if (isSignUp) {
+    signUp();
+  } else if (isSignIn) {
+    signIn();
   }
 });

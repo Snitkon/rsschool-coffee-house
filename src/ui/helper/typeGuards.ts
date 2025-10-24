@@ -5,7 +5,7 @@ export function isSuccessResponse<T>(data: TResponseApi<T>): data is ISuccess<T>
 }
 
 export function isErrorResponse<T>(data: TResponseApi<T>): data is IError {
-  return typeof data === 'object' && data !== null && ('error' in data || 'message' in data);
+  return typeof data === 'object' && data !== null && ('error' in data || ('message' in data && 'statusCode' in data));
 }
 
 export function isTestErrorResponse<T>(data: TResponseApi<T>): data is IErrorTest {

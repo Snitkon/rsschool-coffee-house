@@ -39,11 +39,13 @@ export class ErrorHandling<T> {
   render() {
     try {
       this.container.innerHTML = '';
+      console.log(this.data);
 
       if (isTestErrorResponse(this.data)) {
         if (this.destroyFn) {
           this.destroyFn();
         }
+        console.log('TEST ERROR');
         const err = this.data;
         const title = err.isTestError ? 'This Test Error' : 'This Test Error';
         const errorBoundary = this.createErrorBoundary(title);
@@ -59,6 +61,8 @@ export class ErrorHandling<T> {
         if (this.destroyFn) {
           this.destroyFn();
         }
+        console.log('ERROR');
+
         const err = this.data;
         const title = err.message ? err.message : err.error;
         const errorBoundary = this.createErrorBoundary(title);
@@ -70,6 +74,7 @@ export class ErrorHandling<T> {
         return;
       }
       if (isSuccessResponse(this.data)) {
+        console.log('SUCCESS');
         this.renderFn(this.data.data);
         return;
       }

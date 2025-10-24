@@ -1,18 +1,30 @@
-.registration {
+.signup,
+.signin {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   color: var(--color-text-dark);
+  text-align: center;
 }
 
-.form {
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.sign-up-form {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
-.form > .form-group:nth-child(-n + 3) {
+.sign-up-form > .form-group:nth-child(-n + 3) {
   grid-column: span 1;
 }
 
-.form > .form-group:nth-child(n + 4):nth-child(-n + 6) {
+.sign-up-form > .form-group:nth-child(n + 4):nth-child(-n + 6) {
   grid-column: span 1;
 }
 
@@ -65,6 +77,7 @@ option {
   width: 200px;
   justify-content: center;
   transition: opacity 0.3s ease;
+  margin-top: 15px;
 }
 
 .auth-btn:disabled {
