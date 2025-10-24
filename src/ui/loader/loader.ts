@@ -8,7 +8,6 @@ export class Loader {
   private container: HTMLElement;
   private mainContainer: HTMLElement;
   private destroy: () => void;
-  // private observerFn: (className: string) => void;
 
   constructor({
     container,
@@ -22,7 +21,6 @@ export class Loader {
     this.container = container;
     this.mainContainer = mainContainer;
     this.destroy = destroy;
-    // this.observerFn = observerFn;
   }
 
   private showLoader() {

@@ -1,26 +1,39 @@
-import { Switchers } from './switcherMenu';
+import { IAdditives, IProduct, ISize, TSize } from '../../types/types';
+import { Switchers } from '../switcher/switcherMenu';
 
 export class Modal {
   modalData;
-  selected = {
+  selected: { size: TSize; additives: Set<string> } = {
     size: 's',
     additives: new Set(),
   };
 
-  constructor({ id, image, name, description, size, additives, price }) {
-    this.modalData = { id, image, name, description, size, additives, price };
+  constructor({ id, name, description, sizes, additives, price, category }: IProduct) {
+    this.modalData = { id, name, description, sizes, additives, price, category };
   }
 
   createModal() {
-    const transformAdditives = this.modalData.additives.reduce((acc, item, index) => {
+    if (!this.modalData.sizes || Object.keys(this.modalData.sizes).length === 0) {
+      console.error('Modal: sizes are missing or empty');
+      return;
+    }
+
+    if (!this.modalData.additives || this.modalData.additives.length === 0) {
+      console.error('Modal: no additives found');
+      return;
+    }
+    const transformAdditives = this.modalData.additives.reduce<Record<string, IAdditives>>((acc, item, index) => {
       acc[index + 1] = item;
       return acc;
     }, {});
 
-    const sizeSwitcher = new Switchers(this.modalData.size, { default: 's', onChange: size => this.setSize(size) });
-    const additivesSwitcher = new Switchers(transformAdditives, {
+    const sizeSwitcher = new Switchers<TSize, ISize>(this.modalData.sizes, {
+      default: 's',
+      onChange: size => this.setSize(size as TSize),
+    });
+    const additivesSwitcher = new Switchers<string, IAdditives>(transformAdditives, {
       default: '0',
-      onChange: additives => this.setAdditives(additives),
+      onChange: additives => this.setAdditives(additives as Set<string>),
       multiply: true,
     });
 
@@ -70,7 +83,7 @@ export class Modal {
 
     modal.setAttribute('id', `modal_${this.modalData.id}`);
     image.setAttribute('alt', `modal_${this.modalData.name}`);
-    image.setAttribute('src', this.modalData.image);
+    image.setAttribute('src', `${this.modalData.category}-${this.modalData.id}`);
 
     nameTitle.textContent = this.modalData.name;
     description.textContent = this.modalData.description;
@@ -93,27 +106,38 @@ export class Modal {
     return overlay;
   }
 
-  setSize(size) {
+  setSize(size: TSize) {
     this.selected.size = size;
     this.updatePrice();
   }
 
-  setAdditives(additives) {
+  setAdditives(additives: Set<string>) {
     this.selected.additives = additives;
     this.updatePrice();
   }
 
   updatePrice() {
+    if (!this.modalData.sizes || Object.keys(this.modalData.sizes).length === 0) {
+      console.error('Modal: sizes are missing or empty');
+      return;
+    }
+
+    if (!this.modalData.additives || this.modalData.additives.length === 0) {
+      console.error('Modal: no additives found');
+      return;
+    }
     const basicPrice = +this.modalData.price;
-    const size = this.modalData.size[this.selected.size];
-    const sizeAdd = size ? +size['add-price'] : 0;
+    const size = this.modalData.sizes[this.selected.size];
+    const sizeAdd = size ? +size['price'] : 0;
     let additivesAdd = 0;
     for (const key of this.selected.additives) {
-      additivesAdd += +this.modalData.additives[key - 1]['add-price'];
+      const index = Number(key);
+      const additive = this.modalData.additives[index - 1]['price'];
+      additivesAdd += +additive;
     }
 
     const total = (basicPrice + sizeAdd + additivesAdd).toFixed(2);
-    const price = document.querySelector('.price_block__price');
-    price.textContent = `$${total}`;
+    const price = document.querySelector<HTMLElement>('.price_block__price');
+    price!.textContent = `$${total}`;
   }
 }

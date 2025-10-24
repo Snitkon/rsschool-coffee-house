@@ -4,10 +4,10 @@ import { ErrorBoundary } from './errorBoundary';
 
 export class ErrorHandling<T> {
   private container: HTMLElement;
-  private mainContainer: HTMLElement;
+  private mainContainer?: HTMLElement;
   private data: TResponseApi<T>;
   private renderFn: (data: T) => void;
-  private destroyFn: () => void;
+  private destroyFn?: () => void;
 
   constructor({
     container,
@@ -17,10 +17,10 @@ export class ErrorHandling<T> {
     destroyFn,
   }: {
     container: HTMLElement | null;
-    mainContainer: HTMLElement;
+    mainContainer?: HTMLElement;
     data: TResponseApi<T>;
     renderFn: (data: T) => void;
-    destroyFn: () => void;
+    destroyFn?: () => void;
   }) {
     if (!container) {
       throw new Error('Container not found!');
@@ -41,20 +41,32 @@ export class ErrorHandling<T> {
       this.container.innerHTML = '';
 
       if (isTestErrorResponse(this.data)) {
-        this.destroyFn();
+        if (this.destroyFn) {
+          this.destroyFn();
+        }
         const err = this.data;
         const title = err.isTestError ? 'This Test Error' : 'This Test Error';
         const errorBoundary = this.createErrorBoundary(title);
-        this.mainContainer.appendChild(errorBoundary.renderErrorBounder());
+        if (this.mainContainer) {
+          this.mainContainer.appendChild(errorBoundary.renderErrorBounder());
+        } else {
+          this.container.appendChild(errorBoundary.renderErrorBounder());
+        }
         return;
       }
 
       if (isErrorResponse(this.data)) {
-        this.destroyFn();
+        if (this.destroyFn) {
+          this.destroyFn();
+        }
         const err = this.data;
         const title = err.message ? err.message : err.error;
         const errorBoundary = this.createErrorBoundary(title);
-        this.mainContainer.appendChild(errorBoundary.renderErrorBounder());
+        if (this.mainContainer) {
+          this.mainContainer.appendChild(errorBoundary.renderErrorBounder());
+        } else {
+          this.container.appendChild(errorBoundary.renderErrorBounder());
+        }
         return;
       }
       if (isSuccessResponse(this.data)) {

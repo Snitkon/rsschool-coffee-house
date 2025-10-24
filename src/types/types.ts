@@ -2,6 +2,8 @@ export type TPayment = 'card' | 'cash';
 
 export type TSize = 's' | 'm' | 'l';
 
+export type TCategory = 'tea' | 'coffee' | 'dessert';
+
 export type TResponseApi<T> = ISuccess<T> | IErrorTest | IError;
 
 export interface ISuccess<T> {
@@ -40,7 +42,7 @@ export interface IProduct {
   price: string;
   discountPrice: string | null;
   category: string;
-  size?: Record<TSize, ISize>;
+  sizes?: Record<TSize, ISize>;
   additives?: Array<IAdditives>;
 }
 
@@ -88,3 +90,11 @@ export interface IConfirmOrderRequest {
   items: Array<IOrder>;
   totalPrice: number;
 }
+
+export type IMenu = Record<
+  TCategory,
+  {
+    text: string;
+    icon: string;
+  }
+>;

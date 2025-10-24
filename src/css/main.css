@@ -3,6 +3,7 @@
 @import url('burger.css');
 @import url('loader.css');
 @import url('favoriteCard.css');
+@import url('form.css');
 
 * {
   box-sizing: border-box;

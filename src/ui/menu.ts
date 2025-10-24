@@ -1,8 +1,8 @@
 import { initMenu } from './init.js';
 import { MenuCard } from './ui/cardMenu.js';
 import { Switchers } from './switcher/switcherMenu.js';
-import { menuConfig } from './ui/config.js';
 import { getOrCreateLoaderBtn, handleResize } from './helper/helper.js';
+import { TCategory } from '../types/types.js';
 
 let products = [];
 const visibleCount = { count: 0 };

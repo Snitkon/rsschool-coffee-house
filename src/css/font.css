@@ -56,4 +56,8 @@
   --heading-2-mobile-size: 32px;
   --heading-2-mobile-weight: 600;
   --heading-2-mobile-line: 125%;
+
+  /** Other  */
+
+  --color-placeholder: #a1a8b3;
 }
