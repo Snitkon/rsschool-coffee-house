@@ -4,6 +4,7 @@
 @import url('loader.css');
 @import url('favoriteCard.css');
 @import url('form.css');
+@import url('cart.css');
 
 * {
   box-sizing: border-box;
@@ -73,7 +74,6 @@ button {
 }
 
 .main {
-  max-width: 1440px;
   margin: 0 auto;
   margin-bottom: 100px;
   display: flex;

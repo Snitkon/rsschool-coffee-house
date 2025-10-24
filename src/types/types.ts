@@ -98,3 +98,18 @@ export type IMenu = Record<
     icon: string;
   }
 >;
+
+export interface IOrder {
+  productId: number;
+  size: TSize;
+  additives: Array<string>;
+  quantity: number;
+  price: number;
+  name?: string;
+  discountPrice?: number | null;
+}
+
+export interface ICart {
+  items: Array<IOrder>;
+  totalPrice: number;
+}

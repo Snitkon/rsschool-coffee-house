@@ -3,6 +3,7 @@ import { burger } from './burger/burger';
 import { footer } from './footer/footer';
 import { signUp } from './signup';
 import { signIn } from './signin';
+import { cart } from './cart';
 // import { menu } from './menu.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const isMenuPage = currentPath === '/menu' || currentPath.startsWith('/menu.html');
   const isSignUp = currentPath === '/signup' || currentPath.startsWith('/signup.html');
   const isSignIn = currentPath === '/signin' || currentPath.startsWith('/signin.html');
+  const isCart = currentPath === '/cart' || currentPath.startsWith('/cart.html');
 
   if (isMainPage) {
     main();
@@ -24,5 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     signUp();
   } else if (isSignIn) {
     signIn();
+  } else if (isCart) {
+    cart();
   }
 });

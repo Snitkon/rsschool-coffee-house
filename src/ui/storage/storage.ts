@@ -1,5 +1,8 @@
-export class TokenStorage {
+import { ICart, IOrder } from '../../types/types';
+
+export class Storage {
   private static readonly TOKEN_KEY = 'auth_token';
+  private static readonly CART_KEY = 'cart';
 
   static setToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
@@ -13,7 +16,61 @@ export class TokenStorage {
     return !!this.getToken();
   }
 
-  static clear(): void {
+  static clearToken(): void {
     localStorage.removeItem(this.TOKEN_KEY);
+  }
+
+  static clearCart(): void {
+    localStorage.removeItem(this.CART_KEY);
+  }
+
+  static setCart(order: ICart): void {
+    localStorage.setItem(this.CART_KEY, JSON.stringify(order));
+  }
+
+  static getCart(): ICart | null {
+    const cart = localStorage.getItem(this.CART_KEY);
+    return cart ? JSON.parse(cart) : null;
+  }
+
+  static addOrderToCart(order: IOrder): void {
+    const cart = this.getCart() || ({ items: [], totalPrice: 0 } as ICart);
+
+    const find = cart.items.findIndex(
+      item =>
+        item.productId === order.productId &&
+        item.size === order.size &&
+        item.additives.length === order.additives.length &&
+        item.additives.every(i => order.additives.includes(i)),
+    );
+
+    if (find !== -1) {
+      cart.items[find].quantity += order.quantity;
+    } else {
+      cart.items.push(order);
+    }
+
+    cart.totalPrice = cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+    this.setCart(cart);
+  }
+
+  static removeOrderFromCart(order: IOrder) {
+    const cart = this.getCart();
+    if (!cart) return;
+
+    cart.items = cart.items.filter(
+      item =>
+        !(
+          item.productId === order.productId &&
+          item.size === order.size &&
+          item.additives.length === order.additives.length &&
+          item.additives.every(i => order.additives.includes(i))
+        ),
+    );
+
+    cart.totalPrice = cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+    this.setCart(cart);
   }
 }
