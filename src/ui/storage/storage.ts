@@ -33,6 +33,14 @@ export class Storage {
     return cart ? JSON.parse(cart) : null;
   }
 
+  static getQuantity(): number {
+    let quantity = 0;
+    const cart = this.getCart();
+    if (!cart) return quantity;
+    cart.items.forEach(item => (quantity += item.quantity));
+    return quantity;
+  }
+
   static addOrderToCart(order: IOrder): void {
     const cart = this.getCart() || ({ items: [], totalPrice: 0 } as ICart);
 
@@ -59,15 +67,27 @@ export class Storage {
     const cart = this.getCart();
     if (!cart) return;
 
-    cart.items = cart.items.filter(
-      item =>
-        !(
-          item.productId === order.productId &&
-          item.size === order.size &&
-          item.additives.length === order.additives.length &&
-          item.additives.every(i => order.additives.includes(i))
-        ),
-    );
+    cart.items = cart.items.filter(item => {
+      if (
+        item.productId === order.productId &&
+        item.size === order.size &&
+        item.additives.length === order.additives.length &&
+        item.additives.every(i => order.additives.includes(i)) &&
+        item.quantity === 1
+      ) {
+        return false;
+      } else if (
+        item.productId === order.productId &&
+        item.size === order.size &&
+        item.additives.length === order.additives.length &&
+        item.additives.every(i => order.additives.includes(i)) &&
+        item.quantity > 1
+      ) {
+        item.quantity -= 1;
+        return true;
+      }
+      return true;
+    });
 
     cart.totalPrice = cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 

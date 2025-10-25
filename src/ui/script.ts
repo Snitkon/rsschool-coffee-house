@@ -4,11 +4,13 @@ import { footer } from './footer/footer';
 import { signUp } from './signup';
 import { signIn } from './signin';
 import { cart } from './cart';
+import { Cart } from './cart/cart';
 // import { menu } from './menu.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   burger();
   footer();
+  Cart.createHeaderCart();
 
   const currentPath = window.location.pathname;
 

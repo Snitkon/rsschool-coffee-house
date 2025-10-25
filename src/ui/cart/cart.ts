@@ -1,6 +1,7 @@
 import { ICart, IOrder } from '../../types/types';
 import { Storage } from '../storage/storage';
-import trash from '/icons/icon-trash.svg?raw';
+import trashIcon from '/icons/icon-trash.svg?raw';
+import cartIcon from '/icons/icon-cart.svg?raw';
 
 export class Cart {
   private root: HTMLDivElement;
@@ -9,6 +10,7 @@ export class Cart {
   private signUpBtn!: HTMLButtonElement;
   private totalPriceElement!: HTMLElement;
   private ordersBlock!: HTMLDivElement;
+  static navCartBlock: HTMLLinkElement | null = null;
   private test!: ICart;
 
   constructor(root: HTMLDivElement) {
@@ -78,6 +80,7 @@ export class Cart {
     const img = document.createElement('img');
     const title = document.createElement('h3');
     const price = document.createElement('h3');
+    const quantity = document.createElement('h3');
     const additives = document.createElement('span');
 
     orderWrapper.classList.add('order');
@@ -95,18 +98,52 @@ export class Cart {
 
     title.textContent = `${order.name}`;
     additives.textContent = order.additives.join(', ') || 'No additives';
+    quantity.textContent = `x${order.quantity}`;
     price.textContent = `$${order.price?.toFixed(2)}`;
 
     imageBlock.append(img);
     infoBlock.append(title, additives);
-    priceBlock.append(price);
-    trashBlock.innerHTML = trash;
+    priceBlock.append(quantity, price);
+    trashBlock.innerHTML = trashIcon;
     leftBlock.append(trashBlock, imageBlock, infoBlock);
     orderWrapper.append(leftBlock, priceBlock);
 
     trashBlock.addEventListener('click', this.removeOrderFromCart.bind(this, order));
 
     return orderWrapper;
+  }
+
+  static createHeaderCart() {
+    const storeQuantity = Storage.getQuantity();
+    this.navCartBlock = document.querySelector<HTMLLinkElement>('.nav_cart');
+    const iconWrapper = document.createElement('div');
+    const quantityWrapper = document.createElement('div');
+    const quantity = document.createElement('span');
+
+    if (!this.navCartBlock) {
+      console.error('Container not found!');
+      return;
+    }
+
+    iconWrapper.classList.add('nav_cart__icon_wrapper');
+    quantityWrapper.classList.add('nav_cart__quantity_wrapper');
+
+    this.navCartBlock.href = 'cart';
+    quantity.textContent = storeQuantity.toString();
+    iconWrapper.innerHTML = cartIcon;
+
+    quantityWrapper.append(quantity);
+    this.navCartBlock.append(iconWrapper, quantityWrapper);
+  }
+
+  private changeQuantity() {
+    const storeQuantity = Storage.getQuantity();
+    const cart = (this.constructor as typeof Cart).navCartBlock;
+    if (!cart) {
+      console.error('Container not found!');
+      return;
+    }
+    cart.children[1].innerHTML = `<span>${storeQuantity}</span>`;
   }
 
   private setupListener() {
@@ -124,7 +161,7 @@ export class Cart {
 
   private loadCartItems() {
     const cart = Storage.getCart();
-    if (cart && cart.items.length > 0) {
+    if (cart && cart.items.length >= 0) {
       this.totalPrice = cart.totalPrice;
       this.totalPriceElement.textContent = `$${this.totalPrice.toFixed(2)}`;
       cart.items.forEach(item => {
@@ -138,5 +175,6 @@ export class Cart {
     Storage.removeOrderFromCart(order);
     this.ordersBlock.innerHTML = '';
     this.loadCartItems();
+    this.changeQuantity();
   }
 }

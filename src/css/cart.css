@@ -38,6 +38,25 @@
   justify-content: center;
 }
 
+/** Header Cart */
+.nav_cart {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  margin-right: 32px;
+  cursor: pointer;
+}
+
+.link.nav_cart::before {
+  content: none;
+}
+
+.nav_cart__icon_wrapper {
+  display: flex;
+}
+
 /** Order */
 .order {
   display: flex;
@@ -71,4 +90,12 @@
 
 .order__left_info {
   text-align: left;
+}
+
+.order__price {
+  display: flex;
+  width: 120px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
