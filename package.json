@@ -11,7 +11,7 @@
     "lint:fix": "eslint src --fix",
     "format": "prettier --write \"src/**/*.{ts,js}\"",
     "format:check": "prettier --check \"src/**/*.{ts,js}\"",
-    "deploy:gh": "git checkout gh-pages && git merge coffee-house && git push origin gh-pages && git checkout coffee-house"
+    "deploy:gh": "git checkout gh-pages && git merge coffee-house-bf && git push origin gh-pages && git checkout coffee-house-bf"
   },
   "keywords": [],
   "author": "Mikita Snitko",
