@@ -2,6 +2,7 @@ import { getOneProduct } from '../../api/products/productsApi';
 import { IAdditives, IOrder, IProduct, ISize, TSize } from '../../types/types';
 import { Cart } from '../cart/cart';
 import { ErrorHandling } from '../error/errorHandling';
+import { Spinner } from '../loader/spinner';
 import { Storage } from '../storage/storage';
 import { Switchers } from '../switcher/switcherMenu';
 
@@ -23,7 +24,14 @@ export class Modal {
     this.getModalData();
   }
 
+  private showLoader() {
+    const instanceSpinner = new Spinner();
+    const spinner = instanceSpinner.createSpinner();
+    this.root.appendChild(spinner);
+  }
+
   private async getModalData() {
+    this.showLoader();
     try {
       const product = await getOneProduct(this.id);
       const handler = new ErrorHandling({
