@@ -1,18 +1,24 @@
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
+import eslint from 'vite-plugin-eslint';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  root: '.',
+  plugins: [eslint()],
+  root: './',
   publicDir: 'public',
   build: {
     outDir: 'dist',
+    target: 'esnext',
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        menu: resolve(__dirname, 'menu.html')
+        menu: resolve(__dirname, 'menu.html'),
+        cart: resolve(__dirname, 'cart.html'),
+        signup: resolve(__dirname, 'signup.html'),
+        signin: resolve(__dirname, 'signin.html'),
       },
       output: {
         entryFileNames: 'js/[name]-[hash].js',
@@ -22,8 +28,11 @@ export default defineConfig({
             return 'css/[name]-[hash][extname]';
           }
           return 'assets/[name]-[hash][extname]';
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
+  server: {
+    port: 5000,
+  },
 });

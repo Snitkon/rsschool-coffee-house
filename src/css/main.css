@@ -1,6 +1,10 @@
 @import url('font.css');
-@import url('card.css');
+@import url('error.css');
 @import url('burger.css');
+@import url('loader.css');
+@import url('favoriteCard.css');
+@import url('form.css');
+@import url('cart.css');
 
 * {
   box-sizing: border-box;
@@ -38,7 +42,8 @@ h3 {
 }
 
 a,
-button {
+button,
+time {
   font-size: var(--action-button-link-size);
   font-weight: var(--action-button-link-weight);
   line-height: var(--action-button-link-line);
@@ -69,7 +74,6 @@ button {
 }
 
 .main {
-  max-width: 1440px;
   margin: 0 auto;
   margin-bottom: 100px;
   display: flex;
@@ -287,6 +291,7 @@ button {
 .carousel__favorite_wrapper {
   display: flex;
   flex-direction: row;
+  gap: 20px;
   transition: transform 1s ease;
 }
 
@@ -409,16 +414,20 @@ button {
   gap: 8px;
 }
 
+.app__btn > svg > path {
+  transition: all 0.3s ease;
+}
+
+.app__btn:hover > svg > path {
+  stroke: none;
+  fill: var(--color-text-light);
+}
+
 .app__btn > span {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-
-/* .app__right_container > img {
-  width: 100%;
-  height: auto;
-} */
 
 /** Footer */
 
@@ -493,6 +502,10 @@ button {
   width: max-content;
 }
 
+.footer__list_item:last-of-type {
+  cursor: default;
+}
+
 .footer__link {
   display: flex;
   flex-direction: row;
@@ -502,6 +515,9 @@ button {
 
 .footer__link::before {
   bottom: -4px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
 }
 
 @media (max-width: 1200px) {

@@ -9,6 +9,7 @@
  */
 
 html {
+  height: 100%;
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
@@ -21,15 +22,30 @@ html {
  */
 
 body {
-  margin: 0;
+  min-height: 100vh;
+  max-width: 1440px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /**
  * Render the `main` element consistently in IE.
  */
 
+header {
+  width: 100%;
+}
+
 main {
+  width: 100%;
+  flex: 1;
   display: block;
+}
+
+footer {
+  width: 100%;
 }
 
 /**

@@ -1,24 +1,34 @@
+# Node modules
+node_modules/
+
+# Vite build output
+dist/
+.vite/
+
+# Local environment variables
+.env
+.env.local
+.env.*.local
+
 # Logs
-logs
-*.log
+*.log*
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Editor folders and files
+.vscode/
+.idea/
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+
+# Package lock
+package-lock.json
+
+# ESlint cache
+.eslintcache
+
+# TypeScript build artifacts
+*.tsbuildinfo
+
+# System files
+Thumbs.db
