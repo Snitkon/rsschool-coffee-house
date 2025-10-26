@@ -6,7 +6,6 @@ import { menuConfig } from './helper/config';
 
 const itemsPerPage = { items: window.innerWidth <= 768 ? 4 : 8 };
 const switcherSelector = '.menu__switchers__wrapper';
-// const cardsSelector = '.menu__cards__wrapper';
 
 export async function menu() {
   const switchersWrapper = document.querySelector<HTMLElement>(switcherSelector);

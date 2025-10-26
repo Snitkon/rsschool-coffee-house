@@ -16,6 +16,9 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         menu: resolve(__dirname, 'menu.html'),
+        cart: resolve(__dirname, 'cart.html'),
+        signup: resolve(__dirname, 'signup.html'),
+        signin: resolve(__dirname, 'signin.html'),
       },
       output: {
         entryFileNames: 'js/[name]-[hash].js',
