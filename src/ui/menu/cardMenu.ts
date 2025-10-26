@@ -140,7 +140,6 @@ export class MenuCard extends FavoriteCard {
   }
 
   private openModal() {
-    // if (this.modal) return;
     new Modal(this.id);
   }
 }
