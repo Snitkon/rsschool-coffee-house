@@ -1,4 +1,4 @@
-import { ICart, IOrder } from '../../types/types';
+import { IOrder } from '../../types/types';
 import { Storage } from '../storage/storage';
 import trashIcon from '/icons/icon-trash.svg?raw';
 import cartIcon from '/icons/icon-cart.svg?raw';
@@ -11,34 +11,11 @@ export class Cart {
   private totalPriceElement!: HTMLElement;
   private ordersBlock!: HTMLDivElement;
   static navCartBlock: HTMLLinkElement | null = null;
-  private test!: ICart;
 
   constructor(root: HTMLDivElement) {
-    this.test = {
-      items: [
-        {
-          productId: 1,
-          name: 'Marble cheesecake',
-          size: 'm',
-          additives: ['Sugar', 'Cinnamon'],
-          quantity: 2,
-          price: 7.75,
-        },
-        {
-          productId: 1,
-          name: 'Marble cheesecake',
-          size: 'l',
-          additives: ['Sugar'],
-          quantity: 3,
-          price: 6.5,
-        },
-      ],
-      totalPrice: 35,
-    };
     this.root = root;
     this.totalPrice = 0;
 
-    Storage.setCart(this.test);
     this.createStructure();
     this.setupListener();
     this.loadCartItems();
@@ -94,7 +71,7 @@ export class Cart {
     additives.classList.add('left_info__additives');
 
     img.setAttribute('alt', 'order-image');
-    img.setAttribute('src', '/images/dessert-2.png');
+    img.setAttribute('src', `/images/${order.category}-${order.productId}.png`);
 
     title.textContent = `${order.name}`;
     additives.textContent = order.additives.join(', ') || 'No additives';
@@ -144,6 +121,18 @@ export class Cart {
       return;
     }
     cart.children[1].innerHTML = `<span>${storeQuantity}</span>`;
+  }
+
+  static updateCartQuantity() {
+    const storeQuantity = Storage.getQuantity();
+    if (!this.navCartBlock) {
+      console.error('Container not found!');
+      return;
+    }
+    const quantityWrapper = this.navCartBlock.querySelector('.nav_cart__quantity_wrapper');
+    if (quantityWrapper) {
+      quantityWrapper.innerHTML = `<span>${storeQuantity}</span>`;
+    }
   }
 
   private setupListener() {

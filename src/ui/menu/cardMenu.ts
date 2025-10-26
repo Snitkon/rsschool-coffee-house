@@ -1,6 +1,6 @@
 import { IAdditives, IProduct, ISize, TCategory, TSize } from '../../types/types';
 import { FavoriteCard } from '../favorite/favorite';
-// import { Modal } from '../modal/modal';
+import { Modal } from '../modal/modal';
 import { getAllProducts } from '../../api/products/productsApi';
 import { ErrorHandling } from '../error/errorHandling';
 import loader from '/icons/icon-loader.svg?raw';
@@ -20,7 +20,7 @@ export class MenuCard extends FavoriteCard {
 
   sizes: Record<TSize, ISize>;
   additives: Array<IAdditives>;
-  modal: null;
+  modal: HTMLDivElement | null;
 
   constructor({ sizes, additives, ...arg }: IProduct) {
     super(arg);
@@ -102,11 +102,9 @@ export class MenuCard extends FavoriteCard {
       _this.cardsElement!.innerHTML = '';
 
       itemsToRender.forEach(data => {
-        const { name, description, price, category, sizes, additives, discountPrice } = data;
+        const { id, name, description, price, category, sizes, additives, discountPrice } = data;
         _this.categoryImageCounts[category].count =
           (_this.categoryImageCounts[category].count % _this.categoryImageCounts[category].max) + 1;
-        const categoryCount = _this.categoryImageCounts[category].count;
-        const id = categoryCount;
         const card = new MenuCard({ category, sizes, additives, id, name, description, price, discountPrice });
         const menuCard = card.createCards();
         _this.cardsElement!.appendChild(menuCard);
@@ -130,44 +128,19 @@ export class MenuCard extends FavoriteCard {
     }, 300);
   }
 
-  createCards() {
+  public createCards() {
     const card = super.createCards();
     const img = card.querySelector<HTMLElement>('.card_image');
     const image_wrapper = document.createElement('div');
     image_wrapper.classList.add('card_image__wrapper');
     image_wrapper.append(img!);
     card.prepend(image_wrapper);
-    // card.addEventListener('click', () => this.openModal());
+    card.addEventListener('click', () => this.openModal());
     return card;
   }
 
-  /*   openModal() {
-    if (this.modal) return;
-    const body = document.querySelector<HTMLElement>('.body');
-    const modal = new Modal({
-      id: this.id,
-      name: this.name,
-      description: this.description,
-      price: this.price,
-      sizes: this.sizes,
-      additives: this.additives,
-      discountPrice: this.discountPrice,
-    });
-    this.modal = modal.createModal();
-    body?.prepend(this.modal);
-
-    this.modal.querySelector('.button_secondary').addEventListener('click', () => this.closeModal());
-    this.modal.addEventListener('click', e => {
-      if (e.target === this.modal) {
-        this.closeModal();
-      }
-    });
-  } */
-
-  /* closeModal() {
-    if (!this.modal) return;
-    this.modal.remove();
-    this.modal = null;
-    document.body.style.overflow = '';
-  } */
+  private openModal() {
+    // if (this.modal) return;
+    new Modal(this.id);
+  }
 }
