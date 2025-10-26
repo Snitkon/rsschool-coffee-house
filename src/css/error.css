@@ -3,5 +3,9 @@
 }
 
 .error__wrapper {
+  border-radius: 20px;
+  padding: 15px;
+  background-color: var(--color-background-container);
+  color: var(--color-text-light);
   text-align: center;
 }

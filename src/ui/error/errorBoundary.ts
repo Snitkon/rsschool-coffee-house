@@ -18,7 +18,7 @@ export class ErrorBoundary {
     errorText.classList.add('error__text');
 
     errorTitle.textContent = this.errorTitle;
-    errorText.textContent = 'Что-то пошло не так. Пожалуйста, обновите страницу';
+    errorText.textContent = 'Something went wrong. Please, refresh the page';
     wrapper.append(errorTitle, errorText);
     this.container.appendChild(wrapper);
 

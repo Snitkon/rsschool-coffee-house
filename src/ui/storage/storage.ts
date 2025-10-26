@@ -1,4 +1,6 @@
-import { ICart, IOrder } from '../../types/types';
+import { getProfile } from '../../api/auth/authApi';
+import { ICart, IOrder, IProfile } from '../../types/types';
+import { isErrorResponse, isTestErrorResponse } from '../helper/typeGuards';
 
 export class Storage {
   private static readonly TOKEN_KEY = 'auth_token';
@@ -92,5 +94,25 @@ export class Storage {
     cart.totalPrice = cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     this.setCart(cart);
+  }
+
+  static async getUserProfile(): Promise<IProfile | null> {
+    const token = this.getToken();
+    if (!token) return null;
+    try {
+      const profile = await getProfile(token);
+      if (isErrorResponse(profile)) {
+        throw new Error(profile.message);
+      }
+      if (isTestErrorResponse(profile)) {
+        throw new Error('Test Error!');
+      }
+      return profile.data;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown Error';
+      console.error(message);
+      this.clearToken();
+      return null;
+    }
   }
 }

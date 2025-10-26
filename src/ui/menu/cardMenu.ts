@@ -4,6 +4,7 @@ import { Modal } from '../modal/modal';
 import { getAllProducts } from '../../api/products/productsApi';
 import { ErrorHandling } from '../error/errorHandling';
 import loader from '/icons/icon-loader.svg?raw';
+import { Spinner } from '../loader/spinner';
 
 export class MenuCard extends FavoriteCard {
   static cardsElement: HTMLDivElement | null;
@@ -47,6 +48,12 @@ export class MenuCard extends FavoriteCard {
     return btn;
   }
 
+  static showLoader(element: HTMLDivElement) {
+    const instanceSpinner = new Spinner();
+    const spinner = instanceSpinner.createSpinner();
+    element.appendChild(spinner);
+  }
+
   static async changeCategory(category: TCategory, reset: boolean) {
     this.currentCategory = category;
     this.cardsElement = document.querySelector<HTMLDivElement>(this.cardsSelector);
@@ -54,6 +61,7 @@ export class MenuCard extends FavoriteCard {
       console.error('Container not found!');
       return;
     }
+    this.showLoader(this.cardsElement);
     try {
       const products = await getAllProducts(category);
       const handler = new ErrorHandling({

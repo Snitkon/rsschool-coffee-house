@@ -1,5 +1,10 @@
 export type TPayment = 'card' | 'cash';
 
+export enum PaymentMethod {
+  card = 'Card',
+  cash = 'Cash',
+}
+
 export type TSize = 's' | 'm' | 'l';
 
 export type TCategory = 'tea' | 'coffee' | 'dessert';
