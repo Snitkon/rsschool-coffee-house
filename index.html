@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..24,400..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/css/normalize.css">
+  <link rel="stylesheet" href="/src/css/main.css">
+  <link rel="icon" href="/favicon.png" type="image/x-icon">
+  <title>Coffee House</title>
+</head>
+
+<body class="body">
+  <header class="header">
+    <a class="nav_logo" href="index.html">
+      <img class="logo" src="/icons/logo.svg" alt="Coffee House Logo">
+    </a>
+    <div class="burger">
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <nav class="nav">
+      <ul class="nav_list">
+        <li><a href="#favorite" class="link nav_link burger_link">Favorite coffee</a>
+        </li>
+        <li><a href="#about" class="link nav_link burger_link">About</a></li>
+        <li><a href="#app" class="link nav_link burger_link">Mobile App</a>
+        </li>
+        <li><a href="#footer" class="link nav_link burger_link">Contact us</a></li>
+      </ul>
+      <a class="link nav_menu burger_link" href="menu.html">
+        Menu
+        <img src="/icons/icon-coffee-cup.svg" alt="icon-coffee-cup">
+      </a>
+    </nav>
+
+  </header>
+  <main class="main">
+    <section id="hero" class="hero">
+      <video class="hero-video" autoplay loop muted playsinline preload="auto" poster="images/img-hero.jpg">
+        <source src="hero-video.mp4" type="video/mp4">
+      </video>
+      <div class="hero_container">
+        <h1 class="title">
+          <span class="accent">
+            Enjoy
+          </span>
+          premium coffee at our charming cafe
+        </h1>
+        <p>With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular
+          destination
+          for coffee
+          lovers and those seeking a warm and inviting space to enjoy their favorite beverage.</p>
+        <a href="menu.html" class="button_primary hero_btn">
+          <span>Menu</span>
+          <img src="/icons/icon-coffee-cup.svg" alt="icon-coffee-cup">
+        </a>
+      </div>
+    </section>
+    <section id="favorite" class="favorite">
+      <h2 class="subtitle">Choose your
+        <span class="accent">
+          favorite
+        </span>
+        coffee
+      </h2>
+      <div class="carousel">
+        <button class="button_secondary btn_prev">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke="#403F3D" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+
+        </button>
+        <div class="carousel_container">
+          <div class="carousel__favorite_wrapper"></div>
+          <div class="carousel__indicator_wrapper">
+            <div class="indicator">
+              <div class="indicator_progress"></div>
+            </div>
+            <div class="indicator">
+              <div class="indicator_progress"></div>
+            </div>
+            <div class="indicator">
+              <div class="indicator_progress"></div>
+            </div>
+          </div>
+        </div>
+        <button class="button_secondary btn_next">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke="#403F3D" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+
+        </button>
+      </div>
+    </section>
+    <section id="about" class="about">
+      <h2 class="subtitle">
+        Resource is
+        <span class="accent">
+          the perfect and cozy place
+        </span>
+        where you can enjoy a variety of hot beverages, relax, catch up with
+        friends, or
+        get some work done.
+      </h2>
+      <div class="about__images_container">
+        <div class="about__image_subcontainer">
+          <div class="about__image_wrapper">
+            <img class="about__image" alt="about-1" src="images/about-1.png">
+          </div>
+          <div class="about__image_wrapper">
+            <img class="about__image" alt="about-2" src="images/about-2.png">
+          </div>
+        </div>
+        <div class="about__image_subcontainer">
+          <div class="about__image_wrapper">
+            <img class="about__image" alt="about-3" src="images/about-3.png">
+          </div>
+          <div class="about__image_wrapper">
+            <img class="about__image" alt="about-4" src="images/about-4.png">
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="app" class="app">
+      <div class="app__left_container">
+        <h2 class="subtitle">
+          <span class="accent">
+            Download
+          </span>
+          our apps to start ordering
+        </h2>
+        <p>Download the Resource app today and experience the comfort of ordering your favorite coffee from wherever you
+          are</p>
+        <div class="app__btn_container">
+          <button class="button_secondary app__btn">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M26.7063 18.6307C26.6694 14.6324 30.0641 12.6872 30.2193 12.5966C28.2967 9.86366 25.3169 9.49026 24.2697 9.46048C21.767 9.20369 19.3393 10.9206 18.0644 10.9206C16.764 10.9206 14.8008 9.48529 12.6848 9.52747C9.96196 9.56841 7.41468 11.1055 6.01762 13.4923C3.13444 18.359 5.28474 25.5108 8.04705 29.4446C9.42884 31.3712 11.0435 33.5223 13.1569 33.4466C15.2245 33.3635 15.9968 32.1614 18.4919 32.1614C20.9641 32.1614 21.6893 33.4466 23.8447 33.3983C26.0637 33.3635 27.4608 31.463 28.7942 29.519C30.3911 27.3108 31.0323 25.1362 31.0578 25.0245C31.0056 25.0071 26.7483 23.4229 26.7063 18.6307Z"
+                fill="#403F3D" />
+              <path
+                d="M22.6347 6.87268C23.7468 5.51675 24.5076 3.67205 24.2964 1.80005C22.6869 1.86952 20.674 2.88554 19.5149 4.21169C18.4893 5.38029 17.5732 7.29571 17.8099 9.097C19.6179 9.2285 21.4743 8.20752 22.6347 6.87268Z"
+                fill="#403F3D" />
+            </svg>
+            <span>
+              <span class="caption">Available on the</span>
+              <span>App Store</span>
+            </span>
+          </button>
+          <button class="button_secondary app__btn">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M3.7558 3.20309C3.39335 3.57302 3.18359 4.14896 3.18359 4.89483V31.4995C3.18359 32.2454 3.39335 32.8213 3.7558 33.1913L3.84525 33.2725L19.1359 18.3701V18.0182L3.84525 3.11587L3.7558 3.20309Z"
+                fill="#403F3D" />
+              <path
+                d="M26.0776 23.34L20.9863 18.3701V18.0182L26.0837 13.0482L26.1979 13.1129L32.2345 16.4618C33.9573 17.4122 33.9573 18.9761 32.2345 19.9325L26.1979 23.2754L26.0776 23.34Z"
+                fill="#403F3D" />
+              <path
+                d="M25.2733 24.2008L20.0617 19.1196L4.68164 34.1167C5.25384 34.7031 6.18695 34.7738 7.24807 34.1873L25.2733 24.2008Z"
+                fill="#403F3D" />
+              <path
+                d="M25.2733 12.1876L7.24807 2.20103C6.18695 1.62058 5.25384 1.69125 4.68164 2.27772L20.0617 17.2688L25.2733 12.1876Z"
+                fill="#403F3D" />
+            </svg>
+            <span>
+              <span class="caption">Available on</span>
+              <span>Google Play</span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="app__right_container">
+        <img alt="app__image" src="/images/mobile-screens.png">
+      </div>
+    </section>
+  </main>
+  <footer id="footer" class="footer"></footer>
+  <script type="module" src="/src/js/script.js"></script>
+</body>
+
+</html>

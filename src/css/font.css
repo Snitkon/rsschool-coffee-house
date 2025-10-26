@@ -1,0 +1,59 @@
+/** Global property of typography  */
+
+:root {
+  --font-family: 'Inter', sans-serif;
+  --color-text-dark: #403f3d;
+  --color-text-light: #e1d4c9;
+  --color-text-accent: #b0907a;
+  --color-background-body: #e1d4c9;
+  --color-background-container: #665f55;
+  --color-background-backdrop: #403F3DСС;
+  --color-border-dark: #665f55;
+  --color-border-light: #c1b6ad;
+  --weight-text-regular: 400;
+  --weight-text-semi-bold: 600;
+  --heading-accent: italic;
+
+  /** Desktop style */
+
+  --heading-1-desktop-size: 72px;
+  --heading-1-desktop-weight: 600;
+  --heading-1-desktop-line: 105%;
+
+  --heading-2-desktop-size: 60px;
+  --heading-2-desktop-weight: 600;
+  --heading-2-desktop-line: 125%;
+
+  --heading-3-desktop-size: 24px;
+  --heading-3-desktop-weight: 600;
+  --heading-3-desktop-line: 125%;
+
+  /** Body  */
+
+  --body-medium-size: 16px;
+  --body-medium-weight: 400;
+  --body-medium-line: 150%;
+
+  --body-caption-size: 10px;
+  --body-caption-weight: 600;
+  --body-caption-line: 140%;
+
+  /** Action  */
+
+  --action-button-link-size: 16px;
+  --action-button-link-weight: 600;
+  --action-button-link-line: 150%;
+
+  --link-burger-link-size: 32px;
+  --link-burger-link-weight: 600;
+  --link-burger-link-line: 125%;
+
+  /** Mobile style */
+
+  --heading-1-mobile-size: 42px;
+  --heading-1-mobile-weight: 600;
+  --heading-1-mobile-line: 115%;
+  --heading-2-mobile-size: 32px;
+  --heading-2-mobile-weight: 600;
+  --heading-2-mobile-line: 125%;
+}

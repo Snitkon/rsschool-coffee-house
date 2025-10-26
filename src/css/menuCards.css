@@ -1,0 +1,57 @@
+/** Menu Cards  */
+
+.card_container {
+  display: flex;
+  width: fit-content;
+  max-width: 310px;
+  flex-direction: column;
+  border: 1px var(--color-border-light) solid;
+  border-radius: 40px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card_container > div:first-of-type > img {
+  transition: transform 0.3s ease;
+  transform: scale(1.1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card_container:hover > div:first-of-type > img {
+    transform: scale(1);
+  }
+}
+
+.card_image__wrapper {
+  width: 310px;
+  height: 310px;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.card_info__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: start;
+  gap: 16px;
+  padding: 20px;
+}
+
+.card_image {
+  width: 310px;
+  height: auto;
+}
+
+.menu__cards__wrapper {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+.menu__cards__wrapper.fade-out {
+  opacity: 0;
+}
+
+.menu__cards__wrapper.fade-in {
+  opacity: 1;
+}

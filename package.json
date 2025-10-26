@@ -1,0 +1,18 @@
+{
+  "name": "rsschool-coffee-house",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Coffee House",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy:gh": "git checkout gh-pages && git merge coffee-house && git push origin gh-pages && git checkout coffee-house"
+  },
+  "keywords": [],
+  "author": "Mikita Snitko",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^7.1.7"
+  }
+}
