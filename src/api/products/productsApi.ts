@@ -24,7 +24,7 @@ export async function getFavoriteProducts() {
   return response;
 }
 
-export async function getOneProducts(id: number) {
+export async function getOneProduct(id: number) {
   const response = await apiFetch<IProduct>(`/products/${id}`, {
     headers: {
       Accept: 'application/json',

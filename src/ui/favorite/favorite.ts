@@ -1,12 +1,12 @@
-import { IProduct } from '../../types/types';
+import { IProduct, TCategory } from '../../types/types';
 
 export class FavoriteCard {
   id: number;
   name: string;
   description: string;
-  price: string;
-  category: string;
-  discountPrice: string | null;
+  price: number;
+  category: TCategory;
+  discountPrice: number | null;
 
   constructor(favorite: IProduct) {
     this.id = favorite.id;
@@ -17,7 +17,7 @@ export class FavoriteCard {
     this.discountPrice = favorite.discountPrice;
   }
 
-  createCards(): HTMLElement {
+  public createCards(): HTMLElement {
     const container = document.createElement('div');
     const info_wrapper = document.createElement('div');
     const image = document.createElement('img');

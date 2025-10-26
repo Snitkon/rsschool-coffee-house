@@ -1,37 +1,77 @@
-import { IAdditives, IProduct, ISize, TSize } from '../../types/types';
+import { getOneProduct } from '../../api/products/productsApi';
+import { IAdditives, IOrder, IProduct, ISize, TSize } from '../../types/types';
+import { Cart } from '../cart/cart';
+import { ErrorHandling } from '../error/errorHandling';
+import { Storage } from '../storage/storage';
 import { Switchers } from '../switcher/switcherMenu';
 
 export class Modal {
-  modalData;
+  id: number;
+  overlay!: HTMLDivElement;
+  root!: HTMLDivElement;
+  body!: HTMLElement | null;
+  product!: IProduct | null;
+  totalPrice!: number;
   selected: { size: TSize; additives: Set<string> } = {
     size: 's',
     additives: new Set(),
   };
 
-  constructor({ id, name, description, sizes, additives, price, category }: IProduct) {
-    this.modalData = { id, name, description, sizes, additives, price, category };
+  constructor(id: number) {
+    this.id = id;
+    this.createStructure();
+    this.getModalData();
   }
 
-  createModal() {
-    if (!this.modalData.sizes || Object.keys(this.modalData.sizes).length === 0) {
-      console.error('Modal: sizes are missing or empty');
-      return;
+  private async getModalData() {
+    try {
+      const product = await getOneProduct(this.id);
+      const handler = new ErrorHandling({
+        container: this.root,
+        data: product,
+        renderFn: product => {
+          this.product = product;
+          this.createModal();
+        },
+      });
+      handler.render();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Loader: unknown error';
+      console.error(message);
+      this.root.innerHTML = `<div>${message}</div>`;
     }
+  }
 
-    if (!this.modalData.additives || this.modalData.additives.length === 0) {
-      console.error('Modal: no additives found');
+  private createStructure() {
+    this.body = document.querySelector<HTMLElement>('.body');
+    if (!this.body) {
+      console.error('Not found body!');
       return;
     }
-    const transformAdditives = this.modalData.additives.reduce<Record<string, IAdditives>>((acc, item, index) => {
+    this.overlay = document.createElement('div');
+    this.root = document.createElement('div');
+
+    this.overlay.classList.add('overlay');
+    this.root.classList.add('modal');
+
+    this.root.setAttribute('id', `modal_${this.id}`);
+    this.overlay.append(this.root);
+    this.body.append(this.overlay);
+  }
+
+  private createModal() {
+    if (!this.product) return;
+    this.root.innerHTML = '';
+    const transformAdditives = this.product.additives?.reduce<Record<string, IAdditives>>((acc, item, index) => {
       acc[index + 1] = item;
       return acc;
     }, {});
 
-    const sizeSwitcher = new Switchers<TSize, ISize>(this.modalData.sizes, {
+    const sizeSwitcher = new Switchers<TSize, ISize>(this.product.sizes!, {
       default: 's',
       onChange: size => this.setSize(size as TSize),
     });
-    const additivesSwitcher = new Switchers<string, IAdditives>(transformAdditives, {
+    const additivesSwitcher = new Switchers<string, IAdditives>(transformAdditives!, {
       default: '0',
       onChange: additives => this.setAdditives(additives as Set<string>),
       multiply: true,
@@ -39,8 +79,6 @@ export class Modal {
 
     document.body.style.overflow = 'hidden';
 
-    const overlay = document.createElement('div');
-    const modal = document.createElement('div');
     const image = document.createElement('img');
     const rightWrapper = document.createElement('div');
     const infoBlock = document.createElement('div');
@@ -48,7 +86,10 @@ export class Modal {
     const additivesBlock = document.createElement('div');
     const priceBlock = document.createElement('div');
     const noteBlock = document.createElement('div');
-    const button = document.createElement('button');
+    const addButton = document.createElement('button');
+    const closeButton = document.createElement('button');
+    const lineOne = document.createElement('span');
+    const lineTwo = document.createElement('span');
     const nameTitle = document.createElement('h3');
     const description = document.createElement('p');
     const sizeSubtitle = document.createElement('p');
@@ -60,8 +101,6 @@ export class Modal {
     const noteIcon = document.createElement('div');
     const note = document.createElement('p');
 
-    overlay.classList.add('overlay');
-    modal.classList.add('modal');
     image.classList.add('modal__image');
     rightWrapper.classList.add('modal__right_wrapper');
     infoBlock.classList.add('right_wrapper__info_block');
@@ -69,7 +108,10 @@ export class Modal {
     additivesBlock.classList.add('right_wrapper__additives_block');
     priceBlock.classList.add('right_wrapper__price_block');
     noteBlock.classList.add('right_wrapper__note_block');
-    button.classList.add('right_wrapper__btn', 'button_secondary');
+    addButton.classList.add('right_wrapper__btn', 'button_secondary');
+    closeButton.classList.add('button_secondary', 'modal__close_btn');
+    lineOne.classList.add('close_btn_line');
+    lineTwo.classList.add('close_btn_line');
     nameTitle.classList.add('info_block__name_title');
     description.classList.add('info_block__description');
     sizeSubtitle.classList.add('size_block__size_subtitle');
@@ -81,63 +123,115 @@ export class Modal {
     noteIcon.classList.add('note_block__note_icon');
     note.classList.add('note_block__note');
 
-    modal.setAttribute('id', `modal_${this.modalData.id}`);
-    image.setAttribute('alt', `modal_${this.modalData.name}`);
-    image.setAttribute('src', `${this.modalData.category}-${this.modalData.id}`);
+    image.setAttribute('alt', `modal_${this.product.name}`);
+    image.setAttribute('src', `images/${this.product.category}-${this.product.id}.png`);
 
-    nameTitle.textContent = this.modalData.name;
-    description.textContent = this.modalData.description;
+    nameTitle.textContent = this.product.name;
+    description.textContent = this.product.description;
     sizeSubtitle.textContent = 'Size';
     additivesSubtitle.textContent = 'Additives';
     priceTitle.textContent = 'Total:';
-    price.textContent = `$${this.modalData.price}`;
+    price.textContent = `$${this.product.price}`;
     note.textContent =
       'The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.';
-    button.textContent = 'Close';
+    addButton.textContent = 'Add to cart';
+    this.totalPrice = this.product.price;
 
-    overlay.append(modal);
-    modal.append(image, rightWrapper);
-    rightWrapper.append(infoBlock, sizeBlock, additivesBlock, priceBlock, noteBlock, button);
+    closeButton.addEventListener('click', () => this.closeModal());
+    addButton.addEventListener('click', () => this.addToCart());
+
+    this.overlay.addEventListener('click', event => {
+      if (event.target === this.overlay) {
+        this.closeModal();
+      }
+    });
+
+    this.root.append(image, rightWrapper, closeButton);
+    closeButton.append(lineOne, lineTwo);
+    rightWrapper.append(infoBlock, sizeBlock, additivesBlock, priceBlock, noteBlock, addButton);
     infoBlock.append(nameTitle, description);
     sizeBlock.append(sizeSubtitle, sizeSwitcher.createSwitchers());
     additivesBlock.append(additivesSubtitle, additivesSwitcher.createSwitchers());
     priceBlock.append(priceTitle, price);
     noteBlock.append(noteIcon, note);
-    return overlay;
+    this.overlay.append(this.root);
   }
 
-  setSize(size: TSize) {
+  private setSize(size: TSize) {
     this.selected.size = size;
     this.updatePrice();
   }
 
-  setAdditives(additives: Set<string>) {
+  private setAdditives(additives: Set<string>) {
     this.selected.additives = additives;
     this.updatePrice();
   }
 
-  updatePrice() {
-    if (!this.modalData.sizes || Object.keys(this.modalData.sizes).length === 0) {
+  private updatePrice() {
+    if (!this.product) return;
+    if (!this.product.sizes || Object.keys(this.product.sizes).length === 0) {
       console.error('Modal: sizes are missing or empty');
       return;
     }
 
-    if (!this.modalData.additives || this.modalData.additives.length === 0) {
+    if (!this.product.additives || this.product.additives.length === 0) {
       console.error('Modal: no additives found');
       return;
     }
-    const basicPrice = +this.modalData.price;
-    const size = this.modalData.sizes[this.selected.size];
-    const sizeAdd = size ? +size['price'] : 0;
+    const basicPrice = +this.product.price;
+    const size = this.product.sizes[this.selected.size];
+    const sizeAdd = size && +size['price'] ? +size.price : +this.product.sizes.s.price;
     let additivesAdd = 0;
     for (const key of this.selected.additives) {
       const index = Number(key);
-      const additive = this.modalData.additives[index - 1]['price'];
+      const additive = this.product.additives[index - 1]['price'];
       additivesAdd += +additive;
     }
 
-    const total = (basicPrice + sizeAdd + additivesAdd).toFixed(2);
+    this.totalPrice = basicPrice + (sizeAdd - basicPrice) + additivesAdd;
     const price = document.querySelector<HTMLElement>('.price_block__price');
-    price!.textContent = `$${total}`;
+    price!.textContent = `$${this.totalPrice.toFixed(2)}`;
+  }
+
+  private closeModal() {
+    if (!this.root || !this.overlay) {
+      console.error('Not found root or overlay');
+      return;
+    }
+    this.overlay.remove();
+    this.root = null!;
+    this.overlay = null!;
+    document.body.style.overflow = '';
+  }
+
+  private addToCart() {
+    if (!this.product) {
+      console.error('No product selected');
+      return;
+    }
+
+    const additives = [];
+    for (const key of this.selected.additives) {
+      const additiveIndex = +key - 1;
+      if (this.product.additives && this.product.additives[additiveIndex]) {
+        additives.push(this.product.additives[additiveIndex].name);
+      } else {
+        console.warn(`Additive with index ${key} not found`);
+      }
+    }
+
+    const order: IOrder = {
+      name: this.product.name,
+      productId: this.product.id,
+      size: this.selected.size,
+      quantity: 1,
+      price: this.totalPrice,
+      discountPrice: this.product.discountPrice,
+      category: this.product.category,
+      additives: additives,
+    };
+
+    Storage.addOrderToCart(order);
+    Cart.updateCartQuantity();
   }
 }

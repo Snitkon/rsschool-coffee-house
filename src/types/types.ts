@@ -44,8 +44,8 @@ export interface IProduct {
   id: number;
   name: string;
   description: string;
-  price: string;
-  discountPrice: string | null;
+  price: number;
+  discountPrice: number | null;
   category: TCategory;
   sizes?: Record<TSize, ISize>;
   additives?: Array<IAdditives>;
@@ -59,13 +59,6 @@ export interface IProfile {
   houseNumber: number;
   paymentMethod: TPayment;
   createdAt: string;
-}
-
-export interface IOrder {
-  productId: number;
-  size: TSize;
-  additives: Array<string>;
-  quantity: number;
 }
 
 export interface IConfirmOrder {
@@ -104,6 +97,7 @@ export interface IOrder {
   additives: Array<string>;
   quantity: number;
   price: number;
+  category: TCategory;
   name?: string;
   discountPrice?: number | null;
 }
