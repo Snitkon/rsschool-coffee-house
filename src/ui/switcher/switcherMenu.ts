@@ -1,4 +1,4 @@
-import { IAdditives, IMenu, ISize } from '../../types/types';
+import { IAdditives, IMenuSwitch, ISize } from '../../types/types';
 
 type SwitchersOptions = {
   multiply?: boolean;
@@ -6,7 +6,7 @@ type SwitchersOptions = {
   onChange?: (value: Set<string> | string) => void;
 };
 
-type IUnite = ISize | IAdditives | IMenu;
+type IUnite = ISize | IAdditives | IMenuSwitch;
 
 export class Switchers<K extends string, V extends IUnite> {
   config: Record<K, V>;

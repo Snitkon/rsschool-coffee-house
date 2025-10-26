@@ -1,22 +1,20 @@
 import { IProduct } from '../../types/types';
 
-interface IFavoriteCard extends IProduct {
-  image?: string;
-}
-
 export class FavoriteCard {
   id: number;
   name: string;
   description: string;
   price: string;
-  image: string;
+  category: string;
+  discountPrice: string | null;
 
-  constructor(favorite: IFavoriteCard) {
+  constructor(favorite: IProduct) {
     this.id = favorite.id;
     this.name = favorite.name;
     this.description = favorite.description;
     this.price = favorite.price;
-    this.image = favorite.image || 'images/logo.png';
+    this.category = favorite.category;
+    this.discountPrice = favorite.discountPrice;
   }
 
   createCards(): HTMLElement {
@@ -29,7 +27,7 @@ export class FavoriteCard {
 
     container.setAttribute('id', `${this.id}`);
     image.setAttribute('alt', `card_${this.name}`);
-    image.setAttribute('src', `images/coffee-${this.id}.png`);
+    image.setAttribute('src', `images/${this.category}-${this.id}.png`);
 
     container.classList.add('card_container');
     info_wrapper.classList.add('card_info__wrapper');

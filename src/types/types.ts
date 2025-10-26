@@ -29,6 +29,11 @@ export interface ISize {
   discountPrice: string;
 }
 
+export interface IMenuSwitch {
+  text: string;
+  icon: string;
+}
+
 export interface IAdditives {
   name: string;
   price: string;
@@ -41,7 +46,7 @@ export interface IProduct {
   description: string;
   price: string;
   discountPrice: string | null;
-  category: string;
+  category: TCategory;
   sizes?: Record<TSize, ISize>;
   additives?: Array<IAdditives>;
 }
@@ -91,13 +96,7 @@ export interface IConfirmOrderRequest {
   totalPrice: number;
 }
 
-export type IMenu = Record<
-  TCategory,
-  {
-    text: string;
-    icon: string;
-  }
->;
+export type IMenu = Record<TCategory, IMenuSwitch>;
 
 export interface IOrder {
   productId: number;
