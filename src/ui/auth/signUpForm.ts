@@ -408,8 +408,7 @@ export class SignUpForm {
     const errorHandler = new ErrorHandling<ILogInOrSignIn>({
       container: this.errorContainer,
       data: response,
-      renderFn: data => {
-        console.log('Registration successful:', data);
+      renderFn: () => {
         this.errorContainer.textContent = 'Registration successful!';
         this.errorContainer.style.color = 'green';
       },

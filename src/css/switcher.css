@@ -29,6 +29,10 @@
   background-color: var(--color-background-container);
 }
 
+.switch_active {
+  cursor: default;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .switch_button:hover > img,
   .switch_active > img {
