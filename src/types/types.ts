@@ -111,4 +111,5 @@ export interface IOrder {
 export interface ICart {
   items: Array<IOrder>;
   totalPrice: number;
+  totalDiscountPrice?: number;
 }
