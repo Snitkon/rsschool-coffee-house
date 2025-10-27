@@ -39,6 +39,7 @@ export class Modal {
       const profile = await Storage.getUserProfile();
       this.isAuth = !!profile;
       const handler = new ErrorHandling({
+        isErrorText: '',
         container: this.root,
         data: product,
         renderFn: product => {

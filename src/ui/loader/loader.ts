@@ -34,13 +34,14 @@ export class Loader {
     try {
       const data = await getFavoriteProducts();
       const handler = new ErrorHandling({
+        isErrorText: '',
         container: this.container,
         mainContainer: this.mainContainer,
         data: data,
         renderFn: (favorites: Array<IProduct>) => {
           favorites.forEach(favorite => {
             const instanceFavoriteCard = new FavoriteCard(favorite);
-            const favoriteCard = instanceFavoriteCard.createCards();
+            const favoriteCard = instanceFavoriteCard.createCards(false);
             this.container.appendChild(favoriteCard);
           });
         },

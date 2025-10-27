@@ -66,6 +66,7 @@ export class MenuCard extends FavoriteCard {
     try {
       const products = await getAllProducts(category);
       const handler = new ErrorHandling({
+        isErrorText: '',
         container: this.cardsElement,
         data: products,
         renderFn: (products: Array<IProduct>) => {
