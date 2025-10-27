@@ -12,7 +12,7 @@ export class Modal {
   root!: HTMLDivElement;
   body!: HTMLElement | null;
   product!: IProduct | null;
-  totalPrice!: number;
+  discountPrice!: number;
   regularPrice!: number;
   isAuth!: boolean;
   selected: { size: TSize; additives: Set<string> } = {
@@ -150,9 +150,10 @@ export class Modal {
     note.textContent =
       'The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.';
     addButton.textContent = 'Add to cart';
-    this.totalPrice =
-      this.isAuth && this.product.discountPrice !== null ? this.product.discountPrice : this.product.price;
+    /*  this.totalPrice =
+      this.isAuth && this.product.discountPrice !== null ? this.product.discountPrice : this.product.price; */
     this.regularPrice = this.product.price;
+    this.discountPrice = this.product.discountPrice!;
 
     closeButton.addEventListener('click', () => this.closeModal());
     addButton.addEventListener('click', () => this.addToCart());
@@ -190,55 +191,40 @@ export class Modal {
       console.error('Modal: sizes are missing or empty');
       return;
     }
-
     if (!this.product.additives || this.product.additives.length === 0) {
       console.error('Modal: no additives found');
       return;
     }
-    const basicPrice =
-      this.isAuth && this.product.discountPrice !== null ? +this.product.discountPrice : +this.product.price;
-    const regBasic = +this.product.price;
-    const size = this.product.sizes[this.selected.size];
-    const regSizeAdd = (() => {
-      const baseSize = this.product.sizes?.s;
-      const selectedSize = size || baseSize;
 
-      if (!selectedSize) return 0;
+    const basicPrice = +this.product.price;
+    const discountPrice = this.product.discountPrice !== null ? +this.product.discountPrice : basicPrice;
 
-      return +selectedSize.price || +baseSize.price || 0;
-    })();
-    const sizeAdd = (() => {
-      const baseSize = this.product.sizes?.s;
-      const selectedSize = size || baseSize;
+    const baseSize = this.product.sizes?.s;
+    const selectedSize = this.product.sizes[this.selected.size] || baseSize;
 
-      if (!selectedSize) return 0;
+    const regSizeAdd = selectedSize ? +selectedSize.price || +baseSize.price || 0 : 0;
+    const sizeAdd = selectedSize
+      ? selectedSize === baseSize && this.product.discountPrice !== null
+        ? +this.product.discountPrice
+        : selectedSize.discountPrice != null
+          ? +selectedSize.discountPrice
+          : +selectedSize.price || +baseSize.price || 0
+      : 0;
 
-      if (this.isAuth) {
-        if (selectedSize.discountPrice != null) {
-          return +selectedSize.discountPrice;
-        } else if (selectedSize === baseSize && this.product.discountPrice != null) {
-          return +this.product.discountPrice;
-        }
-      }
-      return +selectedSize.price || +baseSize.price || 0;
-    })();
     let additivesAdd = 0;
     let regularAdditives = 0;
     for (const key of this.selected.additives) {
       const index = Number(key);
-      const additive =
-        this.isAuth && this.product.discountPrice !== null
-          ? this.product.additives[index - 1]['discountPrice'] || this.product.additives[index - 1]['price']
-          : this.product.additives[index - 1]['price'];
-      additivesAdd += +additive;
-      const regAdditives = this.product.additives[index - 1]['price'];
-      regularAdditives += +regAdditives;
+      const additive = this.product.additives[index - 1];
+      additivesAdd += additive.discountPrice !== null ? +additive.discountPrice : +additive.price;
+      regularAdditives += +additive.price;
     }
 
-    this.totalPrice = basicPrice + (sizeAdd - basicPrice) + additivesAdd;
-    this.regularPrice = regBasic + (regSizeAdd - regBasic) + regularAdditives;
+    this.discountPrice = discountPrice + (sizeAdd - discountPrice) + additivesAdd;
+    this.regularPrice = basicPrice + (regSizeAdd - basicPrice) + regularAdditives;
+
     const price = document.querySelector<HTMLElement>('.price_block__price');
-    price!.textContent = `$${this.totalPrice.toFixed(2)}`;
+    price!.textContent = this.isAuth ? `$${this.discountPrice.toFixed(2)}` : `$${this.regularPrice.toFixed(2)}`;
   }
 
   private closeModal() {
@@ -273,8 +259,8 @@ export class Modal {
       productId: this.product.id,
       size: this.selected.size,
       quantity: 1,
-      price: this.totalPrice,
-      discountPrice: this.totalPrice,
+      price: this.isAuth ? this.discountPrice : this.regularPrice,
+      discountPrice: this.discountPrice,
       regularPrice: this.regularPrice,
       category: this.product.category,
       additives: additives,
