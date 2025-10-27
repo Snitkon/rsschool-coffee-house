@@ -1,6 +1,7 @@
 import { signUp } from '../../api/auth/authApi';
 import { ILogInOrSignIn, ISignUpRequest } from '../../types/types';
 import { ErrorHandling } from '../error/errorHandling';
+import { Storage } from '../storage/storage';
 
 export class SignUpForm {
   private root!: HTMLElement;
@@ -119,7 +120,7 @@ export class SignUpForm {
       'signup-house-id',
       true,
     );
-    this.paymentCash = this.createInput(
+    const cashWrapper = this.createInput(
       'div',
       'form-group-radio',
       'radio',
@@ -130,7 +131,7 @@ export class SignUpForm {
       'cash',
       'payment',
     ) as HTMLInputElement;
-    this.paymentCard = this.createInput(
+    const cardWrapper = this.createInput(
       'div',
       'form-group-radio',
       'radio',
@@ -141,6 +142,8 @@ export class SignUpForm {
       'card',
       'payment',
     ) as HTMLInputElement;
+    this.paymentCash = cashWrapper.querySelector('input') as HTMLInputElement;
+    this.paymentCard = cardWrapper.querySelector('input') as HTMLInputElement;
     this.loginInput = loginWrapper.querySelector('input') as HTMLInputElement;
     this.passInput = passWrapper.querySelector('input') as HTMLInputElement;
     this.confirmInput = confirmWrapper.querySelector('input') as HTMLInputElement;
@@ -148,6 +151,7 @@ export class SignUpForm {
     this.streetInput = streetWrapper.querySelector('select') as HTMLSelectElement;
     this.houseInput = houseWrapper.querySelector('input') as HTMLInputElement;
     this.submitBtn = document.createElement('button');
+    const text = document.createElement('p');
 
     this.errorContainer = document.createElement('div');
     this.errorContainer.classList.add('error-container');
@@ -155,23 +159,24 @@ export class SignUpForm {
     this.form.addEventListener('submit', this.handleSubmit.bind(this));
 
     const radioContainer = document.createElement('div');
-    const radioLabel = document.createElement('label');
+    const radioTitle = document.createElement('div');
     const radioWrapper = document.createElement('div');
     radioContainer.classList.add('form-group');
     radioWrapper.classList.add('radio-wrapper');
     radioWrapper.setAttribute('id', 'radio-wrapper-id');
 
-    radioLabel.classList.add('label');
-    radioLabel.setAttribute('for', 'radio-wrapper-id');
-    radioLabel.textContent = 'Pay by';
+    radioTitle.classList.add('title');
+    radioTitle.textContent = 'Pay by';
 
     this.submitBtn.setAttribute('type', 'submit');
     this.submitBtn.classList.add('button_secondary', 'auth-btn');
+    text.classList.add('text');
     this.submitBtn.textContent = 'Registration';
+    text.innerHTML = `If you are registered, <a styles= class='link' href='signin'>sign in</a>`;
     this.submitBtn.disabled = true;
 
-    radioWrapper.append(this.paymentCash, this.paymentCard);
-    radioContainer.append(radioLabel, radioWrapper);
+    radioWrapper.append(cashWrapper, cardWrapper);
+    radioContainer.append(radioTitle, radioWrapper);
 
     this.form.append(
       loginWrapper,
@@ -182,6 +187,7 @@ export class SignUpForm {
       houseWrapper,
       radioContainer,
       this.submitBtn,
+      text,
       this.errorContainer,
     );
 
@@ -282,14 +288,28 @@ export class SignUpForm {
   private setupValidation() {
     this.loginInput.addEventListener('blur', this.validateLogin.bind(this));
     this.passInput.addEventListener('blur', this.validatePassword.bind(this));
+    this.confirmInput.addEventListener('blur', this.validateConfirmPassword.bind(this));
     this.houseInput.addEventListener('blur', this.validateHouse.bind(this));
+    this.cityInput.addEventListener('blur', this.validateCity.bind(this));
+    this.streetInput.addEventListener('blur', this.validateStreet.bind(this));
+
     this.loginInput.addEventListener('focus', () => this.clearValidation(this.loginInput));
     this.passInput.addEventListener('focus', () => this.clearValidation(this.passInput));
+    this.confirmInput.addEventListener('focus', () => this.clearValidation(this.confirmInput));
     this.houseInput.addEventListener('focus', () => this.clearValidation(this.houseInput));
+    this.cityInput.addEventListener('focus', () => this.clearValidation(this.cityInput));
+    this.streetInput.addEventListener('focus', () => this.clearValidation(this.streetInput));
+
     this.loginInput.addEventListener('input', this.checkFormValidity.bind(this));
     this.passInput.addEventListener('input', this.checkFormValidity.bind(this));
+    this.confirmInput.addEventListener('input', this.checkFormValidity.bind(this));
     this.houseInput.addEventListener('input', this.checkFormValidity.bind(this));
     this.cityInput.addEventListener('change', this.updateStreets.bind(this));
+    this.cityInput.addEventListener('change', this.checkFormValidity.bind(this));
+    this.streetInput.addEventListener('change', this.checkFormValidity.bind(this));
+
+    this.paymentCash.addEventListener('change', this.checkFormValidity.bind(this));
+    this.paymentCard.addEventListener('change', this.checkFormValidity.bind(this));
   }
 
   private validateLogin(event: Event) {
@@ -354,7 +374,7 @@ export class SignUpForm {
     });
   }
 
-  private clearValidation(input: HTMLInputElement) {
+  private clearValidation(input: HTMLInputElement | HTMLSelectElement) {
     const errorElement = this.errorMessages.get(input.id)!;
 
     input.style.border = '';
@@ -362,21 +382,7 @@ export class SignUpForm {
     errorElement.style.display = 'none';
   }
 
-  private checkFormValidity() {
-    const loginValid =
-      this.loginInput.value.length >= 3 &&
-      /^[a-zA-Z]/.test(this.loginInput.value) &&
-      /^[a-zA-Z]+$/.test(this.loginInput.value);
-
-    const passwordValid =
-      this.passInput.value.length >= 6 && /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(this.passInput.value);
-
-    const houseValid = +this.houseInput.value >= 1;
-
-    this.submitBtn.disabled = !(loginValid && passwordValid && houseValid);
-  }
-
-  private showValidationResult(input: HTMLInputElement, errorMessage: string) {
+  private showValidationResult(input: HTMLInputElement | HTMLSelectElement, errorMessage: string) {
     const errorElement = this.errorMessages.get(input.id)!;
 
     if (errorMessage) {
@@ -388,6 +394,69 @@ export class SignUpForm {
     }
 
     this.checkFormValidity();
+  }
+
+  private validateConfirmPassword(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    let errorMessage = '';
+
+    if (value !== this.passInput.value) {
+      errorMessage = 'Passwords do not match';
+    } else if (!value) {
+      errorMessage = 'Confirm password is required';
+    }
+
+    this.showValidationResult(input, errorMessage);
+  }
+
+  private validateCity(event: Event) {
+    const input = event.target as HTMLSelectElement;
+    let errorMessage = '';
+
+    if (!input.value) {
+      errorMessage = 'Please select a city';
+    }
+
+    this.showValidationResult(input, errorMessage);
+  }
+
+  private validateStreet(event: Event) {
+    const input = event.target as HTMLSelectElement;
+    let errorMessage = '';
+
+    if (!input.value) {
+      errorMessage = 'Please select a street';
+    }
+
+    this.showValidationResult(input, errorMessage);
+  }
+
+  private checkFormValidity() {
+    const loginValid =
+      this.loginInput.value.length >= 3 &&
+      /^[a-zA-Z]/.test(this.loginInput.value) &&
+      /^[a-zA-Z]+$/.test(this.loginInput.value);
+
+    const passwordValid =
+      this.passInput.value.length >= 6 && /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(this.passInput.value);
+
+    const confirmPasswordValid = this.confirmInput.value === this.passInput.value && !!this.confirmInput.value;
+
+    const cityValid = !!this.cityInput.value;
+    const streetValid = !!this.streetInput.value;
+    const houseValid = +this.houseInput.value >= 1;
+    const paymentValid = this.paymentCash.checked || this.paymentCard.checked;
+
+    this.submitBtn.disabled = !(
+      loginValid &&
+      passwordValid &&
+      confirmPasswordValid &&
+      cityValid &&
+      streetValid &&
+      houseValid &&
+      paymentValid
+    );
   }
 
   private async handleSubmit(e: Event) {
@@ -406,11 +475,12 @@ export class SignUpForm {
     const response = await signUp(formData);
 
     const errorHandler = new ErrorHandling<ILogInOrSignIn>({
+      isErrorText: ' ',
       container: this.errorContainer,
       data: response,
-      renderFn: () => {
-        this.errorContainer.textContent = 'Registration successful!';
-        this.errorContainer.style.color = 'green';
+      renderFn: data => {
+        Storage.setToken(data.access_token);
+        window.location.href = '/menu';
       },
     });
     errorHandler.render();

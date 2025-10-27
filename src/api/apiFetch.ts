@@ -1,6 +1,5 @@
 import { IError, IErrorTest, ISuccess, TResponseApi } from '../types/types';
 
-// const BASE_URL = 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com';
 const BASE_URL = 'https://6kt29kkeub.execute-api.eu-central-1.amazonaws.com';
 
 export async function apiFetch<T>(url: string, options?: RequestInit): Promise<TResponseApi<T>> {

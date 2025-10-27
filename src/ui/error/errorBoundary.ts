@@ -1,10 +1,12 @@
 export class ErrorBoundary {
   private container: HTMLDivElement;
   private errorTitle: string;
+  private isErrorText: string;
 
-  constructor({ errorTitle }: { errorTitle: string }) {
+  constructor({ errorTitle, isErrorText = '' }: { errorTitle: string; isErrorText?: string }) {
     this.container = document.createElement('div');
     this.errorTitle = errorTitle;
+    this.isErrorText = isErrorText;
   }
 
   renderErrorBounder(): HTMLElement {
@@ -18,7 +20,7 @@ export class ErrorBoundary {
     errorText.classList.add('error__text');
 
     errorTitle.textContent = this.errorTitle;
-    errorText.textContent = 'Something went wrong. Please, refresh the page';
+    errorText.textContent = this.isErrorText ? this.isErrorText : 'Something went wrong. Please, refresh the page';
     wrapper.append(errorTitle, errorText);
     this.container.appendChild(wrapper);
 

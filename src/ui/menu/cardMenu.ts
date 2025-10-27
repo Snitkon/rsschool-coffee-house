@@ -5,6 +5,7 @@ import { getAllProducts } from '../../api/products/productsApi';
 import { ErrorHandling } from '../error/errorHandling';
 import loader from '/icons/icon-loader.svg?raw';
 import { Spinner } from '../loader/spinner';
+import { Storage } from '../storage/storage';
 
 export class MenuCard extends FavoriteCard {
   static cardsElement: HTMLDivElement | null;
@@ -65,6 +66,7 @@ export class MenuCard extends FavoriteCard {
     try {
       const products = await getAllProducts(category);
       const handler = new ErrorHandling({
+        isErrorText: '',
         container: this.cardsElement,
         data: products,
         renderFn: (products: Array<IProduct>) => {
@@ -88,6 +90,7 @@ export class MenuCard extends FavoriteCard {
   }
 
   private static async renderCards(products: Array<IProduct>, reset = false) {
+    const isAuthenticated = await Storage.getUserProfile();
     const _this = MenuCard;
 
     _this.cardsElement!.classList.add('fade-out');
@@ -114,7 +117,7 @@ export class MenuCard extends FavoriteCard {
         _this.categoryImageCounts[category].count =
           (_this.categoryImageCounts[category].count % _this.categoryImageCounts[category].max) + 1;
         const card = new MenuCard({ category, sizes, additives, id, name, description, price, discountPrice });
-        const menuCard = card.createCards();
+        const menuCard = card.createCards(!!isAuthenticated);
         _this.cardsElement!.appendChild(menuCard);
       });
 
@@ -136,8 +139,8 @@ export class MenuCard extends FavoriteCard {
     }, 300);
   }
 
-  public createCards() {
-    const card = super.createCards();
+  public createCards(isAuthenticated: boolean) {
+    const card = super.createCards(isAuthenticated);
     const img = card.querySelector<HTMLElement>('.card_image');
     const image_wrapper = document.createElement('div');
     image_wrapper.classList.add('card_image__wrapper');

@@ -113,8 +113,20 @@
 
 .order__price {
   display: flex;
-  width: 120px;
+  width: 100%;
+  max-width: 185px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.discount_price {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.card_price_discount {
+  opacity: 50%;
+  text-decoration: line-through;
 }

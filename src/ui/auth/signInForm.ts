@@ -1,6 +1,7 @@
 import { logIn } from '../../api/auth/authApi';
 import { ILogInOrSignIn, ILogInRequest } from '../../types/types';
 import { ErrorHandling } from '../error/errorHandling';
+import { Storage } from '../storage/storage';
 
 export class SignInForm {
   private root!: HTMLElement;
@@ -23,6 +24,9 @@ export class SignInForm {
 
     const loginWrapper = this.createInput('text', 'login', 'signup-login', 'signup-login-id', true);
     const passWrapper = this.createInput('password', 'password', 'signup-password', 'signup-password-id', true);
+    const text = document.createElement('p');
+
+    text.style.gridColumn = 'span 3';
 
     this.loginInput = loginWrapper.querySelector('input') as HTMLInputElement;
     this.passInput = passWrapper.querySelector('input') as HTMLInputElement;
@@ -37,8 +41,9 @@ export class SignInForm {
     this.submitBtn.classList.add('button_secondary', 'auth-btn');
     this.submitBtn.textContent = 'Sign In';
     this.submitBtn.disabled = true;
+    text.innerHTML = `If you not registered, <a styles= class='link' href='signup'>sign up</a>`;
 
-    this.form.append(loginWrapper, passWrapper, this.submitBtn, this.errorContainer);
+    this.form.append(loginWrapper, passWrapper, this.submitBtn, text, this.errorContainer);
 
     this.root.append(this.form);
   }
@@ -155,11 +160,11 @@ export class SignInForm {
     const response = await logIn(formData);
 
     const errorHandler = new ErrorHandling<ILogInOrSignIn>({
+      isErrorText: 'Incorrect login or password',
       container: this.errorContainer,
       data: response,
-      renderFn: () => {
-        this.errorContainer.textContent = 'Registration successful!';
-        this.errorContainer.style.color = 'green';
+      renderFn: data => {
+        Storage.setToken(data.access_token);
         window.location.href = '/menu';
       },
     });

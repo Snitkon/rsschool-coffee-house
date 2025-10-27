@@ -17,13 +17,13 @@ export class FavoriteCard {
     this.discountPrice = favorite.discountPrice;
   }
 
-  public createCards(): HTMLElement {
+  public createCards(isAuthenticated: boolean): HTMLElement {
     const container = document.createElement('div');
     const info_wrapper = document.createElement('div');
     const image = document.createElement('img');
     const name = document.createElement('h3');
     const description = document.createElement('p');
-    const price = document.createElement('span');
+    const price = document.createElement('h3');
 
     container.setAttribute('id', `${this.id}`);
     image.setAttribute('alt', `card_${this.name}`);
@@ -38,7 +38,12 @@ export class FavoriteCard {
 
     name.textContent = this.name;
     description.textContent = this.description;
-    price.textContent = `$${this.price}`;
+    if (isAuthenticated && this.discountPrice !== null) {
+      price.classList.add('discount_price');
+      price.innerHTML = `<span>$${this.discountPrice}</span><span class='card_price_discount'>$${this.price}<span>`;
+    } else {
+      price.textContent = `$${this.price}`;
+    }
 
     info_wrapper.append(name, description, price);
     container.append(image, info_wrapper);

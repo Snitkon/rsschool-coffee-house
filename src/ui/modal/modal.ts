@@ -13,6 +13,8 @@ export class Modal {
   body!: HTMLElement | null;
   product!: IProduct | null;
   totalPrice!: number;
+  regularPrice!: number;
+  isAuth!: boolean;
   selected: { size: TSize; additives: Set<string> } = {
     size: 's',
     additives: new Set(),
@@ -20,6 +22,7 @@ export class Modal {
 
   constructor(id: number) {
     this.id = id;
+    this.isAuth = false;
     this.createStructure();
     this.getModalData();
   }
@@ -34,7 +37,10 @@ export class Modal {
     this.showLoader();
     try {
       const product = await getOneProduct(this.id);
+      const profile = await Storage.getUserProfile();
+      this.isAuth = !!profile;
       const handler = new ErrorHandling({
+        isErrorText: '',
         container: this.root,
         data: product,
         renderFn: product => {
@@ -139,11 +145,14 @@ export class Modal {
     sizeSubtitle.textContent = 'Size';
     additivesSubtitle.textContent = 'Additives';
     priceTitle.textContent = 'Total:';
-    price.textContent = `$${this.product.price}`;
+    price.textContent =
+      this.isAuth && this.product.discountPrice !== null ? `$${this.product.discountPrice}` : `$${this.product.price}`;
     note.textContent =
       'The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.';
     addButton.textContent = 'Add to cart';
-    this.totalPrice = this.product.price;
+    this.totalPrice =
+      this.isAuth && this.product.discountPrice !== null ? this.product.discountPrice : this.product.price;
+    this.regularPrice = this.product.price;
 
     closeButton.addEventListener('click', () => this.closeModal());
     addButton.addEventListener('click', () => this.addToCart());
@@ -186,17 +195,48 @@ export class Modal {
       console.error('Modal: no additives found');
       return;
     }
-    const basicPrice = +this.product.price;
+    const basicPrice =
+      this.isAuth && this.product.discountPrice !== null ? +this.product.discountPrice : +this.product.price;
+    const regBasic = +this.product.price;
     const size = this.product.sizes[this.selected.size];
-    const sizeAdd = size && +size['price'] ? +size.price : +this.product.sizes.s.price;
+    const regSizeAdd = (() => {
+      const baseSize = this.product.sizes?.s;
+      const selectedSize = size || baseSize;
+
+      if (!selectedSize) return 0;
+
+      return +selectedSize.price || +baseSize.price || 0;
+    })();
+    const sizeAdd = (() => {
+      const baseSize = this.product.sizes?.s;
+      const selectedSize = size || baseSize;
+
+      if (!selectedSize) return 0;
+
+      if (this.isAuth) {
+        if (selectedSize.discountPrice != null) {
+          return +selectedSize.discountPrice;
+        } else if (selectedSize === baseSize && this.product.discountPrice != null) {
+          return +this.product.discountPrice;
+        }
+      }
+      return +selectedSize.price || +baseSize.price || 0;
+    })();
     let additivesAdd = 0;
+    let regularAdditives = 0;
     for (const key of this.selected.additives) {
       const index = Number(key);
-      const additive = this.product.additives[index - 1]['price'];
+      const additive =
+        this.isAuth && this.product.discountPrice !== null
+          ? this.product.additives[index - 1]['discountPrice'] || this.product.additives[index - 1]['price']
+          : this.product.additives[index - 1]['price'];
       additivesAdd += +additive;
+      const regAdditives = this.product.additives[index - 1]['price'];
+      regularAdditives += +regAdditives;
     }
 
     this.totalPrice = basicPrice + (sizeAdd - basicPrice) + additivesAdd;
+    this.regularPrice = regBasic + (regSizeAdd - regBasic) + regularAdditives;
     const price = document.querySelector<HTMLElement>('.price_block__price');
     price!.textContent = `$${this.totalPrice.toFixed(2)}`;
   }
@@ -234,7 +274,8 @@ export class Modal {
       size: this.selected.size,
       quantity: 1,
       price: this.totalPrice,
-      discountPrice: this.product.discountPrice,
+      discountPrice: this.totalPrice,
+      regularPrice: this.regularPrice,
       category: this.product.category,
       additives: additives,
     };
