@@ -268,8 +268,6 @@ export class Modal {
       }
     }
 
-    console.log(this.regularPrice);
-    console.log(this.totalPrice);
     const order: IOrder = {
       name: this.product.name,
       productId: this.product.id,
