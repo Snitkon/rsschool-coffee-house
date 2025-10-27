@@ -1,6 +1,7 @@
 import { logIn } from '../../api/auth/authApi';
 import { ILogInOrSignIn, ILogInRequest } from '../../types/types';
 import { ErrorHandling } from '../error/errorHandling';
+import { Storage } from '../storage/storage';
 
 export class SignInForm {
   private root!: HTMLElement;
@@ -155,11 +156,11 @@ export class SignInForm {
     const response = await logIn(formData);
 
     const errorHandler = new ErrorHandling<ILogInOrSignIn>({
+      isErrorText: 'Incorrect login or password',
       container: this.errorContainer,
       data: response,
-      renderFn: () => {
-        this.errorContainer.textContent = 'Registration successful!';
-        this.errorContainer.style.color = 'green';
+      renderFn: data => {
+        Storage.setToken(data.access_token);
         window.location.href = '/menu';
       },
     });

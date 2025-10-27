@@ -8,6 +8,7 @@ export class ErrorHandling<T> {
   private data: TResponseApi<T>;
   private renderFn: (data: T) => void;
   private destroyFn?: () => void;
+  private isErrorText?: string;
 
   constructor({
     container,
@@ -15,12 +16,14 @@ export class ErrorHandling<T> {
     data,
     renderFn,
     destroyFn,
+    isErrorText = '',
   }: {
     container: HTMLElement | null;
     mainContainer?: HTMLElement;
     data: TResponseApi<T>;
     renderFn: (data: T) => void;
     destroyFn?: () => void;
+    isErrorText: string;
   }) {
     if (!container) {
       throw new Error('Container not found!');
@@ -30,10 +33,11 @@ export class ErrorHandling<T> {
     this.data = data;
     this.renderFn = renderFn;
     this.destroyFn = destroyFn;
+    this.isErrorText = isErrorText;
   }
 
-  private createErrorBoundary(title: string) {
-    return new ErrorBoundary({ errorTitle: title });
+  private createErrorBoundary(title: string, isErrorText: string) {
+    return new ErrorBoundary({ errorTitle: title, isErrorText: isErrorText });
   }
 
   render() {
@@ -46,7 +50,7 @@ export class ErrorHandling<T> {
         }
         const err = this.data;
         const title = err.isTestError ? 'This Test Error' : 'This Test Error';
-        const errorBoundary = this.createErrorBoundary(title);
+        const errorBoundary = this.createErrorBoundary(title, this.isErrorText!);
         if (this.mainContainer) {
           this.mainContainer.appendChild(errorBoundary.renderErrorBounder());
         } else {
@@ -61,7 +65,7 @@ export class ErrorHandling<T> {
         }
         const err = this.data;
         const title = err.message ? err.message : err.error;
-        const errorBoundary = this.createErrorBoundary(title);
+        const errorBoundary = this.createErrorBoundary(title, this.isErrorText!);
         if (this.mainContainer) {
           this.mainContainer.appendChild(errorBoundary.renderErrorBounder());
         } else {

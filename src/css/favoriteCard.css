@@ -30,6 +30,17 @@
   line-height: var(--heading-3-desktop-line);
 }
 
+.discount_price {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.card_price_discount {
+  opacity: 50%;
+  text-decoration: line-through;
+}
+
 @media (max-width: 480px) {
   .card_container {
     max-width: 348px;

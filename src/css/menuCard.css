@@ -55,3 +55,14 @@
 .menu__cards__wrapper.fade-in {
   opacity: 1;
 }
+
+.discount_price {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.card_price_discount {
+  opacity: 50%;
+  text-decoration: line-through;
+}

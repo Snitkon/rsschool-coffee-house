@@ -90,3 +90,7 @@ option {
   color: red;
   display: none;
 }
+
+.error-container {
+  grid-column: span 1 / 3;
+}

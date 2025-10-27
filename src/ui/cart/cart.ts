@@ -11,13 +11,19 @@ export class Cart {
   private confirmBtn?: HTMLButtonElement;
   private totalPriceElement!: HTMLElement;
   private ordersBlock!: HTMLDivElement;
+  private isAuth: boolean;
   static navCartBlock: HTMLLinkElement | null = null;
 
   constructor(root: HTMLDivElement) {
     this.root = root;
     this.totalPrice = 0;
+    this.isAuth = false;
 
-    this.createStructure();
+    this.init();
+  }
+
+  private async init() {
+    await this.createStructure();
     this.loadCartItems();
   }
 
@@ -38,6 +44,7 @@ export class Cart {
     this.totalPriceElement.textContent = `$${this.totalPrice.toFixed(2)}`;
 
     const profile = await Storage.getUserProfile();
+    this.isAuth = !!profile;
 
     if (profile) {
       const storeQuantity = Storage.getQuantity();
@@ -128,7 +135,13 @@ export class Cart {
     title.textContent = `${order.name}`;
     additives.textContent = order.additives.join(', ') || 'No additives';
     quantity.textContent = `x${order.quantity}`;
-    price.textContent = `$${Number(order.price).toFixed(2)}`;
+
+    if (this.isAuth && order.discountPrice !== null) {
+      price.classList.add('discount_price');
+      price.innerHTML = `<span>$${Number(order.discountPrice).toFixed(2)}</span><span class='card_price_discount'>$${Number(order.price).toFixed(2)}<span>`;
+    } else {
+      price.textContent = `$${Number(order.price).toFixed(2)}`;
+    }
 
     imageBlock.append(img);
     infoBlock.append(title, additives);
