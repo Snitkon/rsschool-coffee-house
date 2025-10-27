@@ -1,7 +1,11 @@
-import { IOrder, PaymentMethod } from '../../types/types';
+import { ICart, IOrder, PaymentMethod } from '../../types/types';
 import { Storage } from '../storage/storage';
 import trashIcon from '/icons/icon-trash.svg?raw';
 import cartIcon from '/icons/icon-cart.svg?raw';
+import { Spinner } from '../loader/spinner';
+import { ErrorHandling } from '../error/errorHandling';
+import { confirmOrder } from '../../api/order/orderApi';
+import { removeKeysFromPayload } from '../helper/helper';
 
 export class Cart {
   private root: HTMLDivElement;
@@ -133,12 +137,12 @@ export class Cart {
     img.setAttribute('src', `/images/${order.category}-${order.productId}.png`);
 
     title.textContent = `${order.name}`;
-    additives.textContent = order.additives.join(', ') || 'No additives';
+    additives.textContent = `Size: ${order.size.toUpperCase()}, ` + order.additives.join(', ') || 'No additives';
     quantity.textContent = `x${order.quantity}`;
 
     if (this.isAuth && order.discountPrice !== null) {
       price.classList.add('discount_price');
-      price.innerHTML = `<span>$${Number(order.discountPrice).toFixed(2)}</span><span class='card_price_discount'>$${Number(order.price).toFixed(2)}<span>`;
+      price.innerHTML = `<span>$${Number(order.discountPrice).toFixed(2)}</span><span class='card_price_discount'>$${Number(order.regularPrice).toFixed(2)}<span>`;
     } else {
       price.textContent = `$${Number(order.price).toFixed(2)}`;
     }
@@ -273,5 +277,38 @@ export class Cart {
     await (this.constructor as typeof Cart).updateCartQuantity();
   }
 
-  private confirmOrder() {}
+  private async confirmOrder() {
+    const cartData = Storage.getCart();
+    if (!cartData) return;
+    const formatData = removeKeysFromPayload<IOrder, keyof IOrder>(
+      { items: cartData.items, totalPrice: cartData.totalPrice },
+      ['discountPrice', 'name', 'regularPrice', 'category', 'price'],
+    );
+    const container = document.createElement('div');
+    const element = this.ordersBlock.parentElement;
+    element?.insertAdjacentElement('beforeend', container);
+    const spinner = new Spinner();
+    const loader = spinner.createSpinner();
+
+    try {
+      container.append(loader);
+      const data = await confirmOrder(formatData as ICart);
+      const handling = new ErrorHandling({
+        isErrorText: 'Something went wrong. Please, try again',
+        container: container,
+        data: data,
+        renderFn: () => {
+          this.totalPriceElement.innerHTML = '$0.00';
+          this.ordersBlock.innerHTML = '';
+          container.innerHTML = '';
+          this.ordersBlock.innerText = 'Thank you for your order! Our manager will contact you shortly.';
+          Storage.clearCart();
+          this.changeQuantity();
+        },
+      });
+      handling.render();
+    } catch (err) {
+      console.error(err instanceof Error ? err.message : 'Unknown Error');
+    }
+  }
 }

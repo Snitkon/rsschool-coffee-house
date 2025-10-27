@@ -103,6 +103,7 @@ export interface IOrder {
   quantity: number;
   price: number;
   category: TCategory;
+  regularPrice?: number;
   name?: string;
   discountPrice?: number | null;
 }

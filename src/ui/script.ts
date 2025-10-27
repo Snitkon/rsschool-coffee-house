@@ -6,6 +6,7 @@ import { signIn } from './signin';
 import { cart } from './cart';
 import { Cart } from './cart/cart';
 import { menu } from './menu';
+import { Storage } from './storage/storage';
 
 document.addEventListener('DOMContentLoaded', () => {
   burger();
@@ -19,8 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const isSignUp = currentPath === '/signup' || currentPath.startsWith('/signup.html');
   const isSignIn = currentPath === '/signin' || currentPath.startsWith('/signin.html');
   const isCart = currentPath === '/cart' || currentPath.startsWith('/cart.html');
+  const token = Storage.getToken();
 
   if (isMainPage) {
+    const hasVisitedMainPage = sessionStorage.getItem('hasVisitedMainPage');
+
+    if (!token && !hasVisitedMainPage) {
+      sessionStorage.setItem('hasVisitedMainPage', 'true');
+      window.location.href = '/signin.html';
+      return;
+    }
     main();
   } else if (isMenuPage) {
     menu();

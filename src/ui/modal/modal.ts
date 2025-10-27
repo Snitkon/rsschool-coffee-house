@@ -13,6 +13,7 @@ export class Modal {
   body!: HTMLElement | null;
   product!: IProduct | null;
   totalPrice!: number;
+  regularPrice!: number;
   isAuth!: boolean;
   selected: { size: TSize; additives: Set<string> } = {
     size: 's',
@@ -151,6 +152,7 @@ export class Modal {
     addButton.textContent = 'Add to cart';
     this.totalPrice =
       this.isAuth && this.product.discountPrice !== null ? this.product.discountPrice : this.product.price;
+    this.regularPrice = this.product.price;
 
     closeButton.addEventListener('click', () => this.closeModal());
     addButton.addEventListener('click', () => this.addToCart());
@@ -195,7 +197,16 @@ export class Modal {
     }
     const basicPrice =
       this.isAuth && this.product.discountPrice !== null ? +this.product.discountPrice : +this.product.price;
+    const regBasic = +this.product.price;
     const size = this.product.sizes[this.selected.size];
+    const regSizeAdd = (() => {
+      const baseSize = this.product.sizes?.s;
+      const selectedSize = size || baseSize;
+
+      if (!selectedSize) return 0;
+
+      return +selectedSize.price || +baseSize.price || 0;
+    })();
     const sizeAdd = (() => {
       const baseSize = this.product.sizes?.s;
       const selectedSize = size || baseSize;
@@ -209,10 +220,10 @@ export class Modal {
           return +this.product.discountPrice;
         }
       }
-
       return +selectedSize.price || +baseSize.price || 0;
     })();
     let additivesAdd = 0;
+    let regularAdditives = 0;
     for (const key of this.selected.additives) {
       const index = Number(key);
       const additive =
@@ -220,9 +231,12 @@ export class Modal {
           ? this.product.additives[index - 1]['discountPrice'] || this.product.additives[index - 1]['price']
           : this.product.additives[index - 1]['price'];
       additivesAdd += +additive;
+      const regAdditives = this.product.additives[index - 1]['price'];
+      regularAdditives += +regAdditives;
     }
 
     this.totalPrice = basicPrice + (sizeAdd - basicPrice) + additivesAdd;
+    this.regularPrice = regBasic + (regSizeAdd - regBasic) + regularAdditives;
     const price = document.querySelector<HTMLElement>('.price_block__price');
     price!.textContent = `$${this.totalPrice.toFixed(2)}`;
   }
@@ -254,13 +268,16 @@ export class Modal {
       }
     }
 
+    console.log(this.regularPrice);
+    console.log(this.totalPrice);
     const order: IOrder = {
       name: this.product.name,
       productId: this.product.id,
       size: this.selected.size,
       quantity: 1,
       price: this.totalPrice,
-      discountPrice: this.product.discountPrice,
+      discountPrice: this.totalPrice,
+      regularPrice: this.regularPrice,
       category: this.product.category,
       additives: additives,
     };

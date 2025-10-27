@@ -28,13 +28,19 @@
   grid-column: span 1;
 }
 
+.text {
+  grid-column: span 1 / 3;
+  width: fit-content;
+  justify-self: center;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
-  width: 400px;
-  min-width: 260px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .form-group-radio {
@@ -93,4 +99,47 @@ option {
 
 .error-container {
   grid-column: span 1 / 3;
+}
+
+@media (max-width: 1300px) {
+  .sign-up-form {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .sign-up-form > .form-group {
+    grid-column: span 1;
+  }
+
+  .text {
+    grid-column: span 1 / 2;
+    width: fit-content;
+    justify-self: center;
+  }
+
+  .error-container {
+    grid-column: span 1 / 2;
+  }
+}
+
+@media (max-width: 900px) {
+  .sign-up-form {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .sign-up-form > .form-group {
+    grid-column: span 1;
+    justify-self: center;
+  }
+
+  .text {
+    grid-column: span 1;
+    width: fit-content;
+    justify-self: center;
+  }
+
+  .error-container {
+    grid-column: span 1;
+  }
 }

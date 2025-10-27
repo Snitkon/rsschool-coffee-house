@@ -151,6 +151,7 @@ export class SignUpForm {
     this.streetInput = streetWrapper.querySelector('select') as HTMLSelectElement;
     this.houseInput = houseWrapper.querySelector('input') as HTMLInputElement;
     this.submitBtn = document.createElement('button');
+    const text = document.createElement('p');
 
     this.errorContainer = document.createElement('div');
     this.errorContainer.classList.add('error-container');
@@ -169,7 +170,9 @@ export class SignUpForm {
 
     this.submitBtn.setAttribute('type', 'submit');
     this.submitBtn.classList.add('button_secondary', 'auth-btn');
+    text.classList.add('text');
     this.submitBtn.textContent = 'Registration';
+    text.innerHTML = `If you are registered, <a styles= class='link' href='signin'>sign in</a>`;
     this.submitBtn.disabled = true;
 
     radioWrapper.append(cashWrapper, cardWrapper);
@@ -184,6 +187,7 @@ export class SignUpForm {
       houseWrapper,
       radioContainer,
       this.submitBtn,
+      text,
       this.errorContainer,
     );
 
