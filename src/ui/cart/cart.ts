@@ -260,7 +260,7 @@ export class Cart {
   private loadCartItems() {
     const cart = Storage.getCart();
     if (cart && cart.items.length >= 0) {
-      this.totalPrice = cart.totalPrice;
+      this.totalPrice = this.isAuth ? cart.totalDiscountPrice! : cart.totalPrice;
       this.totalPriceElement.textContent = `$${this.totalPrice.toFixed(2)}`;
       cart.items.forEach(item => {
         const orderElement = this.createStructureOrder(item);

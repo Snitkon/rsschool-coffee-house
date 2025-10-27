@@ -61,6 +61,7 @@ export class Storage {
     }
 
     cart.totalPrice = cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    cart.totalDiscountPrice = cart.items.reduce((acc, item) => acc + item.discountPrice! * item.quantity, 0);
 
     this.setCart(cart);
   }
@@ -92,6 +93,7 @@ export class Storage {
     });
 
     cart.totalPrice = cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    cart.totalDiscountPrice = cart.items.reduce((acc, item) => acc + item.discountPrice! * item.quantity, 0);
 
     this.setCart(cart);
   }
