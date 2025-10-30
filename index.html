@@ -23,14 +23,21 @@
       </div>
       <nav class="nav">
         <ul class="nav_list">
-          <li><a href="#favorite" class="link nav_link burger_link">Favorite coffee</a></li>
-          <li><a href="#about" class="link nav_link burger_link">About</a></li>
-          <li><a href="#app" class="link nav_link burger_link">Mobile App</a></li>
-          <li><a href="#footer" class="link nav_link burger_link">Contact us</a></li>
+          <li>
+            <a href="#favorite" class="link nav_link burger_link" data-i18n="header.nav.favorite">Favorite coffee</a>
+          </li>
+          <li><a href="#about" class="link nav_link burger_link" data-i18n="header.nav.about">About</a></li>
+          <li><a href="#app" class="link nav_link burger_link" data-i18n="header.nav.app">Mobile App</a></li>
+          <li><a href="#footer" class="link nav_link burger_link" data-i18n="header.nav.contact">Contact us</a></li>
         </ul>
+        <div class="lang-switcher">
+          <button data-lang="ru" class="lang-btn">RU</button>
+          <span class="lang-separator"></span>
+          <button data-lang="en" class="lang-btn">EN</button>
+        </div>
         <a class="link nav_cart"></a>
         <a class="link nav_menu burger_link" href="menu">
-          Menu
+          <span class="text" data-i18n="header.menu">Menu</span>
           <img src="/icons/icon-coffee-cup.svg" alt="icon-coffee-cup" />
         </a>
       </nav>

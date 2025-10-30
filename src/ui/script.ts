@@ -7,8 +7,10 @@ import { cart } from './cart';
 import { Cart } from './cart/cart';
 import { menu } from './menu';
 import { Storage } from './storage/storage';
+import { lang } from './lang/switcher';
 
 document.addEventListener('DOMContentLoaded', () => {
+  lang();
   burger();
   footer();
   Cart.createHeaderCart();

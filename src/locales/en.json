@@ -1,0 +1,11 @@
+{
+  "header": {
+    "nav": {
+      "favorite": "Favorite coffee",
+      "about": "About",
+      "app": "Mobile App",
+      "contact": "Contact Us"
+    },
+    "menu": "Menu"
+  }
+}
