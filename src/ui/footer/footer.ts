@@ -4,6 +4,7 @@ import facebook from '/icons/icon-facebook.svg?raw';
 import pin from '/icons/icon-pin.svg?raw';
 import phone from '/icons/icon-phone.svg?raw';
 import clock from '/icons/icon-clock.svg?raw';
+import { updateTranslations } from '../../utils/i18n';
 
 export function footer() {
   const selectors = {
@@ -49,6 +50,10 @@ export function footer() {
   liPhone.classList.add('footer__list_item');
   liTime.classList.add('footer__list_item');
 
+  subtitleFooter.setAttribute('data-i18n', 'contact.subtitle');
+  contactText.setAttribute('data-i18n', 'contact.contact');
+  time.setAttribute('data-i18n', 'contact.time');
+
   aPhone.setAttribute('href', 'tel:+16035550123');
   aLocal.setAttribute('href', 'https://maps.app.goo.gl/TQKNffpK7hBZiiem7');
   aLocal.setAttribute('target', '_blank');
@@ -64,12 +69,12 @@ export function footer() {
   liPhone.append(aPhone);
   liTime.append(time);
 
-  subtitleFooter.innerHTML = 'Sip, Savor, Smile. <span class="accent">It’s coffee time!</span >';
   twitterBtn.innerHTML = twitter;
   instagramBtn.innerHTML = instagram;
   facebookBtn.innerHTML = facebook;
-  contactText.textContent = 'Contact us';
-  aLocal.innerHTML = `${pin} 8558 Green Rd.,  LA`;
+  aLocal.innerHTML = `${pin} 8558 Green Rd., LA`;
   aPhone.innerHTML = `${phone} +1 (603) 555-0123`;
-  time.innerHTML = `${clock} Mon-Sat: 9:00 AM – 23:00 PM`;
+  time.innerHTML = `${clock}`;
+
+  updateTranslations();
 }

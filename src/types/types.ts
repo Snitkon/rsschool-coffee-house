@@ -6,6 +6,11 @@ export enum PaymentMethod {
   cash = 'Cash',
 }
 
+export enum Locales {
+  en = 'en',
+  ry = 'ru',
+}
+
 export type TSize = 's' | 'm' | 'l';
 
 export type TCategory = 'tea' | 'coffee' | 'dessert';

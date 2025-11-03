@@ -7,5 +7,31 @@
       "contact": "Contact Us"
     },
     "menu": "Menu"
+  },
+  "main": {
+    "hero": {
+      "title": "<span class=\"accent\">Enjoy</span> premium coffee at our charming cafe",
+      "description": "With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular destination for coffee lovers and those seeking a warm and inviting space to enjoy their favorite beverage.",
+      "btn": "Menu"
+    }
+  },
+  "favorite": {
+    "subtitle": "Choose your <span class=\"accent\">favorite</span> coffee"
+  },
+  "about": {
+    "subtitle": "Resource is <span class=\"accent\">the perfect and cozy place</span> where you can enjoy a variety of hot beverages, relax, catch up with friends, or get some work done."
+  },
+  "app": {
+    "subtitle": "<span class=\"accent\">Download</span> our apps to start ordering",
+    "description": "Download the Resource app today and experience the comfort of ordering your favorite coffee from wherever you are",
+    "btn": {
+      "apple": "Available on the",
+      "android": "Available on"
+    }
+  },
+  "contact": {
+    "subtitle": "Sip, Savor, Smile. <span class=\"accent\">It’s coffee time!</span >",
+    "contact": "Contact us",
+    "time": "Mon-Sat: 9:00 AM – 23:00 PM"
   }
 }
