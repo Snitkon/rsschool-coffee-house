@@ -1,5 +1,6 @@
 import { getOneProduct } from '../../api/products/productsApi';
 import { IAdditives, IOrder, IProduct, ISize, TSize } from '../../types/types';
+import { updateTranslations } from '../../utils/i18n';
 import { Cart } from '../cart/cart';
 import { ErrorHandling } from '../error/errorHandling';
 import { Spinner } from '../loader/spinner';
@@ -46,6 +47,7 @@ export class Modal {
         renderFn: product => {
           this.product = product;
           this.createModal();
+          updateTranslations();
         },
       });
       handler.render();
@@ -140,18 +142,16 @@ export class Modal {
     image.setAttribute('alt', `modal_${this.product.name}`);
     image.setAttribute('src', `images/${this.product.category}-${this.product.id}.png`);
 
-    nameTitle.textContent = this.product.name;
-    description.textContent = this.product.description;
-    sizeSubtitle.textContent = 'Size';
-    additivesSubtitle.textContent = 'Additives';
-    priceTitle.textContent = 'Total:';
+    nameTitle.setAttribute('data-i18n', `data.${this.product.id}.name`);
+    description.setAttribute('data-i18n', `data.${this.product.id}.description`);
+    sizeSubtitle.setAttribute('data-i18n', 'modal.size');
+    additivesSubtitle.setAttribute('data-i18n', 'modal.additives');
+    priceTitle.setAttribute('data-i18n', 'modal.total');
+    note.setAttribute('data-i18n', 'modal.note');
+    addButton.setAttribute('data-i18n', 'modal.btn');
+
     price.textContent =
       this.isAuth && this.product.discountPrice !== null ? `$${this.product.discountPrice}` : `$${this.product.price}`;
-    note.textContent =
-      'The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.';
-    addButton.textContent = 'Add to cart';
-    /*  this.totalPrice =
-      this.isAuth && this.product.discountPrice !== null ? this.product.discountPrice : this.product.price; */
     this.regularPrice = this.product.price;
     this.discountPrice = this.product.discountPrice!;
 

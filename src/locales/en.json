@@ -33,5 +33,161 @@
     "subtitle": "Sip, Savor, Smile. <span class=\"accent\">It’s coffee time!</span >",
     "contact": "Contact us",
     "time": "Mon-Sat: 9:00 AM – 23:00 PM"
+  },
+  "menu": {
+    "subtitle": "Behind each of our cups hides an <span class=\"accent\">amazing surprise</span>"
+  },
+  "modal": {
+    "size": "Size",
+    "additives": "Additives",
+    "total": "Total:",
+    "note": "The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.",
+    "btn": "Add to cart"
+  },
+  "switcher": {
+    "category": {
+      "coffee": "Coffee",
+      "tea": "Tea",
+      "dessert": "Dessert"
+    },
+    "additives": {
+      "sugar": "Sugar",
+      "lemon": "Lemon",
+      "syrup": "Syrup",
+      "cinnamon": "Cinnamon",
+      "berries": "Berries",
+      "nuts": "Nuts",
+      "jam": "Jam"
+    }
+  },
+  "data": {
+    "1": {
+      "name": "Irish coffee",
+      "description": "Fragrant black coffee with Jameson Irish whiskey and whipped milk"
+    },
+    "2": {
+      "name": "Kahlua coffee",
+      "description": "Classic coffee with milk and Kahlua liqueur under a cap of frothed milk"
+    },
+    "3": {
+      "name": "Honey raf",
+      "description": "Espresso with frothed milk, cream and aromatic honey"
+    },
+    "4": {
+      "name": "Ice cappuccino",
+      "description": "Cappuccino with soft thick foam in summer version with ice"
+    },
+    "5": {
+      "name": "Espresso",
+      "description": "Classic black coffee"
+    },
+    "6": {
+      "name": "Latte",
+      "description": "Espresso coffee with the addition of steamed milk and dense milk foam"
+    },
+    "7": {
+      "name": "Latte macchiato",
+      "description": "Espresso with frothed milk and chocolate"
+    },
+    "8": {
+      "name": "Coffee with cognac",
+      "description": "Fragrant black coffee with cognac and whipped cream"
+    },
+    "9": {
+      "name": "Moroccan",
+      "description": "Fragrant black tea with the addition of tangerine, cinnamon, honey, lemon and mint"
+    },
+    "10": {
+      "name": "Ginger",
+      "description": "Original black tea with fresh ginger, lemon and honey"
+    },
+    "11": {
+      "name": "Cranberry",
+      "description": "Invigorating black tea with cranberry and honey"
+    },
+    "12": {
+      "name": "Sea buckthorn",
+      "description": "Toning sweet black tea with sea buckthorn, fresh thyme and cinnamon"
+    },
+    "13": {
+      "name": "English Breakfast",
+      "description": "Classic strong black tea blend"
+    },
+    "14": {
+      "name": "Green Jasmine",
+      "description": "Green tea with jasmine flowers"
+    },
+    "15": {
+      "name": "Mint",
+      "description": "Refreshing herbal tea with mint leaves"
+    },
+    "16": {
+      "name": "Chamomile",
+      "description": "Soothing chamomile herbal tea"
+    },
+    "17": {
+      "name": "Marble cheesecake",
+      "description": "Philadelphia cheese with lemon zest on a light sponge cake and red currant jam"
+    },
+    "18": {
+      "name": "Red velvet",
+      "description": "Layer cake with cream cheese frosting"
+    },
+    "19": {
+      "name": "Cheesecakes",
+      "description": "Soft cottage cheese pancakes with sour cream and fresh berries and sprinkled with powdered sugar"
+    },
+    "20": {
+      "name": "Creme brulee",
+      "description": "Delicate creamy dessert in a caramel basket with wild berries"
+    },
+    "21": {
+      "name": "Pancakes",
+      "description": "Tender pancakes with strawberry jam and fresh strawberries"
+    },
+    "22": {
+      "name": "Honey cake",
+      "description": "Classic honey cake with delicate custard"
+    },
+    "23": {
+      "name": "Chocolate cake",
+      "description": "Cake with hot chocolate filling and nuts with dried apricots"
+    },
+    "24": {
+      "name": "Black forest",
+      "description": "A combination of thin sponge cake with cherry jam and light chocolate mousse"
+    },
+    "25": {
+      "name": "Apple pie",
+      "description": "Classic apple pie with cinnamon"
+    },
+    "26": {
+      "name": "Fruit tart",
+      "description": "Shortcrust pastry tart with fresh fruits"
+    },
+    "27": {
+      "name": "Lemon mousse",
+      "description": "Light lemon mousse with whipped cream"
+    },
+    "28": {
+      "name": "Brownie",
+      "description": "Rich chocolate brownie with walnuts"
+    },
+    "29": {
+      "name": "Jasmine Pearl",
+      "description": "Delicate green tea rolled into pearls with jasmine aroma"
+    },
+    "30": {
+      "name": "Berry Hibiscus",
+      "description": "Fruit tea with hibiscus and mixed berries"
+    },
+    "31": {
+      "name": "Tiramisu",
+      "description": "Classic Italian dessert with coffee-soaked ladyfingers and mascarpone"
+    },
+    "32": {
+      "name": "Pavlova",
+      "description": "Crispy meringue dessert with whipped cream and fresh fruit"
+    }
   }
 }

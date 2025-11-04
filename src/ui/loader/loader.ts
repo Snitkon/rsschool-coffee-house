@@ -1,5 +1,6 @@
 import { getFavoriteProducts } from '../../api/products/productsApi';
 import { IProduct } from '../../types/types';
+import { updateTranslations } from '../../utils/i18n';
 import { ErrorHandling } from '../error/errorHandling';
 import { FavoriteCard } from '../favorite/favorite';
 import { Spinner } from './spinner';
@@ -44,6 +45,7 @@ export class Loader {
             const favoriteCard = instanceFavoriteCard.createCards(false);
             this.container.appendChild(favoriteCard);
           });
+          updateTranslations();
         },
         destroyFn: this.destroy,
       });

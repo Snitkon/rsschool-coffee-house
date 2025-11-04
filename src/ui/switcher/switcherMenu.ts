@@ -1,4 +1,5 @@
 import { IAdditives, IMenuSwitch, ISize } from '../../types/types';
+import { updateTranslations } from '../../utils/i18n';
 
 type SwitchersOptions = {
   multiply?: boolean;
@@ -47,15 +48,18 @@ export class Switchers<K extends string, V extends IUnite> {
         icon.textContent = key.toUpperCase();
       }
       if ('text' in value) {
-        button.textContent = value.text as string;
+        button.setAttribute('data-i18n', `switcher.category.${value.text.toLowerCase()}`);
+        // button.textContent = value.text as string;
       }
       if ('name' in value) {
-        button.textContent = value.name as string;
+        button.setAttribute('data-i18n', `switcher.additives.${value.name.toLowerCase()}`);
+        // button.textContent = value.name as string;
       }
       if ('size' in value) {
         button.textContent = value.size as string;
       }
       button.prepend(icon);
+      updateTranslations();
 
       if (key === this.activeKey) {
         button.classList.add('switch_active');

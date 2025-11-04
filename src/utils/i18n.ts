@@ -41,11 +41,14 @@ class I18n {
 
       const translation = this.t(key);
 
-      if (el.children[0] instanceof SVGElement) {
+      if (
+        el.children[0] instanceof SVGElement ||
+        el.children[0] instanceof HTMLImageElement ||
+        el.children[0] instanceof HTMLDivElement
+      ) {
         el.childNodes.forEach(node => {
           if (node.nodeType === Node.TEXT_NODE) node.remove();
         });
-
         el.insertAdjacentHTML('beforeend', translation);
       } else {
         el.innerHTML = translation;

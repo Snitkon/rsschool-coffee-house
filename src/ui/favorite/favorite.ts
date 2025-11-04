@@ -36,8 +36,8 @@ export class FavoriteCard {
     description.classList.add('card_description');
     price.classList.add('card_price');
 
-    name.textContent = this.name;
-    description.textContent = this.description;
+    name.setAttribute('data-i18n', `data.${this.id}.name`);
+    description.setAttribute('data-i18n', `data.${this.id}.description`);
     if (isAuthenticated && this.discountPrice !== null) {
       price.classList.add('discount_price');
       price.innerHTML = `<span>$${this.discountPrice}</span><span class='card_price_discount'>$${this.price}<span>`;

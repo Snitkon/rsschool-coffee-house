@@ -6,6 +6,7 @@ import { ErrorHandling } from '../error/errorHandling';
 import loader from '/icons/icon-loader.svg?raw';
 import { Spinner } from '../loader/spinner';
 import { Storage } from '../storage/storage';
+import { updateTranslations } from '../../utils/i18n';
 
 export class MenuCard extends FavoriteCard {
   static cardsElement: HTMLDivElement | null;
@@ -119,6 +120,7 @@ export class MenuCard extends FavoriteCard {
         const card = new MenuCard({ category, sizes, additives, id, name, description, price, discountPrice });
         const menuCard = card.createCards(!!isAuthenticated);
         _this.cardsElement!.appendChild(menuCard);
+        updateTranslations();
       });
 
       _this.visibleCount.count = maxToShow;

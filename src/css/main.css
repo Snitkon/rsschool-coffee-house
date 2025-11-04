@@ -144,6 +144,7 @@ button {
     transform: scaleX(1);
   }
 }
+
 /** Header  */
 
 .header {
@@ -189,7 +190,7 @@ button {
 }
 
 .nav_menu {
-  width: 73px;
+  width: 78px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -197,7 +198,8 @@ button {
 }
 
 .nav_menu > .text {
-  width: 50px;
+  width: 55px;
+  align-items: center;
 }
 
 .lang-switcher {
