@@ -60,6 +60,14 @@
       "jam": "Джем"
     }
   },
+  "signin": {
+    "subtitle": "Войти",
+    "login": "Логин",
+    "password": "Пароль",
+    "placeholder": "Введите",
+    "btn": "Войти",
+    "text": "Если вы не зарегистрированы, <a styles= class='link' href='signup'>создайте аккаунт</a>"
+  },
   "data": {
     "1": {
       "name": "Айриш кофе",

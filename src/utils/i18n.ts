@@ -40,6 +40,9 @@ class I18n {
       if (!key) return;
 
       const translation = this.t(key);
+      if (el instanceof HTMLInputElement) {
+        el.placeholder = translation;
+      }
 
       if (
         el.children[0] instanceof SVGElement ||

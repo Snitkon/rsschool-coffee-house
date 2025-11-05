@@ -60,6 +60,14 @@
       "jam": "Jam"
     }
   },
+  "signin": {
+    "subtitle": "Sign In",
+    "login": "Login",
+    "password": "Password",
+    "placeholder": "Placeholder",
+    "btn": "Sign in",
+    "text": "If you not registered, <a styles= class='link' href='signup'>sign up</a>"
+  },
   "data": {
     "1": {
       "name": "Irish coffee",

@@ -23,11 +23,18 @@
       </div>
       <nav class="nav">
         <ul class="nav_list">
-          <li><a href="/cart.html" class="link nav_link burger_link">Favorite coffee</a></li>
-          <li><a href="/#about" class="link nav_link burger_link">About</a></li>
-          <li><a href="/#app" class="link nav_link burger_link">Mobile App</a></li>
-          <li><a href="#footer" class="link nav_link burger_link">Contact us</a></li>
+          <li>
+            <a href="/#favorite" class="link nav_link burger_link" data-i18n="header.nav.favorite"></a>
+          </li>
+          <li><a href="/#about" class="link nav_link burger_link" data-i18n="header.nav.about"></a></li>
+          <li><a href="/#app" class="link nav_link burger_link" data-i18n="header.nav.app"></a></li>
+          <li><a href="/#footer" class="link nav_link burger_link" data-i18n="header.nav.contact"></a></li>
         </ul>
+        <div class="lang-switcher">
+          <button data-lang="ru" class="lang-btn">RU</button>
+          <span class="lang-separator"></span>
+          <button data-lang="en" class="lang-btn">EN</button>
+        </div>
         <a class="link nav_cart"></a>
         <a class="link nav_menu burger_link" href="menu">
           Menu
@@ -37,7 +44,7 @@
     </header>
     <main class="main">
       <section id="signin" class="signin">
-        <h2>Sign In</h2>
+        <h2 data-i18n="signin.subtitle"></h2>
       </section>
     </main>
     <footer id="footer" class="footer"></footer>
