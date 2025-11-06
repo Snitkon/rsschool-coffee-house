@@ -185,7 +185,7 @@ button {
 }
 
 .nav_menu {
-  width: 78px;
+  width: 73px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -205,7 +205,7 @@ button {
 }
 
 .nav_menu > .text {
-  width: 55px;
+  width: 50px;
   text-align: center;
 }
 

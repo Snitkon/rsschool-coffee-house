@@ -68,6 +68,68 @@
     "btn": "Войти",
     "text": "Если вы не зарегистрированы, <a styles= class='link' href='signup'>создайте аккаунт</a>"
   },
+  "signup": {
+    "subtitle": "Регистрация",
+    "placeholder": "Введите",
+    "login": "Логин",
+    "password": "Пароль",
+    "confirm": "Подтвердите пароль",
+    "city": "Город",
+    "street": "Улица",
+    "house": "Номер дома",
+    "pay": "Оплата",
+    "card": "Картой",
+    "cash": "Наличными",
+    "btn": "Регистрация",
+    "text": "Если вы зарегистрированы, <a styles= class='link' href='signin'>войдите</a>",
+    "select": {
+      "city": {
+        "placeholder": "Выберите город",
+        "paris": "Париж",
+        "berlin": "Берлин",
+        "london": "Лондон"
+      },
+      "street": {
+        "placeholder": "Выберите улицу",
+        "paris": {
+          "Champs-Élysées": "Шанз-Элизе",
+          "Rue de Rivoli": "Рю де Риволи",
+          "Boulevard Saint-Germain": "Бульвар Сен-Жермен",
+          "Avenue Montaigne": "Авеню Монтень",
+          "Rue du Faubourg Saint-Honoré": "Рю дю Фобур Сент-Оноре",
+          "Boulevard Haussmann": "Бульвар Осман",
+          "Avenue des Ternes": "Авеню де Терн",
+          "Rue de la Paix": "Рю де ла Пэ",
+          "Avenue de l'Opéra": "Авеню де л'Опера",
+          "Rue Saint-Dominique": "Рю Сент-Доминик"
+        },
+        "berlin": {
+          "Unter den Linden": "Унтер ден Линден",
+          "Kurfürstendamm": "Курфюрстендамм",
+          "Friedrichstraße": "Фридрихштрассе",
+          "Alexanderplatz": "Александерплац",
+          "Potsdamer Platz": "Потсдамская площадь",
+          "Schloßstraße": "Шлоссштрассе",
+          "Hackescher Markt": "Хакешер Маркт",
+          "Oranienburger Straße": "Ораниенбургер штрассе",
+          "Kantstraße": "Кантштрассе",
+          "Tauentzienstraße": "Таунциенштрассе"
+        },
+        "london": {
+          "Oxford Street": "Оксфорд-стрит",
+          "Regent Street": "Риджент-стрит",
+          "Bond Street": "Бонд-стрит",
+          "Piccadilly": "Пикадилли",
+          "Knightsbridge": "Найтсбридж",
+          "Kensington High Street": "Кенсингтон Хай-стрит",
+          "King’s Road": "Кингс-роуд",
+          "Covent Garden": "Ковент-Гарден",
+          "Portobello Road": "Портобелло-роуд",
+          "Baker Street": "Бейкер-стрит"
+        }
+      }
+    }
+  },
   "data": {
     "1": {
       "name": "Айриш кофе",

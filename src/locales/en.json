@@ -68,6 +68,68 @@
     "btn": "Sign in",
     "text": "If you not registered, <a styles= class='link' href='signup'>sign up</a>"
   },
+  "signup": {
+    "subtitle": "Registration",
+    "placeholder": "Placeholder",
+    "login": "Login",
+    "password": "Password",
+    "confirm": "Confirm password",
+    "city": "City",
+    "street": "Street",
+    "house": "House number",
+    "pay": "Pay by",
+    "card": "Card",
+    "cash": "Cash",
+    "btn": "Registration",
+    "text": "If you are registered, <a styles= class='link' href='signin'>sign in</a>",
+    "select": {
+      "city": {
+        "placeholder": "Select city",
+        "paris": "Paris",
+        "berlin": "Berlin",
+        "london": "London"
+      },
+      "street": {
+        "placeholder": "Select street",
+        "paris": {
+          "Champs-Élysées": "Champs-Élysées",
+          "Rue de Rivoli": "Rue de Rivoli",
+          "Boulevard Saint-Germain": "Boulevard Saint-Germain",
+          "Avenue Montaigne": "Avenue Montaigne",
+          "Rue du Faubourg Saint-Honoré": "Rue du Faubourg Saint-Honoré",
+          "Boulevard Haussmann": "Boulevard Haussmann",
+          "Avenue des Ternes": "Avenue des Ternes",
+          "Rue de la Paix": "Rue de la Paix",
+          "Avenue de l'Opéra": "Avenue de l'Opéra",
+          "Rue Saint-Dominique": "Rue Saint-Dominique"
+        },
+        "berlin": {
+          "Unter den Linden": "Unter den Linden",
+          "Kurfürstendamm": "Kurfürstendamm",
+          "Friedrichstraße": "Friedrichstraße",
+          "Alexanderplatz": "Alexanderplatz",
+          "Potsdamer Platz": "Potsdamer Platz",
+          "Schloßstraße": "Schloßstraße",
+          "Hackescher Markt": "Hackescher Markt",
+          "Oranienburger Straße": "Oranienburger Straße",
+          "Kantstraße": "Kantstraße",
+          "Tauentzienstraße": "Tauentzienstraße"
+        },
+        "london": {
+          "Oxford Street": "Oxford Street",
+          "Regent Street": "Regent Street",
+          "Bond Street": "Bond Street",
+          "Piccadilly": "Piccadilly",
+          "Knightsbridge": "Knightsbridge",
+          "Kensington High Street": "Kensington High Street",
+          "King’s Road": "King’s Road",
+          "Covent Garden": "Covent Garden",
+          "Portobello Road": "Portobello Road",
+          "Baker Street": "Baker Street"
+        }
+      }
+    }
+  },
   "data": {
     "1": {
       "name": "Irish coffee",

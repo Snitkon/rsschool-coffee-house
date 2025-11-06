@@ -76,6 +76,17 @@
   display: flex;
 }
 
+@media (max-width: 768px) {
+  .nav_cart {
+    margin-right: 0;
+  }
+
+  .nav_cart__icon_wrapper > svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 /** Order */
 .order {
   display: flex;

@@ -1,3 +1,4 @@
+import { updateTranslations } from '../utils/i18n';
 import { SignUpForm } from './auth/signUpForm';
 
 export function signUp() {
@@ -9,4 +10,5 @@ export function signUp() {
   }
 
   new SignUpForm(root);
+  updateTranslations();
 }

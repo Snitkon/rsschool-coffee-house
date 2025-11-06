@@ -1,5 +1,6 @@
 import { signUp } from '../../api/auth/authApi';
 import { ILogInOrSignIn, ISignUpRequest } from '../../types/types';
+import { updateTranslations } from '../../utils/i18n';
 import { ErrorHandling } from '../error/errorHandling';
 import { Storage } from '../storage/storage';
 
@@ -18,7 +19,7 @@ export class SignUpForm {
   private errorContainer!: HTMLElement;
   private errorMessages: Map<string, HTMLElement> = new Map();
   private citiesData: { [key: string]: string[] } = {
-    Paris: [
+    paris: [
       'Champs-Élysées',
       'Rue de Rivoli',
       'Boulevard Saint-Germain',
@@ -30,7 +31,7 @@ export class SignUpForm {
       "Avenue de l'Opéra",
       'Rue Saint-Dominique',
     ],
-    Berlin: [
+    berlin: [
       'Unter den Linden',
       'Kurfürstendamm',
       'Friedrichstraße',
@@ -42,7 +43,7 @@ export class SignUpForm {
       'Kantstraße',
       'Tauentzienstraße',
     ],
-    London: [
+    london: [
       'Oxford Street',
       'Regent Street',
       'Bond Street',
@@ -69,7 +70,7 @@ export class SignUpForm {
       'div',
       'form-group',
       'text',
-      'login',
+      'signup.login',
       'signup-login',
       'signup-login-id',
       true,
@@ -78,7 +79,7 @@ export class SignUpForm {
       'div',
       'form-group',
       'password',
-      'password',
+      'signup.password',
       'signup-password',
       'signup-password-id',
       true,
@@ -87,7 +88,7 @@ export class SignUpForm {
       'div',
       'form-group',
       'password',
-      'confirm password',
+      'signup.confirm',
       'signup-confirm',
       'signup-confirm-id',
       true,
@@ -96,7 +97,7 @@ export class SignUpForm {
     const cityWrapper = this.createSelect(
       'div',
       'form-group',
-      'city',
+      'signup.city',
       'signup-city',
       'signup-city-id',
       true,
@@ -105,7 +106,7 @@ export class SignUpForm {
     const streetWrapper = this.createSelect(
       'div',
       'form-group',
-      'street',
+      'signup.street',
       'signup-street',
       'signup-street-id',
       true,
@@ -115,7 +116,7 @@ export class SignUpForm {
       'div',
       'form-group',
       'number',
-      'house number',
+      'signup.house',
       'signup-house',
       'signup-house-id',
       true,
@@ -124,7 +125,7 @@ export class SignUpForm {
       'div',
       'form-group-radio',
       'radio',
-      'cash',
+      'signup.cash',
       'signup-cash',
       'signup-cash-id',
       false,
@@ -135,7 +136,7 @@ export class SignUpForm {
       'div',
       'form-group-radio',
       'radio',
-      'card',
+      'signup.card',
       'signup-card',
       'signup-card-id',
       false,
@@ -166,13 +167,15 @@ export class SignUpForm {
     radioWrapper.setAttribute('id', 'radio-wrapper-id');
 
     radioTitle.classList.add('title');
-    radioTitle.textContent = 'Pay by';
+    radioTitle.setAttribute('data-i18n', 'signup.pay');
 
     this.submitBtn.setAttribute('type', 'submit');
+    this.submitBtn.setAttribute('data-i18n', 'signup.btn');
+    text.setAttribute('data-i18n', 'signup.text');
+
     this.submitBtn.classList.add('button_secondary', 'auth-btn');
     text.classList.add('text');
-    this.submitBtn.textContent = 'Registration';
-    text.innerHTML = `If you are registered, <a styles= class='link' href='signin'>sign in</a>`;
+
     this.submitBtn.disabled = true;
 
     radioWrapper.append(cashWrapper, cardWrapper);
@@ -218,16 +221,16 @@ export class SignUpForm {
 
     input.setAttribute('id', id);
     input.setAttribute('autocomplete', 'off');
+    input.setAttribute('data-i18n', 'signup.placeholder');
     label.setAttribute('for', id);
+    label.setAttribute('data-i18n', labelText);
 
     if (value && name) {
       input.setAttribute('value', value);
       input.setAttribute('name', name);
     }
 
-    label.textContent = labelText[0].toUpperCase() + labelText.slice(1);
     input.type = type;
-    input.placeholder = 'Placeholder';
     input.required = required;
 
     wrapper.append(label, input);
@@ -259,21 +262,21 @@ export class SignUpForm {
     errorMessage.classList.add('error-message');
 
     select.setAttribute('id', id);
+    placeholderOption.setAttribute('data-i18n', `${labelText.replace('.', '.select.') + '.placeholder'}`);
     label.setAttribute('for', id);
+    label.setAttribute('data-i18n', labelText);
 
-    label.textContent = labelText[0].toUpperCase() + labelText.slice(1);
     select.required = required;
 
     placeholderOption.value = '';
-    placeholderOption.textContent = 'Select ' + labelText;
     placeholderOption.disabled = true;
     placeholderOption.selected = true;
     select.append(placeholderOption);
 
     options.forEach(option => {
       const opt = document.createElement('option');
+      opt.setAttribute('data-i18n', `${labelText.replace('.', '.select.')}.${option}`);
       opt.value = option;
-      opt.textContent = option;
       select.append(opt);
     });
 
@@ -355,7 +358,7 @@ export class SignUpForm {
 
   private updateStreets() {
     const selectedCity = this.cityInput.value;
-    const streets = this.citiesData[selectedCity] || this.citiesData['Paris'];
+    const streets = this.citiesData[selectedCity] || this.citiesData['paris'];
 
     this.streetInput.innerHTML = '';
 
@@ -368,10 +371,11 @@ export class SignUpForm {
 
     streets.forEach(street => {
       const option = document.createElement('option');
+      option.setAttribute('data-i18n', `signup.select.street.${selectedCity}.${street}`);
       option.value = street;
-      option.textContent = street;
       this.streetInput.append(option);
     });
+    updateTranslations();
   }
 
   private clearValidation(input: HTMLInputElement | HTMLSelectElement) {
