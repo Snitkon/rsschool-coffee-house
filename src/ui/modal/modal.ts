@@ -216,7 +216,7 @@ export class Modal {
     for (const key of this.selected.additives) {
       const index = Number(key);
       const additive = this.product.additives[index - 1];
-      additivesAdd += additive.discountPrice !== null ? +additive.discountPrice : +additive.price;
+      additivesAdd += additive.discountPrice ? +additive.discountPrice : +additive.price;
       regularAdditives += +additive.price;
     }
 
