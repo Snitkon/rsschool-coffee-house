@@ -33,6 +33,7 @@ export function footer() {
   const aLocal = document.createElement('a');
   const aPhone = document.createElement('a');
   const time = document.createElement('time');
+  const timeText = document.createElement('span');
 
   leftBlock.classList.add('footer__left_block');
   rightBlock.classList.add('footer__right_block');
@@ -52,13 +53,20 @@ export function footer() {
 
   subtitleFooter.setAttribute('data-i18n', 'contact.subtitle');
   contactText.setAttribute('data-i18n', 'contact.contact');
-  time.setAttribute('data-i18n', 'contact.time');
+  timeText.setAttribute('data-i18n', 'contact.time');
 
   aPhone.setAttribute('href', 'tel:+16035550123');
   aLocal.setAttribute('href', 'https://maps.app.goo.gl/TQKNffpK7hBZiiem7');
   aLocal.setAttribute('target', '_blank');
   aLocal.setAttribute('rel', 'noopener noreferrer');
   time.setAttribute('datetime', 'Mo-Sa 09:00-23:00');
+
+  twitterBtn.innerHTML = twitter;
+  instagramBtn.innerHTML = instagram;
+  facebookBtn.innerHTML = facebook;
+  aLocal.innerHTML = `${pin} 8558 Green Rd., LA`;
+  aPhone.innerHTML = `${phone} +1 (603) 555-0123`;
+  time.innerHTML = `${clock}`;
 
   footer.append(leftBlock, rightBlock);
   leftBlock.append(subtitleFooter, linkBlock);
@@ -68,13 +76,6 @@ export function footer() {
   liLocal.append(aLocal);
   liPhone.append(aPhone);
   liTime.append(time);
-
-  twitterBtn.innerHTML = twitter;
-  instagramBtn.innerHTML = instagram;
-  facebookBtn.innerHTML = facebook;
-  aLocal.innerHTML = `${pin} 8558 Green Rd., LA`;
-  aPhone.innerHTML = `${phone} +1 (603) 555-0123`;
-  time.innerHTML = `${clock}`;
-
+  time.append(timeText);
   updateTranslations();
 }

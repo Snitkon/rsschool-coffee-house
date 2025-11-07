@@ -23,6 +23,12 @@
   gap: 12px;
 }
 
+.address_wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
 .total__title,
 .address__title,
 .pay_by__title {
@@ -112,6 +118,20 @@
 .left__image_img {
   width: 100%;
   object-fit: cover;
+}
+
+.left_info__additives {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+.additives__wrapper,
+.size__wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 }
 
 .order__left_trash > svg {

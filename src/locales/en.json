@@ -130,6 +130,30 @@
       }
     }
   },
+  "cart": {
+    "subtitle": "Cart",
+    "total": "Total:",
+    "address": "Address:",
+    "pay": "Pay by:",
+    "signin": "Sign In",
+    "signup": "Registration",
+    "confirm": "Confirm",
+    "text": "Thank you for your order! Our manager will contact you shortly.",
+    "card": "Card",
+    "cash": "Cash",
+    "size": "Size:",
+    "additives": {
+      "text": "Additives:",
+      "without": "Without additives",
+      "sugar": "Sugar",
+      "lemon": "Lemon",
+      "syrup": "Syrup",
+      "cinnamon": "Cinnamon",
+      "berries": "Berries",
+      "nuts": "Nuts",
+      "jam": "Jam"
+    }
+  },
   "error": {
     "message": "This Test Error",
     "text": "Something went wrong. Please, refresh the page",

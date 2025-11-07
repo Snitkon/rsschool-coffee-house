@@ -39,23 +39,26 @@ class I18n {
       const key = el.getAttribute('data-i18n');
       if (!key) return;
 
-      const translation = this.t(key);
-      if (el instanceof HTMLInputElement) {
-        el.placeholder = translation;
-      }
+      const match = key.match(/^(\w+.\w+.)/);
+      const prefix = match ? match[1] : '';
+      const parts = key.split(new RegExp(` (?=${prefix})`));
+      const arrNodes = Array.from(el.childNodes);
+      arrNodes.forEach(node => node.remove());
+      parts.forEach((item, index) => {
+        const translation = this.t(item);
+        if (el instanceof HTMLInputElement) {
+          el.placeholder = translation;
+        }
 
-      if (
-        el.children[0] instanceof SVGElement ||
-        el.children[0] instanceof HTMLImageElement ||
-        el.children[0] instanceof HTMLDivElement
-      ) {
-        el.childNodes.forEach(node => {
-          if (node.nodeType === Node.TEXT_NODE) node.remove();
-        });
-        el.insertAdjacentHTML('beforeend', translation);
-      } else {
-        el.innerHTML = translation;
-      }
+        const temp = document.createElement('div');
+        temp.innerHTML = translation;
+
+        el.append(...temp.childNodes);
+
+        if (index < parts.length - 1) {
+          el.append(document.createTextNode(', '));
+        }
+      });
     });
   }
 
