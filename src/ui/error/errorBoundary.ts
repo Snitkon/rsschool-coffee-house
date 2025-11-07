@@ -19,8 +19,13 @@ export class ErrorBoundary {
     errorTitle.classList.add('error__title');
     errorText.classList.add('error__text');
 
-    errorTitle.textContent = this.errorTitle;
-    errorText.textContent = this.isErrorText ? this.isErrorText : 'Something went wrong. Please, refresh the page';
+    if (!this.isErrorText) {
+      errorTitle.setAttribute('data-i18n', 'error.message');
+      errorText.setAttribute('data-i18n', 'error.text');
+    } else {
+      errorTitle.textContent = this.errorTitle;
+      errorText.textContent = this.isErrorText;
+    }
     wrapper.append(errorTitle, errorText);
     this.container.appendChild(wrapper);
 

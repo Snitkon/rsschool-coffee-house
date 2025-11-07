@@ -321,11 +321,11 @@ export class SignUpForm {
     let errorMessage = '';
 
     if (value.length < 3) {
-      errorMessage = 'Login must be at least 3 characters long';
+      errorMessage = 'login.length';
     } else if (!/^[a-zA-Z]/.test(value)) {
-      errorMessage = 'Login must start with a letter';
+      errorMessage = 'login.start';
     } else if (!/^[a-zA-Z]+$/.test(value)) {
-      errorMessage = 'Login must contain only English alphabet letters';
+      errorMessage = 'login.letters';
     }
 
     this.showValidationResult(input, errorMessage);
@@ -337,9 +337,23 @@ export class SignUpForm {
     let errorMessage = '';
 
     if (value.length < 6) {
-      errorMessage = 'Password must be at least 6 characters long';
+      errorMessage = 'password.length';
     } else if (!/[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?]/.test(value)) {
-      errorMessage = 'Password must contain at least 1 special character';
+      errorMessage = 'password.special';
+    }
+
+    this.showValidationResult(input, errorMessage);
+  }
+
+  private validateConfirmPassword(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    let errorMessage = '';
+
+    if (value !== this.passInput.value) {
+      errorMessage = 'confirm.match';
+    } else if (!value) {
+      errorMessage = 'confirm.required';
     }
 
     this.showValidationResult(input, errorMessage);
@@ -351,9 +365,74 @@ export class SignUpForm {
     let errorMessage = '';
 
     if (value < 1) {
-      errorMessage = 'House must be more 0';
+      errorMessage = 'house.length';
     }
     this.showValidationResult(input, errorMessage);
+  }
+
+  private validateCity(event: Event) {
+    const input = event.target as HTMLSelectElement;
+    let errorMessage = '';
+
+    if (!input.value) {
+      errorMessage = 'city.required';
+    }
+
+    this.showValidationResult(input, errorMessage);
+  }
+
+  private validateStreet(event: Event) {
+    const input = event.target as HTMLSelectElement;
+    let errorMessage = '';
+
+    if (!input.value) {
+      errorMessage = 'street.required';
+    }
+
+    this.showValidationResult(input, errorMessage);
+  }
+
+  private showValidationResult(input: HTMLInputElement | HTMLSelectElement, errorMessage: string) {
+    const errorElement = this.errorMessages.get(input.id)!;
+
+    if (errorMessage) {
+      input.style.border = '2px solid red';
+      errorElement.setAttribute('data-i18n', `error.${errorMessage}`);
+      // errorElement.textContent = errorMessage;
+      errorElement.style.display = 'block';
+      updateTranslations();
+    } else {
+      this.clearValidation(input);
+    }
+
+    this.checkFormValidity();
+  }
+
+  private checkFormValidity() {
+    const loginValid =
+      this.loginInput.value.length >= 3 &&
+      /^[a-zA-Z]/.test(this.loginInput.value) &&
+      /^[a-zA-Z]+$/.test(this.loginInput.value);
+
+    const passwordValid =
+      this.passInput.value.length >= 6 && /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(this.passInput.value);
+
+    const confirmPasswordValid = this.confirmInput.value === this.passInput.value && !!this.confirmInput.value;
+
+    const cityValid = !!this.cityInput.value;
+    const streetValid = !!this.streetInput.value;
+    const houseValid = +this.houseInput.value >= 1;
+    const paymentValid = this.paymentCash.checked || this.paymentCard.checked;
+
+    this.submitBtn.disabled = !(
+      loginValid &&
+      passwordValid &&
+      confirmPasswordValid &&
+      cityValid &&
+      streetValid &&
+      houseValid &&
+      paymentValid
+    );
   }
 
   private updateStreets() {
@@ -384,83 +463,6 @@ export class SignUpForm {
     input.style.border = '';
     errorElement.textContent = '';
     errorElement.style.display = 'none';
-  }
-
-  private showValidationResult(input: HTMLInputElement | HTMLSelectElement, errorMessage: string) {
-    const errorElement = this.errorMessages.get(input.id)!;
-
-    if (errorMessage) {
-      input.style.border = '2px solid red';
-      errorElement.textContent = errorMessage;
-      errorElement.style.display = 'block';
-    } else {
-      this.clearValidation(input);
-    }
-
-    this.checkFormValidity();
-  }
-
-  private validateConfirmPassword(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const value = input.value;
-    let errorMessage = '';
-
-    if (value !== this.passInput.value) {
-      errorMessage = 'Passwords do not match';
-    } else if (!value) {
-      errorMessage = 'Confirm password is required';
-    }
-
-    this.showValidationResult(input, errorMessage);
-  }
-
-  private validateCity(event: Event) {
-    const input = event.target as HTMLSelectElement;
-    let errorMessage = '';
-
-    if (!input.value) {
-      errorMessage = 'Please select a city';
-    }
-
-    this.showValidationResult(input, errorMessage);
-  }
-
-  private validateStreet(event: Event) {
-    const input = event.target as HTMLSelectElement;
-    let errorMessage = '';
-
-    if (!input.value) {
-      errorMessage = 'Please select a street';
-    }
-
-    this.showValidationResult(input, errorMessage);
-  }
-
-  private checkFormValidity() {
-    const loginValid =
-      this.loginInput.value.length >= 3 &&
-      /^[a-zA-Z]/.test(this.loginInput.value) &&
-      /^[a-zA-Z]+$/.test(this.loginInput.value);
-
-    const passwordValid =
-      this.passInput.value.length >= 6 && /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(this.passInput.value);
-
-    const confirmPasswordValid = this.confirmInput.value === this.passInput.value && !!this.confirmInput.value;
-
-    const cityValid = !!this.cityInput.value;
-    const streetValid = !!this.streetInput.value;
-    const houseValid = +this.houseInput.value >= 1;
-    const paymentValid = this.paymentCash.checked || this.paymentCard.checked;
-
-    this.submitBtn.disabled = !(
-      loginValid &&
-      passwordValid &&
-      confirmPasswordValid &&
-      cityValid &&
-      streetValid &&
-      houseValid &&
-      paymentValid
-    );
   }
 
   private async handleSubmit(e: Event) {

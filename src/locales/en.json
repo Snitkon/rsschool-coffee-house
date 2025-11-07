@@ -130,6 +130,32 @@
       }
     }
   },
+  "error": {
+    "message": "This Test Error",
+    "text": "Something went wrong. Please, refresh the page",
+    "login": {
+      "length": "Login must be at least 3 characters long",
+      "start": "Login must start with a letter",
+      "letters": "Login must contain only English alphabet letters"
+    },
+    "password": {
+      "length": "Password must be at least 6 characters long",
+      "special": "Password must contain at least 1 special character"
+    },
+    "confirm": {
+      "match": "Passwords do not match",
+      "required": "Confirm password is required"
+    },
+    "city": {
+      "required": "Please select a city"
+    },
+    "street": {
+      "required": "Please select a street"
+    },
+    "house": {
+      "length": "House must be more 0"
+    }
+  },
   "data": {
     "1": {
       "name": "Irish coffee",

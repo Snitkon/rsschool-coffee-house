@@ -1,5 +1,6 @@
 import { logIn } from '../../api/auth/authApi';
 import { ILogInOrSignIn, ILogInRequest } from '../../types/types';
+import { updateTranslations } from '../../utils/i18n';
 import { ErrorHandling } from '../error/errorHandling';
 import { Storage } from '../storage/storage';
 
@@ -93,11 +94,11 @@ export class SignInForm {
     let errorMessage = '';
 
     if (value.length < 3) {
-      errorMessage = 'Login must be at least 3 characters long';
+      errorMessage = 'login.length';
     } else if (!/^[a-zA-Z]/.test(value)) {
-      errorMessage = 'Login must start with a letter';
+      errorMessage = 'login.start';
     } else if (!/^[a-zA-Z]+$/.test(value)) {
-      errorMessage = 'Login must contain only English alphabet letters';
+      errorMessage = 'login.letters';
     }
 
     this.showValidationResult(input, errorMessage);
@@ -109,9 +110,9 @@ export class SignInForm {
     let errorMessage = '';
 
     if (value.length < 6) {
-      errorMessage = 'Password must be at least 6 characters long';
+      errorMessage = 'password.length';
     } else if (!/[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?]/.test(value)) {
-      errorMessage = 'Password must contain at least 1 special character';
+      errorMessage = 'password.special';
     }
 
     this.showValidationResult(input, errorMessage);
@@ -130,8 +131,10 @@ export class SignInForm {
 
     if (errorMessage) {
       input.style.border = '2px solid red';
-      errorElement.textContent = errorMessage;
+      errorElement.setAttribute('data-i18n', `error.${errorMessage}`);
+      // errorElement.textContent = errorMessage;
       errorElement.style.display = 'block';
+      updateTranslations();
     } else {
       this.clearValidation(input);
     }

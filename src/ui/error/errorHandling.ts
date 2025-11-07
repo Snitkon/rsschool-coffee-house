@@ -1,4 +1,5 @@
 import { TResponseApi } from '../../types/types';
+import { updateTranslations } from '../../utils/i18n';
 import { isErrorResponse, isSuccessResponse, isTestErrorResponse } from '../helper/typeGuards';
 import { ErrorBoundary } from './errorBoundary';
 
@@ -53,8 +54,10 @@ export class ErrorHandling<T> {
         const errorBoundary = this.createErrorBoundary(title, this.isErrorText!);
         if (this.mainContainer) {
           this.mainContainer.appendChild(errorBoundary.renderErrorBounder());
+          updateTranslations();
         } else {
           this.container.appendChild(errorBoundary.renderErrorBounder());
+          updateTranslations();
         }
         return;
       }
