@@ -1,5 +1,6 @@
 name: Coffee House CI
 run-name: ${{ github.actor }} triggered Coffee House build (coffee-house-ce) ☕️
+
 on:
   push:
     branches: [coffee-house-ce]
@@ -9,9 +10,14 @@ on:
 jobs:
   coffee-house-ci:
     runs-on: ubuntu-latest
+
+    env:
+      HUSKY: 0
+
     strategy:
       matrix:
         node-version: [22.x]
+
     steps:
       - uses: actions/checkout@v5
       - name: Use Node.js ${{ matrix.node-version }}
