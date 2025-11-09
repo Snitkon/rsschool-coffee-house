@@ -1,6 +1,11 @@
 name: Coffee House CI
 run-name: ${{ github.actor }} triggered Coffee House build (coffee-house-ce) ☕️
-on: [push]
+on:
+  push:
+    branches: [coffee-house-ce]
+  pull_request:
+    branches: [gh-pages]
+
 jobs:
   coffee-house-ci:
     runs-on: ubuntu-latest
