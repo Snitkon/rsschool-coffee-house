@@ -6,6 +6,7 @@ import { Spinner } from '../loader/spinner';
 import { ErrorHandling } from '../error/errorHandling';
 import { confirmOrder } from '../../api/order/orderApi';
 import { removeKeysFromPayload } from '../helper/helper';
+import { updateTranslations } from '../../utils/i18n';
 
 export class Cart {
   private root: HTMLDivElement;
@@ -38,13 +39,14 @@ export class Cart {
     this.ordersBlock = document.createElement('div');
     const btnBlock = document.createElement('div');
 
+    totalTitle.setAttribute('data-i18n', 'cart.total');
+
     totalBlock.classList.add('total');
     totalTitle.classList.add('total__title');
     this.totalPriceElement.classList.add('total__price');
     this.ordersBlock.classList.add('total__orders');
     btnBlock.classList.add('btn_block');
 
-    totalTitle.textContent = 'Total:';
     this.totalPriceElement.textContent = `$${this.totalPrice.toFixed(2)}`;
 
     const profile = await Storage.getUserProfile();
@@ -53,34 +55,42 @@ export class Cart {
     if (profile) {
       const storeQuantity = Storage.getQuantity();
       this.confirmBtn = document.createElement('button');
+      this.confirmBtn.setAttribute('data-i18n', 'cart.confirm');
 
       const bottomBlock = document.createElement('div');
 
       const addressBlock = document.createElement('div');
+      const addressWrapper = document.createElement('div');
       const addressTitle = document.createElement('h3');
       const address = document.createElement('h3');
+      const houseNumber = document.createElement('h3');
 
       const payByBlock = document.createElement('div');
       const payByTitle = document.createElement('h3');
       const payBy = document.createElement('h3');
 
-      bottomBlock.classList.add('bottom_block');
+      addressTitle.setAttribute('data-i18n', 'cart.address');
+      payByTitle.setAttribute('data-i18n', 'cart.pay');
+      address.setAttribute(
+        'data-i18n',
+        `signup.select.city.${profile.city.toLowerCase()} signup.select.street.${profile.city.toLowerCase()}.${profile.street}`,
+      );
+      payBy.setAttribute('data-i18n', `cart.${PaymentMethod[profile.paymentMethod].toLowerCase()}`);
 
+      bottomBlock.classList.add('bottom_block');
       addressBlock.classList.add('address');
+      addressWrapper.classList.add('address_wrapper');
       addressTitle.classList.add('address__title');
       address.classList.add('address__text');
-
       payByBlock.classList.add('pay_by');
       payByTitle.classList.add('pay_by__title');
       payBy.classList.add('pay_by__text');
 
-      addressTitle.textContent = 'Address:';
-      address.textContent = `${profile.city}, ${profile.street}, ${profile.houseNumber}`;
+      houseNumber.textContent = `${profile.houseNumber}`;
+      // address.textContent = `${profile.city}, ${profile.street}, ${profile.houseNumber}`;
 
-      payByTitle.textContent = 'Pay By:';
-      payBy.textContent = PaymentMethod[profile.paymentMethod];
-
-      addressBlock.append(addressTitle, address);
+      addressWrapper.append(address, houseNumber);
+      addressBlock.append(addressTitle, addressWrapper);
       payByBlock.append(payByTitle, payBy);
       bottomBlock.append(totalBlock, addressBlock, payByBlock);
 
@@ -88,7 +98,6 @@ export class Cart {
       if (storeQuantity <= 0) {
         this.confirmBtn.classList.add('hidden');
       }
-      this.confirmBtn.textContent = 'Confirm';
 
       btnBlock.append(this.confirmBtn);
       totalBlock.append(totalTitle, this.totalPriceElement);
@@ -97,16 +106,17 @@ export class Cart {
       this.signUpBtn = document.createElement('button');
       this.signInBtn = document.createElement('button');
 
+      this.signUpBtn.setAttribute('data-i18n', 'cart.signup');
+      this.signInBtn.setAttribute('data-i18n', 'cart.signin');
+
       this.signUpBtn.classList.add('button_secondary', 'signUp__btn');
       this.signInBtn.classList.add('button_secondary', 'signIn__btn');
-
-      this.signUpBtn.textContent = 'Registration';
-      this.signInBtn.textContent = 'Sign In';
 
       btnBlock.append(this.signInBtn, this.signUpBtn);
       totalBlock.append(totalTitle, this.totalPriceElement);
       this.root.append(this.ordersBlock, totalBlock, btnBlock);
     }
+    updateTranslations();
     this.setupListener();
   }
 
@@ -121,7 +131,13 @@ export class Cart {
     const title = document.createElement('h3');
     const price = document.createElement('h3');
     const quantity = document.createElement('h3');
+    const additivesBlock = document.createElement('div');
+    const sizeText = document.createElement('span');
+    const additivesText = document.createElement('span');
+    const size = document.createElement('span');
     const additives = document.createElement('span');
+    const sizeWrapper = document.createElement('div');
+    const additivesWrapper = document.createElement('div');
 
     orderWrapper.classList.add('order');
     leftBlock.classList.add('order__left');
@@ -131,14 +147,27 @@ export class Cart {
     priceBlock.classList.add('order__price');
     img.classList.add('left__image_img');
     title.classList.add('left_info__title');
-    additives.classList.add('left_info__additives');
+    additivesBlock.classList.add('left_info__additives');
+    sizeWrapper.classList.add('size__wrapper');
+    additivesWrapper.classList.add('additives__wrapper');
 
     img.setAttribute('alt', 'order-image');
     img.setAttribute('src', `/images/${order.category}-${order.productId}.png`);
+    title.setAttribute('data-i18n', `data.${order.productId}.name`);
+    if (order.additives.length > 0) {
+      const additivesStr = order.additives.map(item => `cart.additives.${item.toLowerCase()}`).join(' ');
+      additives.setAttribute('data-i18n', additivesStr);
+    } else {
+      additives.setAttribute('data-i18n', 'cart.additives.without');
+    }
+    sizeText.setAttribute('data-i18n', 'cart.size');
+    additivesText.setAttribute('data-i18n', 'cart.additives.text');
 
-    title.textContent = `${order.name}`;
-    additives.textContent = `Size: ${order.size.toUpperCase()}, ` + order.additives.join(', ') || 'No additives';
-    quantity.textContent = `x${order.quantity}`;
+    size.textContent = `${order.size.toUpperCase()}`;
+
+    sizeWrapper.append(sizeText, size);
+    additivesWrapper.append(additivesText, additives);
+    additivesBlock.append(sizeWrapper, additivesWrapper);
 
     if (this.isAuth && order.discountPrice !== null) {
       price.classList.add('discount_price');
@@ -148,7 +177,7 @@ export class Cart {
     }
 
     imageBlock.append(img);
-    infoBlock.append(title, additives);
+    infoBlock.append(title, additivesBlock);
     priceBlock.append(quantity, price);
     trashBlock.innerHTML = trashIcon;
     leftBlock.append(trashBlock, imageBlock, infoBlock);
@@ -265,6 +294,7 @@ export class Cart {
       cart.items.forEach(item => {
         const orderElement = this.createStructureOrder(item);
         this.ordersBlock.append(orderElement);
+        updateTranslations();
       });
     }
   }
@@ -301,9 +331,11 @@ export class Cart {
           this.totalPriceElement.innerHTML = '$0.00';
           this.ordersBlock.innerHTML = '';
           container.innerHTML = '';
-          this.ordersBlock.innerText = 'Thank you for your order! Our manager will contact you shortly.';
+          this.ordersBlock.setAttribute('data-i18n', 'cart.text');
+          // this.ordersBlock.innerText = 'Thank you for your order! Our manager will contact you shortly.'
           Storage.clearCart();
           this.changeQuantity();
+          updateTranslations();
         },
       });
       handling.render();

@@ -4,6 +4,7 @@ import facebook from '/icons/icon-facebook.svg?raw';
 import pin from '/icons/icon-pin.svg?raw';
 import phone from '/icons/icon-phone.svg?raw';
 import clock from '/icons/icon-clock.svg?raw';
+import { updateTranslations } from '../../utils/i18n';
 
 export function footer() {
   const selectors = {
@@ -32,6 +33,7 @@ export function footer() {
   const aLocal = document.createElement('a');
   const aPhone = document.createElement('a');
   const time = document.createElement('time');
+  const timeText = document.createElement('span');
 
   leftBlock.classList.add('footer__left_block');
   rightBlock.classList.add('footer__right_block');
@@ -49,11 +51,22 @@ export function footer() {
   liPhone.classList.add('footer__list_item');
   liTime.classList.add('footer__list_item');
 
+  subtitleFooter.setAttribute('data-i18n', 'contact.subtitle');
+  contactText.setAttribute('data-i18n', 'contact.contact');
+  timeText.setAttribute('data-i18n', 'contact.time');
+
   aPhone.setAttribute('href', 'tel:+16035550123');
   aLocal.setAttribute('href', 'https://maps.app.goo.gl/TQKNffpK7hBZiiem7');
   aLocal.setAttribute('target', '_blank');
   aLocal.setAttribute('rel', 'noopener noreferrer');
   time.setAttribute('datetime', 'Mo-Sa 09:00-23:00');
+
+  twitterBtn.innerHTML = twitter;
+  instagramBtn.innerHTML = instagram;
+  facebookBtn.innerHTML = facebook;
+  aLocal.innerHTML = `${pin} 8558 Green Rd., LA`;
+  aPhone.innerHTML = `${phone} +1 (603) 555-0123`;
+  time.innerHTML = `${clock}`;
 
   footer.append(leftBlock, rightBlock);
   leftBlock.append(subtitleFooter, linkBlock);
@@ -63,13 +76,6 @@ export function footer() {
   liLocal.append(aLocal);
   liPhone.append(aPhone);
   liTime.append(time);
-
-  subtitleFooter.innerHTML = 'Sip, Savor, Smile. <span class="accent">It’s coffee time!</span >';
-  twitterBtn.innerHTML = twitter;
-  instagramBtn.innerHTML = instagram;
-  facebookBtn.innerHTML = facebook;
-  contactText.textContent = 'Contact us';
-  aLocal.innerHTML = `${pin} 8558 Green Rd.,  LA`;
-  aPhone.innerHTML = `${phone} +1 (603) 555-0123`;
-  time.innerHTML = `${clock} Mon-Sat: 9:00 AM – 23:00 PM`;
+  time.append(timeText);
+  updateTranslations();
 }

@@ -1,5 +1,6 @@
 import { signUp } from '../../api/auth/authApi';
 import { ILogInOrSignIn, ISignUpRequest } from '../../types/types';
+import { updateTranslations } from '../../utils/i18n';
 import { ErrorHandling } from '../error/errorHandling';
 import { Storage } from '../storage/storage';
 
@@ -18,7 +19,7 @@ export class SignUpForm {
   private errorContainer!: HTMLElement;
   private errorMessages: Map<string, HTMLElement> = new Map();
   private citiesData: { [key: string]: string[] } = {
-    Paris: [
+    paris: [
       'Champs-Élysées',
       'Rue de Rivoli',
       'Boulevard Saint-Germain',
@@ -30,7 +31,7 @@ export class SignUpForm {
       "Avenue de l'Opéra",
       'Rue Saint-Dominique',
     ],
-    Berlin: [
+    berlin: [
       'Unter den Linden',
       'Kurfürstendamm',
       'Friedrichstraße',
@@ -42,7 +43,7 @@ export class SignUpForm {
       'Kantstraße',
       'Tauentzienstraße',
     ],
-    London: [
+    london: [
       'Oxford Street',
       'Regent Street',
       'Bond Street',
@@ -69,7 +70,7 @@ export class SignUpForm {
       'div',
       'form-group',
       'text',
-      'login',
+      'signup.login',
       'signup-login',
       'signup-login-id',
       true,
@@ -78,7 +79,7 @@ export class SignUpForm {
       'div',
       'form-group',
       'password',
-      'password',
+      'signup.password',
       'signup-password',
       'signup-password-id',
       true,
@@ -87,7 +88,7 @@ export class SignUpForm {
       'div',
       'form-group',
       'password',
-      'confirm password',
+      'signup.confirm',
       'signup-confirm',
       'signup-confirm-id',
       true,
@@ -96,7 +97,7 @@ export class SignUpForm {
     const cityWrapper = this.createSelect(
       'div',
       'form-group',
-      'city',
+      'signup.city',
       'signup-city',
       'signup-city-id',
       true,
@@ -105,7 +106,7 @@ export class SignUpForm {
     const streetWrapper = this.createSelect(
       'div',
       'form-group',
-      'street',
+      'signup.street',
       'signup-street',
       'signup-street-id',
       true,
@@ -115,7 +116,7 @@ export class SignUpForm {
       'div',
       'form-group',
       'number',
-      'house number',
+      'signup.house',
       'signup-house',
       'signup-house-id',
       true,
@@ -124,7 +125,7 @@ export class SignUpForm {
       'div',
       'form-group-radio',
       'radio',
-      'cash',
+      'signup.cash',
       'signup-cash',
       'signup-cash-id',
       false,
@@ -135,7 +136,7 @@ export class SignUpForm {
       'div',
       'form-group-radio',
       'radio',
-      'card',
+      'signup.card',
       'signup-card',
       'signup-card-id',
       false,
@@ -166,13 +167,15 @@ export class SignUpForm {
     radioWrapper.setAttribute('id', 'radio-wrapper-id');
 
     radioTitle.classList.add('title');
-    radioTitle.textContent = 'Pay by';
+    radioTitle.setAttribute('data-i18n', 'signup.pay');
 
     this.submitBtn.setAttribute('type', 'submit');
+    this.submitBtn.setAttribute('data-i18n', 'signup.btn');
+    text.setAttribute('data-i18n', 'signup.text');
+
     this.submitBtn.classList.add('button_secondary', 'auth-btn');
     text.classList.add('text');
-    this.submitBtn.textContent = 'Registration';
-    text.innerHTML = `If you are registered, <a styles= class='link' href='signin'>sign in</a>`;
+
     this.submitBtn.disabled = true;
 
     radioWrapper.append(cashWrapper, cardWrapper);
@@ -218,16 +221,16 @@ export class SignUpForm {
 
     input.setAttribute('id', id);
     input.setAttribute('autocomplete', 'off');
+    input.setAttribute('data-i18n', 'signup.placeholder');
     label.setAttribute('for', id);
+    label.setAttribute('data-i18n', labelText);
 
     if (value && name) {
       input.setAttribute('value', value);
       input.setAttribute('name', name);
     }
 
-    label.textContent = labelText[0].toUpperCase() + labelText.slice(1);
     input.type = type;
-    input.placeholder = 'Placeholder';
     input.required = required;
 
     wrapper.append(label, input);
@@ -259,21 +262,21 @@ export class SignUpForm {
     errorMessage.classList.add('error-message');
 
     select.setAttribute('id', id);
+    placeholderOption.setAttribute('data-i18n', `${labelText.replace('.', '.select.') + '.placeholder'}`);
     label.setAttribute('for', id);
+    label.setAttribute('data-i18n', labelText);
 
-    label.textContent = labelText[0].toUpperCase() + labelText.slice(1);
     select.required = required;
 
     placeholderOption.value = '';
-    placeholderOption.textContent = 'Select ' + labelText;
     placeholderOption.disabled = true;
     placeholderOption.selected = true;
     select.append(placeholderOption);
 
     options.forEach(option => {
       const opt = document.createElement('option');
+      opt.setAttribute('data-i18n', `${labelText.replace('.', '.select.')}.${option}`);
       opt.value = option;
-      opt.textContent = option;
       select.append(opt);
     });
 
@@ -318,11 +321,11 @@ export class SignUpForm {
     let errorMessage = '';
 
     if (value.length < 3) {
-      errorMessage = 'Login must be at least 3 characters long';
+      errorMessage = 'login.length';
     } else if (!/^[a-zA-Z]/.test(value)) {
-      errorMessage = 'Login must start with a letter';
+      errorMessage = 'login.start';
     } else if (!/^[a-zA-Z]+$/.test(value)) {
-      errorMessage = 'Login must contain only English alphabet letters';
+      errorMessage = 'login.letters';
     }
 
     this.showValidationResult(input, errorMessage);
@@ -334,9 +337,23 @@ export class SignUpForm {
     let errorMessage = '';
 
     if (value.length < 6) {
-      errorMessage = 'Password must be at least 6 characters long';
+      errorMessage = 'password.length';
     } else if (!/[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?]/.test(value)) {
-      errorMessage = 'Password must contain at least 1 special character';
+      errorMessage = 'password.special';
+    }
+
+    this.showValidationResult(input, errorMessage);
+  }
+
+  private validateConfirmPassword(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    let errorMessage = '';
+
+    if (value !== this.passInput.value) {
+      errorMessage = 'confirm.match';
+    } else if (!value) {
+      errorMessage = 'confirm.required';
     }
 
     this.showValidationResult(input, errorMessage);
@@ -348,65 +365,8 @@ export class SignUpForm {
     let errorMessage = '';
 
     if (value < 1) {
-      errorMessage = 'House must be more 0';
+      errorMessage = 'house.length';
     }
-    this.showValidationResult(input, errorMessage);
-  }
-
-  private updateStreets() {
-    const selectedCity = this.cityInput.value;
-    const streets = this.citiesData[selectedCity] || this.citiesData['Paris'];
-
-    this.streetInput.innerHTML = '';
-
-    const placeholderOption = document.createElement('option');
-    placeholderOption.value = '';
-    placeholderOption.textContent = 'Select street';
-    placeholderOption.disabled = true;
-    placeholderOption.selected = true;
-    this.streetInput.append(placeholderOption);
-
-    streets.forEach(street => {
-      const option = document.createElement('option');
-      option.value = street;
-      option.textContent = street;
-      this.streetInput.append(option);
-    });
-  }
-
-  private clearValidation(input: HTMLInputElement | HTMLSelectElement) {
-    const errorElement = this.errorMessages.get(input.id)!;
-
-    input.style.border = '';
-    errorElement.textContent = '';
-    errorElement.style.display = 'none';
-  }
-
-  private showValidationResult(input: HTMLInputElement | HTMLSelectElement, errorMessage: string) {
-    const errorElement = this.errorMessages.get(input.id)!;
-
-    if (errorMessage) {
-      input.style.border = '2px solid red';
-      errorElement.textContent = errorMessage;
-      errorElement.style.display = 'block';
-    } else {
-      this.clearValidation(input);
-    }
-
-    this.checkFormValidity();
-  }
-
-  private validateConfirmPassword(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const value = input.value;
-    let errorMessage = '';
-
-    if (value !== this.passInput.value) {
-      errorMessage = 'Passwords do not match';
-    } else if (!value) {
-      errorMessage = 'Confirm password is required';
-    }
-
     this.showValidationResult(input, errorMessage);
   }
 
@@ -415,7 +375,7 @@ export class SignUpForm {
     let errorMessage = '';
 
     if (!input.value) {
-      errorMessage = 'Please select a city';
+      errorMessage = 'city.required';
     }
 
     this.showValidationResult(input, errorMessage);
@@ -426,10 +386,26 @@ export class SignUpForm {
     let errorMessage = '';
 
     if (!input.value) {
-      errorMessage = 'Please select a street';
+      errorMessage = 'street.required';
     }
 
     this.showValidationResult(input, errorMessage);
+  }
+
+  private showValidationResult(input: HTMLInputElement | HTMLSelectElement, errorMessage: string) {
+    const errorElement = this.errorMessages.get(input.id)!;
+
+    if (errorMessage) {
+      input.style.border = '2px solid red';
+      errorElement.setAttribute('data-i18n', `error.${errorMessage}`);
+      // errorElement.textContent = errorMessage;
+      errorElement.style.display = 'block';
+      updateTranslations();
+    } else {
+      this.clearValidation(input);
+    }
+
+    this.checkFormValidity();
   }
 
   private checkFormValidity() {
@@ -457,6 +433,36 @@ export class SignUpForm {
       houseValid &&
       paymentValid
     );
+  }
+
+  private updateStreets() {
+    const selectedCity = this.cityInput.value;
+    const streets = this.citiesData[selectedCity] || this.citiesData['paris'];
+
+    this.streetInput.innerHTML = '';
+
+    const placeholderOption = document.createElement('option');
+    placeholderOption.value = '';
+    placeholderOption.textContent = 'Select street';
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    this.streetInput.append(placeholderOption);
+
+    streets.forEach(street => {
+      const option = document.createElement('option');
+      option.setAttribute('data-i18n', `signup.select.street.${selectedCity}.${street}`);
+      option.value = street;
+      this.streetInput.append(option);
+    });
+    updateTranslations();
+  }
+
+  private clearValidation(input: HTMLInputElement | HTMLSelectElement) {
+    const errorElement = this.errorMessages.get(input.id)!;
+
+    input.style.border = '';
+    errorElement.textContent = '';
+    errorElement.style.display = 'none';
   }
 
   private async handleSubmit(e: Event) {

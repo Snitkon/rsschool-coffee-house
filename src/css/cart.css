@@ -23,6 +23,12 @@
   gap: 12px;
 }
 
+.address_wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
 .total__title,
 .address__title,
 .pay_by__title {
@@ -76,6 +82,17 @@
   display: flex;
 }
 
+@media (max-width: 768px) {
+  .nav_cart {
+    margin-right: 0;
+  }
+
+  .nav_cart__icon_wrapper > svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 /** Order */
 .order {
   display: flex;
@@ -101,6 +118,20 @@
 .left__image_img {
   width: 100%;
   object-fit: cover;
+}
+
+.left_info__additives {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+.additives__wrapper,
+.size__wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 }
 
 .order__left_trash > svg {

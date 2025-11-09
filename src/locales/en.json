@@ -1,0 +1,313 @@
+{
+  "header": {
+    "nav": {
+      "favorite": "Favorite coffee",
+      "about": "About",
+      "app": "Mobile App",
+      "contact": "Contact Us"
+    },
+    "menu": "Menu"
+  },
+  "main": {
+    "hero": {
+      "title": "<span class=\"accent\">Enjoy</span> premium coffee at our charming cafe",
+      "description": "With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular destination for coffee lovers and those seeking a warm and inviting space to enjoy their favorite beverage.",
+      "btn": "Menu"
+    }
+  },
+  "favorite": {
+    "subtitle": "Choose your <span class=\"accent\">favorite</span> coffee"
+  },
+  "about": {
+    "subtitle": "Resource is <span class=\"accent\">the perfect and cozy place</span> where you can enjoy a variety of hot beverages, relax, catch up with friends, or get some work done."
+  },
+  "app": {
+    "subtitle": "<span class=\"accent\">Download</span> our apps to start ordering",
+    "description": "Download the Resource app today and experience the comfort of ordering your favorite coffee from wherever you are",
+    "btn": {
+      "apple": "Available on the",
+      "android": "Available on"
+    }
+  },
+  "contact": {
+    "subtitle": "Sip, Savor, Smile. <span class=\"accent\">It’s coffee time!</span >",
+    "contact": "Contact us",
+    "time": "Mon-Sat: 9:00 AM – 23:00 PM"
+  },
+  "menu": {
+    "subtitle": "Behind each of our cups hides an <span class=\"accent\">amazing surprise</span>"
+  },
+  "modal": {
+    "size": "Size",
+    "additives": "Additives",
+    "total": "Total:",
+    "note": "The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.",
+    "btn": "Add to cart"
+  },
+  "switcher": {
+    "category": {
+      "coffee": "Coffee",
+      "tea": "Tea",
+      "dessert": "Dessert"
+    },
+    "additives": {
+      "sugar": "Sugar",
+      "lemon": "Lemon",
+      "syrup": "Syrup",
+      "cinnamon": "Cinnamon",
+      "berries": "Berries",
+      "nuts": "Nuts",
+      "jam": "Jam"
+    }
+  },
+  "signin": {
+    "subtitle": "Sign In",
+    "login": "Login",
+    "password": "Password",
+    "placeholder": "Placeholder",
+    "btn": "Sign in",
+    "text": "If you not registered, <a styles= class='link' href='signup'>sign up</a>"
+  },
+  "signup": {
+    "subtitle": "Registration",
+    "placeholder": "Placeholder",
+    "login": "Login",
+    "password": "Password",
+    "confirm": "Confirm password",
+    "city": "City",
+    "street": "Street",
+    "house": "House number",
+    "pay": "Pay by",
+    "card": "Card",
+    "cash": "Cash",
+    "btn": "Registration",
+    "text": "If you are registered, <a styles= class='link' href='signin'>sign in</a>",
+    "select": {
+      "city": {
+        "placeholder": "Select city",
+        "paris": "Paris",
+        "berlin": "Berlin",
+        "london": "London"
+      },
+      "street": {
+        "placeholder": "Select street",
+        "paris": {
+          "Champs-Élysées": "Champs-Élysées",
+          "Rue de Rivoli": "Rue de Rivoli",
+          "Boulevard Saint-Germain": "Boulevard Saint-Germain",
+          "Avenue Montaigne": "Avenue Montaigne",
+          "Rue du Faubourg Saint-Honoré": "Rue du Faubourg Saint-Honoré",
+          "Boulevard Haussmann": "Boulevard Haussmann",
+          "Avenue des Ternes": "Avenue des Ternes",
+          "Rue de la Paix": "Rue de la Paix",
+          "Avenue de l'Opéra": "Avenue de l'Opéra",
+          "Rue Saint-Dominique": "Rue Saint-Dominique"
+        },
+        "berlin": {
+          "Unter den Linden": "Unter den Linden",
+          "Kurfürstendamm": "Kurfürstendamm",
+          "Friedrichstraße": "Friedrichstraße",
+          "Alexanderplatz": "Alexanderplatz",
+          "Potsdamer Platz": "Potsdamer Platz",
+          "Schloßstraße": "Schloßstraße",
+          "Hackescher Markt": "Hackescher Markt",
+          "Oranienburger Straße": "Oranienburger Straße",
+          "Kantstraße": "Kantstraße",
+          "Tauentzienstraße": "Tauentzienstraße"
+        },
+        "london": {
+          "Oxford Street": "Oxford Street",
+          "Regent Street": "Regent Street",
+          "Bond Street": "Bond Street",
+          "Piccadilly": "Piccadilly",
+          "Knightsbridge": "Knightsbridge",
+          "Kensington High Street": "Kensington High Street",
+          "King’s Road": "King’s Road",
+          "Covent Garden": "Covent Garden",
+          "Portobello Road": "Portobello Road",
+          "Baker Street": "Baker Street"
+        }
+      }
+    }
+  },
+  "cart": {
+    "subtitle": "Cart",
+    "total": "Total:",
+    "address": "Address:",
+    "pay": "Pay by:",
+    "signin": "Sign In",
+    "signup": "Registration",
+    "confirm": "Confirm",
+    "text": "Thank you for your order! Our manager will contact you shortly.",
+    "card": "Card",
+    "cash": "Cash",
+    "size": "Size:",
+    "additives": {
+      "text": "Additives:",
+      "without": "Without additives",
+      "sugar": "Sugar",
+      "lemon": "Lemon",
+      "syrup": "Syrup",
+      "cinnamon": "Cinnamon",
+      "berries": "Berries",
+      "nuts": "Nuts",
+      "jam": "Jam"
+    }
+  },
+  "error": {
+    "message": "This Test Error",
+    "text": "Something went wrong. Please, refresh the page",
+    "login": {
+      "length": "Login must be at least 3 characters long",
+      "start": "Login must start with a letter",
+      "letters": "Login must contain only English alphabet letters"
+    },
+    "password": {
+      "length": "Password must be at least 6 characters long",
+      "special": "Password must contain at least 1 special character"
+    },
+    "confirm": {
+      "match": "Passwords do not match",
+      "required": "Confirm password is required"
+    },
+    "city": {
+      "required": "Please select a city"
+    },
+    "street": {
+      "required": "Please select a street"
+    },
+    "house": {
+      "length": "House must be more 0"
+    }
+  },
+  "data": {
+    "1": {
+      "name": "Irish coffee",
+      "description": "Fragrant black coffee with Jameson Irish whiskey and whipped milk"
+    },
+    "2": {
+      "name": "Kahlua coffee",
+      "description": "Classic coffee with milk and Kahlua liqueur under a cap of frothed milk"
+    },
+    "3": {
+      "name": "Honey raf",
+      "description": "Espresso with frothed milk, cream and aromatic honey"
+    },
+    "4": {
+      "name": "Ice cappuccino",
+      "description": "Cappuccino with soft thick foam in summer version with ice"
+    },
+    "5": {
+      "name": "Espresso",
+      "description": "Classic black coffee"
+    },
+    "6": {
+      "name": "Latte",
+      "description": "Espresso coffee with the addition of steamed milk and dense milk foam"
+    },
+    "7": {
+      "name": "Latte macchiato",
+      "description": "Espresso with frothed milk and chocolate"
+    },
+    "8": {
+      "name": "Coffee with cognac",
+      "description": "Fragrant black coffee with cognac and whipped cream"
+    },
+    "9": {
+      "name": "Moroccan",
+      "description": "Fragrant black tea with the addition of tangerine, cinnamon, honey, lemon and mint"
+    },
+    "10": {
+      "name": "Ginger",
+      "description": "Original black tea with fresh ginger, lemon and honey"
+    },
+    "11": {
+      "name": "Cranberry",
+      "description": "Invigorating black tea with cranberry and honey"
+    },
+    "12": {
+      "name": "Sea buckthorn",
+      "description": "Toning sweet black tea with sea buckthorn, fresh thyme and cinnamon"
+    },
+    "13": {
+      "name": "English Breakfast",
+      "description": "Classic strong black tea blend"
+    },
+    "14": {
+      "name": "Green Jasmine",
+      "description": "Green tea with jasmine flowers"
+    },
+    "15": {
+      "name": "Mint",
+      "description": "Refreshing herbal tea with mint leaves"
+    },
+    "16": {
+      "name": "Chamomile",
+      "description": "Soothing chamomile herbal tea"
+    },
+    "17": {
+      "name": "Marble cheesecake",
+      "description": "Philadelphia cheese with lemon zest on a light sponge cake and red currant jam"
+    },
+    "18": {
+      "name": "Red velvet",
+      "description": "Layer cake with cream cheese frosting"
+    },
+    "19": {
+      "name": "Cheesecakes",
+      "description": "Soft cottage cheese pancakes with sour cream and fresh berries and sprinkled with powdered sugar"
+    },
+    "20": {
+      "name": "Creme brulee",
+      "description": "Delicate creamy dessert in a caramel basket with wild berries"
+    },
+    "21": {
+      "name": "Pancakes",
+      "description": "Tender pancakes with strawberry jam and fresh strawberries"
+    },
+    "22": {
+      "name": "Honey cake",
+      "description": "Classic honey cake with delicate custard"
+    },
+    "23": {
+      "name": "Chocolate cake",
+      "description": "Cake with hot chocolate filling and nuts with dried apricots"
+    },
+    "24": {
+      "name": "Black forest",
+      "description": "A combination of thin sponge cake with cherry jam and light chocolate mousse"
+    },
+    "25": {
+      "name": "Apple pie",
+      "description": "Classic apple pie with cinnamon"
+    },
+    "26": {
+      "name": "Fruit tart",
+      "description": "Shortcrust pastry tart with fresh fruits"
+    },
+    "27": {
+      "name": "Lemon mousse",
+      "description": "Light lemon mousse with whipped cream"
+    },
+    "28": {
+      "name": "Brownie",
+      "description": "Rich chocolate brownie with walnuts"
+    },
+    "29": {
+      "name": "Jasmine Pearl",
+      "description": "Delicate green tea rolled into pearls with jasmine aroma"
+    },
+    "30": {
+      "name": "Berry Hibiscus",
+      "description": "Fruit tea with hibiscus and mixed berries"
+    },
+    "31": {
+      "name": "Tiramisu",
+      "description": "Classic Italian dessert with coffee-soaked ladyfingers and mascarpone"
+    },
+    "32": {
+      "name": "Pavlova",
+      "description": "Crispy meringue dessert with whipped cream and fresh fruit"
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { IAdditives, IMenuSwitch, ISize } from '../../types/types';
+import { updateTranslations } from '../../utils/i18n';
 
 type SwitchersOptions = {
   multiply?: boolean;
@@ -34,6 +35,7 @@ export class Switchers<K extends string, V extends IUnite> {
     Object.keys(this.config).forEach(key => {
       const value = this.config[key as K];
       const button = document.createElement('button');
+      const text = document.createElement('span');
       button.classList.add(key, 'switch_button');
       let icon;
       if ('icon' in value && typeof value.icon === 'string') {
@@ -47,15 +49,17 @@ export class Switchers<K extends string, V extends IUnite> {
         icon.textContent = key.toUpperCase();
       }
       if ('text' in value) {
-        button.textContent = value.text as string;
+        text.setAttribute('data-i18n', `switcher.category.${value.text.toLowerCase()}`);
       }
       if ('name' in value) {
-        button.textContent = value.name as string;
+        text.setAttribute('data-i18n', `switcher.additives.${value.name.toLowerCase()}`);
       }
       if ('size' in value) {
-        button.textContent = value.size as string;
+        text.textContent = value.size as string;
       }
+      button.append(text);
       button.prepend(icon);
+      updateTranslations();
 
       if (key === this.activeKey) {
         button.classList.add('switch_active');

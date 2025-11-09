@@ -1,8 +1,14 @@
+export type TLocale = 'en' | 'ru';
 export type TPayment = 'card' | 'cash';
 
 export enum PaymentMethod {
   card = 'Card',
   cash = 'Cash',
+}
+
+export enum Locales {
+  en = 'en',
+  ry = 'ru',
 }
 
 export type TSize = 's' | 'm' | 'l';

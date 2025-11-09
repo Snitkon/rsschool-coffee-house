@@ -185,10 +185,11 @@ button {
 }
 
 .nav_menu {
+  width: 73px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 8px;
+  gap: 2px;
   cursor: default;
 }
 
@@ -201,6 +202,59 @@ button {
   bottom: 0;
   left: 0;
   transform: scaleX(1);
+}
+
+.nav_menu > .text {
+  width: 50px;
+  text-align: center;
+}
+
+.lang-switcher {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  margin-right: 25px;
+}
+
+.lang-separator {
+  width: 2px;
+  height: 15px;
+  background-color: var(--color-text-dark);
+}
+
+.lang-btn {
+  position: relative;
+  color: inherit;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.lang-btn::before {
+  position: absolute;
+  content: '';
+  background-color: currentColor;
+  height: 2px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lang-btn:hover:before {
+    transform: scaleX(1);
+  }
+}
+
+.lang-btn.active::before {
+  transform: scaleX(1);
+}
+.lang-btn.active {
+  cursor: default;
 }
 
 /** Main  */

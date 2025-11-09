@@ -1,5 +1,6 @@
 import { logIn } from '../../api/auth/authApi';
 import { ILogInOrSignIn, ILogInRequest } from '../../types/types';
+import { updateTranslations } from '../../utils/i18n';
 import { ErrorHandling } from '../error/errorHandling';
 import { Storage } from '../storage/storage';
 
@@ -22,8 +23,8 @@ export class SignInForm {
     this.form = document.createElement('form');
     this.form.classList.add('form', 'sign-in-form');
 
-    const loginWrapper = this.createInput('text', 'login', 'signup-login', 'signup-login-id', true);
-    const passWrapper = this.createInput('password', 'password', 'signup-password', 'signup-password-id', true);
+    const loginWrapper = this.createInput('text', 'signin.login', 'signup-login', 'signup-login-id', true);
+    const passWrapper = this.createInput('password', 'signin.password', 'signup-password', 'signup-password-id', true);
     const text = document.createElement('p');
 
     text.style.gridColumn = 'span 3';
@@ -38,9 +39,11 @@ export class SignInForm {
     this.form.addEventListener('submit', this.handleSubmit.bind(this));
 
     this.submitBtn.setAttribute('type', 'submit');
+    this.submitBtn.setAttribute('data-i18n', 'signin.btn');
     this.submitBtn.classList.add('button_secondary', 'auth-btn');
-    this.submitBtn.textContent = 'Sign In';
     this.submitBtn.disabled = true;
+
+    text.setAttribute('data-i18n', 'signin.text');
     text.innerHTML = `If you not registered, <a styles= class='link' href='signup'>sign up</a>`;
 
     this.form.append(loginWrapper, passWrapper, this.submitBtn, text, this.errorContainer);
@@ -64,9 +67,9 @@ export class SignInForm {
     input.setAttribute('autocomplete', 'off');
     label.setAttribute('for', id);
 
-    label.textContent = labelText[0].toUpperCase() + labelText.slice(1);
+    label.setAttribute('data-i18n', labelText);
+    input.setAttribute('data-i18n', 'signin.placeholder');
     input.type = type;
-    input.placeholder = 'Placeholder';
     input.required = required;
 
     wrapper.append(label, input);
@@ -91,11 +94,11 @@ export class SignInForm {
     let errorMessage = '';
 
     if (value.length < 3) {
-      errorMessage = 'Login must be at least 3 characters long';
+      errorMessage = 'login.length';
     } else if (!/^[a-zA-Z]/.test(value)) {
-      errorMessage = 'Login must start with a letter';
+      errorMessage = 'login.start';
     } else if (!/^[a-zA-Z]+$/.test(value)) {
-      errorMessage = 'Login must contain only English alphabet letters';
+      errorMessage = 'login.letters';
     }
 
     this.showValidationResult(input, errorMessage);
@@ -107,9 +110,9 @@ export class SignInForm {
     let errorMessage = '';
 
     if (value.length < 6) {
-      errorMessage = 'Password must be at least 6 characters long';
+      errorMessage = 'password.length';
     } else if (!/[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?]/.test(value)) {
-      errorMessage = 'Password must contain at least 1 special character';
+      errorMessage = 'password.special';
     }
 
     this.showValidationResult(input, errorMessage);
@@ -128,8 +131,10 @@ export class SignInForm {
 
     if (errorMessage) {
       input.style.border = '2px solid red';
-      errorElement.textContent = errorMessage;
+      errorElement.setAttribute('data-i18n', `error.${errorMessage}`);
+      // errorElement.textContent = errorMessage;
       errorElement.style.display = 'block';
+      updateTranslations();
     } else {
       this.clearValidation(input);
     }
