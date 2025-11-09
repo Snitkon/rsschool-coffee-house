@@ -32,8 +32,3 @@ package-lock.json
 
 # System files
 Thumbs.db
-
-# CI/CD и Dev Tools
-.husky/
-.github/
-.gitignore
